@@ -1,3 +1,6 @@
 from django.test import TestCase
 
-# Create your tests here.
+class TestHomePage(TestCase):
+
+    def test_homepage_returns_correct_template(self, request):
+        pass
