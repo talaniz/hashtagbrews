@@ -22,9 +22,24 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.get('http://localhost:8000')
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
+        # TODO change from 'Open Source Beer Database' to 'Homebrew Materials Database'
+        self.assertEqual(beerdb_link, 'Homebrew Materials Database')
 
-        self.assertEqual(beerdb_link, 'Open Source Beer Database')
+        # He's redirected to the Homebrew Materials database and
+        # sees this listed in the title and the body of the page
+        beerdb_link = self.browser.find_element_by_link_text('Homebrew Materials Database')
 
+        beerdb_link.click()
+
+        page_heading = self.browser.find_element_by_tag_name('h1')
+
+        self.assertIn("Homebrew Materials Database",
+                         page_heading.text,
+                         msg="%s does not equal 'Homebrew Materials Database" % page_heading.text
+                      )
+
+    @unittest.skip('Test needs refactoring')
+    def test_beer_database_redirects_to_hops_page(self):
         # He is redirected to the hops page and sees a button
         # 'Add a hop'. He clicks the button and a form appears.
         hops_link = self.browser.find_element_by_link_text('Hops')
@@ -32,6 +47,7 @@ class NewVisitorTest(unittest.TestCase):
 
         self.browser.implicitly_wait(3)
 
+    @unittest.skip('Not ready yet')
     def test_can_add_hop_record_and_save(self):
 
         # Finds the Add Hops button and clicks, then switches to new modal
@@ -51,3 +67,5 @@ class NewVisitorTest(unittest.TestCase):
         inputbox = self.browser.find_element_by_id('hop_name')
         inputbox.send_keys('Amarillo')
         '''
+if __name__ == "__main__":
+    unittest.main(warnings='ignore')
