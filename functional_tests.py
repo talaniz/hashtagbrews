@@ -22,12 +22,12 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.get('http://localhost:8000')
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
-        # TODO change from 'Open Source Beer Database' to 'Homebrew Materials Database'
-        self.assertEqual(beerdb_link, 'Homebrew Materials Database')
+
+        self.assertEqual(beerdb_link, 'Homebrew Database')
 
         # He's redirected to the Homebrew Materials database and
         # sees this listed in the title and the body of the page
-        beerdb_link = self.browser.find_element_by_link_text('Homebrew Materials Database')
+        beerdb_link = self.browser.find_element_by_link_text('Homebrew Database')
 
         beerdb_link.click()
 

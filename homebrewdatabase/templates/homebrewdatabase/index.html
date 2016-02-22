@@ -1,19 +1,140 @@
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/static/custom.css">
-        <title>Hashtag Brews</title>
-    </head>
-    <body>
-        <h1>Hashtag Brews</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-        <div id="left">
-            <p id="header"><a id="beerdb" href="/beerdb">Homebrew Materials Database</a></p>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>#Hashtag Brews</title>
+
+    <!--Font Awesome CSS-->
+    <link href="/static/homebrewdatabase/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/homebrewdatabase/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/homebrewdatabase/css/business-frontpage.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <image src="/static/homebrewdatabase/images/hashtag-black.png" height="30px;">
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <div id="center">
-            <p id="header">PyBrew</p>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Image Background Page Header -->
+    <!-- Note: The background image is set within the business-casual.css file. -->
+
+    <header class="business-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="tagline">A homebrew resource powered by Python</h1>
+                </div>
+            </div>
         </div>
-        <div id="right">
-            <p id="header">Recipe Creator</p>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <hr>
+        <div class="row">
+            <div class="col-sm-4">
+                <h2><a id="beerdb" href="/beerdb"><i class="fa fa-table"></i> Homebrew Database</a></h2>
+                <p>Documenting as many hops, grains and yeasts as we can find!</p>
+            </div>
+            <div class="col-sm-4">
+                <h2><i class="fa fa-calculator"></i> Homebrew Calculator</h2>
+                <p>Plan out your recipe or use a recipe from one of our vendors!</p>
+            </div>
+            <div class="col-sm-4">
+                <h2><i class="fa fa-shopping-cart"></i> Order Materials Online</h2>
+                <p>Created your recipe, too busy prepping to get to the store? Choose a nearby vendor and order delivery online!</p>
+            </div>
         </div>
-    </body>
+
+        <!-- /.row -->
+        
+        <hr>
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>What We Do</h2>
+                <p>#HashtagBrews.com was created to as a homebrewing reference, recipe planner and one of the first online platforms for homebrew materials delivery.</p>
+                <p>Most of our site is still under development, but while you're waiting, feel free to sign up for our mailing list and contribute to our Homebrew Database where we attempt to catalogue as many materials as possible.</p>
+                <p>Thank you for visiting our site!</p>
+            </div>
+            <div class="col-sm-4">
+                <!--Extra column left for future content-->
+            </div>
+        </div>
+
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="/static/homebrewdatabase/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/homebrewdatabase/js/bootstrap.min.js"></script>
+
+</body>
+
 </html>
