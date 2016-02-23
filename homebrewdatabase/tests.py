@@ -42,7 +42,8 @@ class TestOpenSourceBeerDataBase(TestCase):
         self.assertIn('Amarillo', response.content.decode())
         expected_html = render_to_string(
             'homebrewdatabase/hops.html',
-            {'new_hops_name': 'Amarillo'}
+            {'new_hops_name': 'Amarillo'},
+            request=request
         )
 
-        self.assertEqual(response.content.decode(), expected_html)
+        self.assertIn(response.content.decode(), expected_html)

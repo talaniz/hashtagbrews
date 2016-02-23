@@ -74,7 +74,7 @@ class NewVisitorTest(unittest.TestCase):
         # TODO add the rest of the form submission
         '''
            Contains the following attributes:
-               -name: name of the hop strain
+               x -name: name of the hop strain
                -min_alpha_acid: lowest alpha acid for hop range
                -max_alpha_acid: highest alpha acid for hop range
                -origin: country of origin, DEFAULT = USA
