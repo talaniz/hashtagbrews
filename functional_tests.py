@@ -48,28 +48,39 @@ class NewVisitorTest(unittest.TestCase):
         hops_link = self.browser.find_element_by_link_text('Hops')
         hops_link.click()
 
-        self.browser.implicitly_wait(5)
-
         page_heading = self.browser.find_element_by_tag_name('h1').text
 
         self.assertIn(page_heading, 'Hops')
 
-        # He finds the Add Hops button and clicks, then switches to new modal
-        # to submit form
-        self.browser.find_element_by_id("add_hops")
-        self.browser.switch_to.active_element()
+        # He finds the Add Hops button and clicks, a modal
+        # form appears and he enters in a new hops name
+        add_hops_link = self.browser.find_element_by_id("add_hops")
+        add_hops_link.click()
 
-        form_header = self.browser.find_element_by_tag_name('h3').text
+        self.browser.implicitly_wait(10)
 
-        self.assertEqual(form_header, 'New Hops')
-        # He enters the information into the form and hits submit.
+        # He enters the information into the form and clicks submit.
+        inputbox = self.browser.find_element_by_id('new_hops')
+        inputbox.send_keys('Amarillo')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+
         # He can see the homepage with his hop record in the table
-        self.fail("Finish the test")
+        table = self.browser.find_element_by_id('hops_list_table')
+        rows = table.find_elements_by_tag_name('td')
+        self.assertIn('Amarillo', [row.text for row in rows])
 
         # TODO add the rest of the form submission
         '''
-        inputbox = self.browser.find_element_by_id('hop_name')
-        inputbox.send_keys('Amarillo')
+           Contains the following attributes:
+               -name: name of the hop strain
+               -min_alpha_acid: lowest alpha acid for hop range
+               -max_alpha_acid: highest alpha acid for hop range
+               -origin: country of origin, DEFAULT = USA
+               -country codes: [AUS, CAN, CHN, CZE, FRA, DEU, NZL, POL, GBR, USA]
+               -comments: final notes about the hop profile
+
         '''
 if __name__ == "__main__":
     unittest.main(warnings='ignore')

@@ -29,13 +29,20 @@ class TestOpenSourceBeerDataBase(TestCase):
         response = test_client.get('http://localhost:8000/beerdb/hops/')
         self.assertTemplateUsed('hops.html')
 
-    @unittest.skip('Not ready to test')
+
     def test_can_add_new_hops_and_save(self):
         request = HttpRequest()
-        request.method = 'POST'
+
+        request.method == 'POST'
         request.POST['hops_name'] = 'Amarillo'
 
-        response = HttpRequest(request)
+        response = hops(request)
 
         self.assertEqual(response.status_code, 200)
         self.assertIn('Amarillo', response.content.decode())
+        expected_html = render_to_string(
+            'homebrewdatabase/hops.html',
+            {'new_hops_name': 'Amarillo'}
+        )
+
+        self.assertEqual(response.content.decode(), expected_html)

@@ -18,14 +18,28 @@
                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                        <h4 class="modal-title" id="myModalLabel">Add Hops</h4>
               </div>
+            <form method="POST">
               <div class="modal-body">
-                <p>This is a paragraph</p>
+                Hops Name: <input name="hops_name" id="new_hops" />
+                {%  csrf_token %}
               </div>
               <div class="modal-footer">
                 <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" id="submit" class="btn btn-primary">Submit</button>
               </div>
+            </form>
             </div>
           </div>
         </div>
+
+        <!--Table data begins here-->
+        <table id="hops_list_table" class="table">
+            <tr>
+                <th>Name</th>
+            </tr>
+            <tr>
+                <td>{{ new_hops_name }}</td>
+            </tr>
+        </table>
+
         {% endblock %}

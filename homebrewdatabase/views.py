@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 
@@ -12,5 +13,6 @@ def homebrewmain(request):
 
 
 def hops(request):
-
-    return render(request, template_name='homebrewdatabase/hops.html')
+    return render(request, 'homebrewdatabase/hops.html',
+                  {'new_hops_name': request.POST.get('hops_name', ''),
+                   })
