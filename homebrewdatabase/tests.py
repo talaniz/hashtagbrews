@@ -29,20 +29,32 @@ class TestOpenSourceBeerDataBase(TestCase):
         response = test_client.get('http://localhost:8000/beerdb/hops/')
         self.assertTemplateUsed('hops.html')
 
-
     def test_can_add_new_hops_and_save(self):
         request = HttpRequest()
 
-        request.method == 'POST'
+        request.method = 'POST'
         request.POST['hops_name'] = 'Amarillo'
+        request.POST['min_alpha_acid'] = '8.00'
+        request.POST['max_alpha_acid'] = '11.00'
+        request.POST['countries'] = 'USA'
+        request.POST['comments'] = 'Good over all aroma and bittering hops'
 
         response = hops(request)
 
         self.assertEqual(response.status_code, 200)
         self.assertIn('Amarillo', response.content.decode())
+        self.assertIn('8.00', response.content.decode())
+        self.assertIn('11.00', response.content.decode())
+        self.assertIn('USA', response.content.decode())
+        self.assertIn('Good over all aroma and bittering hops', response.content.decode())
+
         expected_html = render_to_string(
             'homebrewdatabase/hops.html',
-            {'new_hops_name': 'Amarillo'},
+            {'new_hops_name': 'Amarillo',
+             'min_alpha_acid': '8.00',
+             'max_alpha_acid': '11.00',
+             'countries': 'USA',
+             'comments': 'Good over all aroma and bittering hops'},
             request=request
         )
 

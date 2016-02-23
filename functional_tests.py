@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.support.select import Select
 import unittest
 
 
@@ -63,6 +64,18 @@ class NewVisitorTest(unittest.TestCase):
         inputbox = self.browser.find_element_by_id('new_hops')
         inputbox.send_keys('Amarillo')
 
+        inputbox = self.browser.find_element_by_id('min_alpha_acid')
+        inputbox.send_keys('8.00')
+
+        inputbox = self.browser.find_element_by_id('max_alpha_acid')
+        inputbox.send_keys('11.00')
+
+        select = Select(self.browser.find_element_by_id('countries'))
+        select.select_by_visible_text('USA')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Good over all aroma and bittering hops')
+
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
 
@@ -70,17 +83,10 @@ class NewVisitorTest(unittest.TestCase):
         table = self.browser.find_element_by_id('hops_list_table')
         rows = table.find_elements_by_tag_name('td')
         self.assertIn('Amarillo', [row.text for row in rows])
+        self.assertIn('8.00', [row.text for row in rows])
+        self.assertIn('11.00', [row.text for row in rows])
+        self.assertIn('USA', [row.text for row in rows])
+        self.assertIn('Good over all aroma and bittering hops', [row.text for row in rows])
 
-        # TODO add the rest of the form submission
-        '''
-           Contains the following attributes:
-               x -name: name of the hop strain
-               -min_alpha_acid: lowest alpha acid for hop range
-               -max_alpha_acid: highest alpha acid for hop range
-               -origin: country of origin, DEFAULT = USA
-               -country codes: [AUS, CAN, CHN, CZE, FRA, DEU, NZL, POL, GBR, USA]
-               -comments: final notes about the hop profile
-
-        '''
 if __name__ == "__main__":
     unittest.main(warnings='ignore')

@@ -14,5 +14,9 @@ def homebrewmain(request):
 
 def hops(request):
     return render(request, 'homebrewdatabase/hops.html',
-                  {'new_hops_name': request.POST.get('hops_name', ''),
+                  {'new_hops_name':  request.POST.get('hops_name', ''),
+                   'min_alpha_acid': request.POST.get('min_alpha_acid', ''),
+                   'max_alpha_acid': request.POST.get('max_alpha_acid', ''),
+                   'countries':      request.POST.get('countries', ''),
+                   'comments':       request.POST.get('comments', ''),
                    })
