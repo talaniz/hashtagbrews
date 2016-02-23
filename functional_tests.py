@@ -88,5 +88,26 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('USA', [row.text for row in rows])
         self.assertIn('Good over all aroma and bittering hops', [row.text for row in rows])
 
+        # Satisfied, he closes his browser and brews some beer
+        self.browser.refresh()
+        self.browser.quit()
+        self.browser = webdriver.Firefox()
+
+        # Kevin wonders if the site really saved his record.
+        # He opens up the browser to the hops main page and checks
+        # to make sure the information he entered is still here
+        self.browser.get('http://localhost:8000/beerdb/hops/')
+
+        table = self.browser.find_element_by_id('hops_list_table')
+        rows = table.find_elements_by_tag_name('td')
+
+        self.assertIn('Amarillo', [row.text for row in rows])
+        self.assertIn('8.00', [row.text for row in rows])
+        self.assertIn('11.00', [row.text for row in rows])
+        self.assertIn('USA', [row.text for row in rows])
+        self.assertIn('Good over all aroma and bittering hops', [row.text for row in rows])
+
+        # Satisfied once again, he returns to his boil.
+
 if __name__ == "__main__":
     unittest.main(warnings='ignore')
