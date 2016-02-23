@@ -9,7 +9,7 @@ class NewVisitorTest(unittest.TestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(3)
+        self.browser.set_window_size(1750, 1000)
 
     def tearDown(self):
         self.browser.quit()
@@ -20,32 +20,45 @@ class NewVisitorTest(unittest.TestCase):
         # He navigates to the homepage and clicks the link to navigate
         # to the Open Source Homebrew database.
         self.browser.get('http://localhost:8000')
+        self.browser.implicitly_wait(5)
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
 
         self.assertEqual(beerdb_link, 'Homebrew Database')
 
-        # He's redirected to the Homebrew Materials database and
+        # He's redirected to the Homebrew Materials Database and
         # sees this listed in the title and the body of the page
-        beerdb_link = self.browser.find_element_by_link_text('Homebrew Database')
+        beerdb_link = self.browser.find_element_by_id('beerdb')
 
         beerdb_link.click()
 
         page_heading = self.browser.find_element_by_tag_name('h1')
 
-        self.assertIn("Homebrew Materials Database",
-                         page_heading.text,
-                         msg="%s does not equal 'Homebrew Materials Database" % page_heading.text
-                      )
+        self.assertIn("Homebrew Materials Database", page_heading.text)
 
-    @unittest.skip('Test needs refactoring')
+
     def test_beer_database_redirects_to_hops_page(self):
-        # He is redirected to the hops page and sees a button
-        # 'Add a hop'. He clicks the button and a form appears.
+
+        self.browser.get('http://localhost:8000/beerdb/')
+        self.browser.implicitly_wait(5)
+
+        # Kevin is presented with 3 categories to choose from: Hops, Grains and Yeasts
+        page_text = self.browser.find_element_by_tag_name('body').text
+
+        self.assertIn('Hops', page_text)
+        self.assertIn('Grains', page_text)
+        self.assertIn('Yeasts', page_text)
+
+        # He decides to try hops, clicks the Hops link and  is
+        # redirected to the hops page.
         hops_link = self.browser.find_element_by_link_text('Hops')
         hops_link.click()
 
-        self.browser.implicitly_wait(3)
+        self.browser.implicitly_wait(5)
+
+        page_heading = self.browser.find_element_by_tag_name('h1').text
+
+        self.assertIn(page_heading, 'Hops')
 
     @unittest.skip('Not ready yet')
     def test_can_add_hop_record_and_save(self):

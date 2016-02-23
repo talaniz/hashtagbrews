@@ -9,3 +9,8 @@ def index(request):
 def homebrewmain(request):
 
     return render(request, template_name='homebrewdatabase/homebrewdatabase.html')
+
+
+def hops(request):
+
+    return render(request, template_name='homebrewdatabase/hops.html')
