@@ -18,24 +18,16 @@ class TestViewHomePage(TestCase):
 
 class TestOpenSourceBeerDataBase(TestCase):
 
-
     def test_main_page_returns_correct_template(self):
         request = HttpRequest()
         response = homebrewmain(request)
         expected_html = render_to_string('homebrewdatabase/homebrewdatabase.html')
         self.assertEqual(response.content.decode(), expected_html)
 
-    def test_hops_page_returns_correct_template(self):
-        request = HttpRequest()
-        response = hops(request)
-        expected_html = render_to_string('homebrewdatabase/hops.html')
-        self.assertEqual(response.content.decode(), expected_html)
-
     def test_hops_url_returns_correct_template(self):
         test_client = Client()
         response = test_client.get('http://localhost:8000/beerdb/hops/')
-        expected_html = render_to_string('homebrewdatabase/hops.html')
-        self.assertEqual(response.content.decode(), expected_html)
+        self.assertTemplateUsed('hops.html')
 
     @unittest.skip('Not ready to test')
     def test_can_add_new_hops_and_save(self):

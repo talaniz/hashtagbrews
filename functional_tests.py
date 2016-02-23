@@ -14,7 +14,7 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_home_page_redirects_to_beer_database(self):
+    def test_user_can_navigate_to_hops_page_and_save_hops_record(self):
 
         # Kevin wants to contribute to the Open Source Homebrew Database
         # He navigates to the homepage and clicks the link to navigate
@@ -36,12 +36,6 @@ class NewVisitorTest(unittest.TestCase):
 
         self.assertIn("Homebrew Materials Database", page_heading.text)
 
-
-    def test_beer_database_redirects_to_hops_page(self):
-
-        self.browser.get('http://localhost:8000/beerdb/')
-        self.browser.implicitly_wait(5)
-
         # Kevin is presented with 3 categories to choose from: Hops, Grains and Yeasts
         page_text = self.browser.find_element_by_tag_name('body').text
 
@@ -60,13 +54,10 @@ class NewVisitorTest(unittest.TestCase):
 
         self.assertIn(page_heading, 'Hops')
 
-    @unittest.skip('Not ready yet')
-    def test_can_add_hop_record_and_save(self):
-
-        # Finds the Add Hops button and clicks, then switches to new modal
+        # He finds the Add Hops button and clicks, then switches to new modal
         # to submit form
-        self.browser.find_element_by_class("btn btn-primary")
-        self.browser.switchTo().frame("AddHops")
+        self.browser.find_element_by_id("add_hops")
+        self.browser.switch_to.active_element()
 
         form_header = self.browser.find_element_by_tag_name('h3').text
 

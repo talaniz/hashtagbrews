@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Homebrew Materials Database</title>
-</head>
-<body>
+{% extends 'homebrewdatabase/index.html' %}
+
+    {% block title %}<title>Homebrew Materials Database</title>{% endblock %}
+
+    {% block content %}
     <h1>Homebrew Materials Database</h1>
 
     <h2><a href="/beerdb/hops">Hops</a></h2>
     <h2>Grains</h2>
     <h2>Yeasts</h2>
-
-</body>
-</html>
+    {% endblock %}

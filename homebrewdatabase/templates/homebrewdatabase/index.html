@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>#Hashtag Brews</title>
+    {% block title %}<title>#Hashtag Brews</title>{% endblock %}
 
     <!--Font Awesome CSS-->
     <link href="/static/homebrewdatabase/css/font-awesome.css" rel="stylesheet">
@@ -67,7 +67,7 @@
 
     <!-- Image Background Page Header -->
     <!-- Note: The background image is set within the business-casual.css file. -->
-
+    {% block content %}
     <header class="business-header">
         <div class="container">
             <div class="row">
@@ -115,7 +115,7 @@
         <!-- /.row -->
 
         <hr>
-
+        {% endblock %}
         <!-- Footer -->
         <footer>
             <div class="row">
