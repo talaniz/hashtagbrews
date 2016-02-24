@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from .models import Hop
 
 
 def index(request):
@@ -12,10 +14,13 @@ def homebrewmain(request):
 
 
 def hops(request):
-    return render(request, 'homebrewdatabase/hops.html',
-                  {'new_hops_name':  request.POST.get('hops_name', ''),
-                   'min_alpha_acid': request.POST.get('min_alpha_acid', ''),
-                   'max_alpha_acid': request.POST.get('max_alpha_acid', ''),
-                   'countries':      request.POST.get('countries', ''),
-                   'comments':       request.POST.get('comments', ''),
-                   })
+    if request.method == 'POST':
+        Hop.objects.create(name=request.POST['hops_name'],
+                           min_alpha_acid=request.POST['min_alpha_acid'],
+                           max_alpha_acid=request.POST['max_alpha_acid'],
+                           country=request.POST['countries'],
+                           comments=request.POST['comments']
+                           )
+        return redirect('/beerdb/hops')
+    hops = Hop.objects.all()
+    return render(request, 'homebrewdatabase/hops.html', {'hops': hops}Hop)

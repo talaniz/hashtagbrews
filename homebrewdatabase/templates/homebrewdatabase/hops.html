@@ -48,13 +48,15 @@
                 <th>Country of Origin</th>
                 <th>Comments</th>
             </tr>
+            {% for hop in hops %}
             <tr>
-                <td>{{ new_hops_name }}</td>
-                <td>{{ min_alpha_acid }}</td>
-                <td>{{ max_alpha_acid }}</td>
-                <td>{{ countries }}</td>
-                <td>{{ comments }}</td>
+                <td>{{ hop.name }}</td>
+                <td>{{ hop.min_alpha_acid }}</td>
+                <td>{{ hop.max_alpha_acid }}</td>
+                <td>{{ hop.country }}</td>
+                <td>{{ hop.comments }}</td>
             </tr>
+            {% endfor %}
         </table>
 
         {% endblock %}

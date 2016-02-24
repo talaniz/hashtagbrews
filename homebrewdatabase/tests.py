@@ -24,41 +24,67 @@ class TestOpenSourceBeerDataBase(TestCase):
         expected_html = render_to_string('homebrewdatabase/homebrewdatabase.html')
         self.assertEqual(response.content.decode(), expected_html)
 
-    def test_hops_url_returns_correct_template(self):
-        test_client = Client()
-        response = test_client.get('http://localhost:8000/beerdb/hops/')
-        self.assertTemplateUsed('hops.html')
-
-    def test_can_add_new_hops_and_save(self):
+    def test_can_add_new_hops_and_save_a_POST_request(self):
         request = HttpRequest()
 
         request.method = 'POST'
         request.POST['hops_name'] = 'Amarillo'
-        request.POST['min_alpha_acid'] = '8.00'
-        request.POST['max_alpha_acid'] = '11.00'
+        request.POST['min_alpha_acid'] = 8.00
+        request.POST['max_alpha_acid'] = 11.00
         request.POST['countries'] = 'USA'
         request.POST['comments'] = 'Good over all aroma and bittering hops'
 
         response = hops(request)
 
-        self.assertEqual(response.status_code, 200)
-        self.assertIn('Amarillo', response.content.decode())
-        self.assertIn('8.00', response.content.decode())
-        self.assertIn('11.00', response.content.decode())
-        self.assertIn('USA', response.content.decode())
-        self.assertIn('Good over all aroma and bittering hops', response.content.decode())
+        self.assertEqual(Hop.objects.count(), 1)
 
-        expected_html = render_to_string(
-            'homebrewdatabase/hops.html',
-            {'new_hops_name': 'Amarillo',
-             'min_alpha_acid': '8.00',
-             'max_alpha_acid': '11.00',
-             'countries': 'USA',
-             'comments': 'Good over all aroma and bittering hops'},
-            request=request
-        )
+        new_hop = Hop.objects.first()
 
-        self.assertIn(response.content.decode(), expected_html)
+        self.assertEqual(new_hop.name, 'Amarillo')
+        self.assertAlmostEqual(new_hop.min_alpha_acid, 8.00)
+        self.assertEqual(new_hop.max_alpha_acid, 11.00)
+        self.assertEqual(new_hop.country, 'USA')
+        self.assertEqual(new_hop.comments, 'Good over all aroma and bittering hops')
+
+    def test_home_page_redirects_after_POST(self):
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['hops_name'] = 'Amarillo'
+        request.POST['min_alpha_acid'] = 8.00
+        request.POST['max_alpha_acid'] = 11.00
+        request.POST['countries'] = 'USA'
+        request.POST['comments'] = 'Good over all aroma and bittering hops'
+
+        response = hops(request)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/beerdb/hops')
+
+    def test_hop_page_only_saves_when_necessary(self):
+        request = HttpRequest()
+        hops(request)
+        self.assertEqual(Hop.objects.count(), 0)
+
+    def test_home_page_displays_all_hops_records(self):
+        Hop.objects.create(name='Century',
+                           min_alpha_acid=8.00,
+                           max_alpha_acid=12.00,
+                           country='USA',
+                           comments='Pretty good, a little spicy')
+
+        Hop.objects.create(name='Warrior',
+                           min_alpha_acid=24.00,
+                           max_alpha_acid=32.00,
+                           country='USA',
+                           comments='Very bitter, not good for aroma')
+
+        request = HttpRequest()
+        response = hops(request)
+
+        self.assertIn('Century', response.content.decode())
+        self.assertIn('Warrior', response.content.decode())
+
 
 class HopModelTest(TestCase):
 
@@ -95,14 +121,3 @@ class HopModelTest(TestCase):
         self.assertEqual(second_saved_hop.max_alpha_acid, 14.00)
         self.assertEqual(second_saved_hop.country, 'USA')
         self.assertEqual(second_saved_hop.comments, 'Good for bittering, not great for aroma')
-
-        '''Class representing a hops profile.
-
-       Contains the following attributes:
-       x -name: name of the hop strain
-       x -min_alpha_acid: lowest alpha acid for hop range
-       x -max_alpha_acid: highest alpha acid for hop range
-       x -origin: country of origin, DEFAULT = USA
-           x -country codes: [AUS, CAN, CHN, CZE, FRA, DEU, NZL, POL, GBR, USA]
-       -comments: final notes about the hop profile
-    '''
