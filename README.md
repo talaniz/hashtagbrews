@@ -1,6 +1,7 @@
 Hashtag Brews
 =============
-#Hashtag Brews is a Django based site that will contain the following applications:
+
+Hashtag Brews is a Django based site that will contain the following applications:
 
 * An open source beer database containing a catalogue of hops, grains and yeasts
 * A homebrew planner and timer to track the stages of a brewing process
