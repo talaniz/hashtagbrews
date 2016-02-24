@@ -1,9 +1,9 @@
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
-import unittest
 
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     '''
     Test to check new visitor functionality
     '''
@@ -20,7 +20,7 @@ class NewVisitorTest(unittest.TestCase):
         # Kevin wants to contribute to the Open Source Homebrew Database
         # He navigates to the homepage and clicks the link to navigate
         # to the Open Source Homebrew database.
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
         self.browser.implicitly_wait(5)
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
@@ -89,6 +89,7 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('Good over all aroma and bittering hops', [row.text for row in rows])
 
         # Satisfied, he closes his browser and brews some beer
+        hops_page = self.browser.current_url
         self.browser.refresh()
         self.browser.quit()
         self.browser = webdriver.Firefox()
@@ -96,7 +97,7 @@ class NewVisitorTest(unittest.TestCase):
         # Kevin wonders if the site really saved his record.
         # He opens up the browser to the hops main page and checks
         # to make sure the information he entered is still here
-        self.browser.get('http://localhost:8000/beerdb/hops/')
+        self.browser.get(hops_page)
 
         table = self.browser.find_element_by_id('hops_list_table')
         rows = table.find_elements_by_tag_name('td')
@@ -108,6 +109,3 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('Good over all aroma and bittering hops', [row.text for row in rows])
 
         # Satisfied once again, he returns to his boil.
-
-if __name__ == "__main__":
-    unittest.main(warnings='ignore')

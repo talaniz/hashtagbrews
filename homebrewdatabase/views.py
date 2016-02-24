@@ -23,4 +23,4 @@ def hops(request):
                            )
         return redirect('/beerdb/hops')
     hops = Hop.objects.all()
-    return render(request, 'homebrewdatabase/hops.html', {'hops': hops}Hop)
+    return render(request, 'homebrewdatabase/hops.html', {'hops': hops})
