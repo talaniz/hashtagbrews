@@ -23,6 +23,11 @@ Hashtag Brews is a Django based site that will contain the following application
 ### [Sprint Plans Detail] ###
 
 [Sprint Plans Detail]: https://bitbucket.org/talaniz715/hashtagbrews/wiki/Sprint%20Planning
+
+### [Page Design Mockups Here] ###
+
+[Page Design Mockups Here]: https://bitbucket.org/talaniz715/hashtagbrews/wiki/Catalogue%20Page%20Designs
+
 1. Homebrew Materials Database
     * Finish functional test to add hops (includes unit tests to save to db, etc.)
     * Refactor to use templating
