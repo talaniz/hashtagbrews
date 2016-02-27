@@ -27,7 +27,7 @@ Hashtag Brews is a Django based site that will contain the following application
 [Page Design Mockups Here]: https://bitbucket.org/talaniz715/hashtagbrews/wiki/Catalogue%20Page%20Designs
 
 1. Homebrew Materials Database
-    * Finish functional test to add hops (includes unit tests to save to db, etc.)
+    * Finish functional test to add hops (includes unit tests to save to db, etc.) - Completed
     * Refactor to use templating
     * Add grains and yeasts code
     * Test Suites: Adjust tests to test all 3 categories at once (hops, grains, yeasts)
