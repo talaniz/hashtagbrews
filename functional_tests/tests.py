@@ -70,8 +70,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         inputbox = self.browser.find_element_by_id('max_alpha_acid')
         inputbox.send_keys('11.00')
 
-        select = Select(self.browser.find_element_by_id('countries'))
-        select.select_by_visible_text('USA')
+        select = Select(self.browser.find_element_by_id('id_country'))
+        select.select_by_visible_text('United States')
 
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('Good over all aroma and bittering hops')

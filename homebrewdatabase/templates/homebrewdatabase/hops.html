@@ -10,35 +10,7 @@
             Add Hops
         </button>
 
-        <!--Modal data begins here-->
-        <div class="modal fade" id="addhops" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-               <div class="modal-content">
-                   <div class="modal-header">
-                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                       <h4 class="modal-title" id="myModalLabel">Add Hops</h4>
-              </div>
-            <form method="POST">
-              <div class="modal-body">
-                Hops Name: <input name="hops_name" id="new_hops" />
-                Min Alpha Acid: <input name="min_alpha_acid" id="min_alpha_acid" />
-                Max Alpha Acid: <input name="max_alpha_acid" id="max_alpha_acid" />
-                Country: <select name="countries" id="countries">
-                  <option value="AUS">Australia</option>
-                  <option value="USA" name="country">USA</option>
-                </select>
-                Comments: <textarea id="comments" name="comments"></textarea>
-                {%  csrf_token %}
-              </div>
-              <div class="modal-footer">
-                <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
-            </div>
-          </div>
-        </div>
-
+        {% include 'homebrewdatabase/addhops.html' %}
         <!--Table data begins here-->
         <table id="hops_list_table" class="table table-bordered table-striped">
             <tr>

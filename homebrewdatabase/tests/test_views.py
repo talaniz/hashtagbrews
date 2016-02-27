@@ -2,12 +2,12 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.test import TestCase
 
-from .views import index, homebrewmain, hops
+from homebrewdatabase.views import index, hops, addhops
 
-from .models import Hop
+from homebrewdatabase.models import Hop
 
 
-class TestViewHomePage(TestCase):
+class TestHomePage(TestCase):
 
     def test_homepage_returns_correct_template(self):
         request = HttpRequest()
@@ -16,25 +16,19 @@ class TestViewHomePage(TestCase):
         self.assertEqual(response.content.decode(), expected_html)
 
 
-class TestOpenSourceBeerDataBase(TestCase):
-
-    def test_main_page_returns_correct_template(self):
-        request = HttpRequest()
-        response = homebrewmain(request)
-        expected_html = render_to_string('homebrewdatabase/homebrewdatabase.html')
-        self.assertEqual(response.content.decode(), expected_html)
+class TestHopsPage(TestCase):
 
     def test_can_add_new_hops_and_save_a_POST_request(self):
         request = HttpRequest()
 
         request.method = 'POST'
-        request.POST['hops_name'] = 'Amarillo'
+        request.POST['name'] = 'Amarillo'
         request.POST['min_alpha_acid'] = 8.00
         request.POST['max_alpha_acid'] = 11.00
-        request.POST['countries'] = 'USA'
+        request.POST['country'] = 'USA'
         request.POST['comments'] = 'Good over all aroma and bittering hops'
 
-        response = hops(request)
+        response = addhops(request)
 
         self.assertEqual(Hop.objects.count(), 1)
 
@@ -46,17 +40,17 @@ class TestOpenSourceBeerDataBase(TestCase):
         self.assertEqual(new_hop.country, 'USA')
         self.assertEqual(new_hop.comments, 'Good over all aroma and bittering hops')
 
-    def test_home_page_redirects_after_POST(self):
+    def test_add_hops_redirects_after_POST(self):
         request = HttpRequest()
 
         request.method = 'POST'
-        request.POST['hops_name'] = 'Amarillo'
+        request.POST['name'] = 'Amarillo'
         request.POST['min_alpha_acid'] = 8.00
         request.POST['max_alpha_acid'] = 11.00
-        request.POST['countries'] = 'USA'
+        request.POST['country'] = 'USA'
         request.POST['comments'] = 'Good over all aroma and bittering hops'
 
-        response = hops(request)
+        response = addhops(request)
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/beerdb/hops')
@@ -85,3 +79,25 @@ class TestOpenSourceBeerDataBase(TestCase):
         self.assertIn('Century', response.content.decode())
         self.assertIn('Warrior', response.content.decode())
 
+    def test_add_hops_view_saves_record(self):
+        '''
+        Purpose: to split up the views between listing hops and adding new hops so that the
+         form can be properly rendered in the modal view.
+        '''
+
+        response = self.client.post(
+            '/beerdb/add/hops/',
+            data={
+                'name': 'Warrior',
+                'min_alpha_acid': 24.00,
+                'max_alpha_acid': 32.00,
+                'country': 'USA',
+                'comments': 'Very bitter, not good for aroma'
+            })
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/beerdb/hops')
+
+        hop_record = Hop.objects.filter(name='Warrior')
+
+        self.assertEqual(hop_record[0].name, 'Warrior')

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Hop(models.Model):
 
     name = models.CharField(max_length=200, default='')
@@ -32,8 +33,8 @@ class Hop(models.Model):
     )
 
     country = models.CharField(max_length=3,
-                              choices=COUNTRY_CODES,
-                              default=UNITED_STATES
-                              )
+                               choices=COUNTRY_CODES,
+                               default=UNITED_STATES
+                               )
 
     comments = models.TextField(default='')
