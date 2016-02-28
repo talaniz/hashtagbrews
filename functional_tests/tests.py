@@ -13,6 +13,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.browser.set_window_size(1750, 1000)
 
     def tearDown(self):
+        self.browser.refresh()
         self.browser.quit()
 
     def test_user_can_navigate_to_hops_page_and_save_hops_record(self):
@@ -109,3 +110,36 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertIn('Good over all aroma and bittering hops', [row.text for row in rows])
 
         # Satisfied once again, he returns to his boil.
+
+    def test_can_edit_hops(self):
+        # Kevin just realized he's made a mistake. The hop name wasn't
+        # 'Amarillo' it was 'Chinook'. He decides to go back and update the record
+        hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
+        self.browser.get(hop_live_server_url)
+
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertEqual(header_text, 'Hops')
+
+        # He sees the link for the Amarillo hop record he just entered
+        # and he clicks on it, a bootstrap modal form with the information
+        # pops up
+        edit_link = self.browser.find_element_by_link_text('Amarillo')
+        edit_link.click()
+        self.browser.implicitly_wait(10)
+
+        # He changes the hop name from Amarillo to Chinook and clicks submit.
+        # He's redirected back to the hops list page and can see the change updated
+        # in the table
+        inputbox = self.browser.find_element_by_id('new_hops')
+        inputbox.clear()
+        inputbox.send_keys('Chinook')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+
+        table = self.browser.find_element_by_id('hops_list_table')
+        rows = table.find_elements_by_tag_name('td')
+        self.assertIn('Chinook', [row.text for row in rows])
+
+        # TODO: write additional validation test to make sure the hops record is only saved once instead of additional
+        # TODO (cont) hop instances being created/saved
