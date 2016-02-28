@@ -6,7 +6,7 @@
                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                        <h4 class="modal-title" id="myModalLabel">Add Hops</h4>
               </div>
-              <form action="/beerdb/add/hops/" method="POST">
+              <form action="{% url 'addhops' %}" method="POST">
                 <div class="modal-body">
                     {{ form.as_p }}
                     {%  csrf_token %}
