@@ -5,12 +5,31 @@
         {% block content %}
         <h1>Hops</h1>
 
-        <!--Button for modal-->
+        <!--Button for modal to add hops-->
         <button id="add_hops" type="button" data-toggle="modal" data-target="#addhops" class="btn btn-primary">
             Add Hops
         </button>
 
-        {% include 'homebrewdatabase/addhops.html' %}
+        <!--Modal data begins here to add hops-->
+        <div class="modal fade" id="addhops" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                   {% include 'homebrewdatabase/addhops.html' %}
+               </div>
+            </div>
+        </div>
+
+        <!--Modal data begins here to edit hops-->
+        <div class="modal fade" id="updatehops" tabindex="-1" role="dialog" aria-labelledby="updateHopLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    {% include 'homebrewdatabase/updatehops.html' %}
+                </div>
+            </div>
+        </div>
+
+
+
         <!--Table data begins here-->
         <table id="hops_list_table" class="table table-bordered table-striped">
             <tr>
@@ -22,7 +41,10 @@
             </tr>
             {% for hop in hops %}
             <tr>
-                <td><a href="{% url 'edithops' pk=hop.id %}">{{ hop.name }}</a></td>
+                <td><a id="{{ hop.name }}"
+                       data-toggle="modal"
+                       data-target="#updatehops"
+                        href="{% url 'updatehops' pk=hop.id %}">{{ hop.name }}</a></td>
                 <td>{{ hop.min_alpha_acid }}</td>
                 <td>{{ hop.max_alpha_acid }}</td>
                 <td>{{ hop.country }}</td>

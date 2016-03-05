@@ -1,36 +1,13 @@
-html, body {
-    height: 100%;
-    margin: 0;
-}
-/*
-div {
-    height: 100%;
-    float: left;
-}
-*/
-
-#header {
-    text-align: center;
-    vertical-align: middle;
+body.modal-open {
+    overflow: visible;
 }
 
-p a {
-    color: #ffffff;
+div#addhops {
+    overflow-x: auto;
+    overflow: visible;
 }
 
-#left {
-    height: 35px;
-    background-color: #E24E42;
-}
-
-#center {
-    height: 35px;
-    background-color: #E9B000;
-    color: #FFFFFF;
-}
-
-#right {
-    height: 35px;
-    background-color: #008F95;
-    color: #FFFFFF;
+div#updatehops {
+    overflow-x: auto;
+    overflow: visible;
 }

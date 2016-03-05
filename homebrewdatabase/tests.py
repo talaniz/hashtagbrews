@@ -84,25 +84,3 @@ class TestOpenSourceBeerDataBase(TestCase):
 
         self.assertIn('Century', response.content.decode())
         self.assertIn('Warrior', response.content.decode())
-
-    def test_can_update_hops(self):
-        request = HttpRequest()
-        response = updatehops(request, '1')
-
-        hop_record = response.context['hop']
-
-        self.assertEqual(hop_record.name, 'Amarillo')
-
-        hop_record.comments = 'This has been changed'
-
-        request.method = 'POST'
-        request.POST['hops_name'] = hop_record.name
-        request.POST['min_alpha_acid'] = hop.min_alpha_acid
-        request.POST['max_alpha_acid'] = hop.max_alpha_acid
-        request.POST['countries'] = 'USA'
-        request.POST['comments'] = hop_record.comments
-
-        response = updatehops(request, 1)
-
-        self.assertEqual(response.status_code, 302)
-        self.assertIn('This has been changed' , response.content.decode())

@@ -2,9 +2,8 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.test import TestCase
 
-from homebrewdatabase.views import index, hops, addhops
-
 from homebrewdatabase.models import Hop
+from homebrewdatabase.views import index, hops, addhops, updatehops
 
 
 class TestHomePage(TestCase):
@@ -80,10 +79,6 @@ class TestHopsPage(TestCase):
         self.assertIn('Warrior', response.content.decode())
 
     def test_add_hops_view_saves_record(self):
-        '''
-        Purpose: to split up the views between listing hops and adding new hops so that the
-         form can be properly rendered in the modal view.
-        '''
 
         response = self.client.post(
             '/beerdb/add/hops/',
@@ -101,3 +96,37 @@ class TestHopsPage(TestCase):
         hop_record = Hop.objects.filter(name='Warrior')
 
         self.assertEqual(hop_record[0].name, 'Warrior')
+
+    def test_can_update_hops(self):
+        self.client.post(
+            '/beerdb/add/hops/',
+            data={
+                'name': 'Warrior',
+                'min_alpha_acid': 24.00,
+                'max_alpha_acid': 32.00,
+                'country': 'USA',
+                'comments': 'Very bitter, not good for aroma'
+            })
+
+        hop_instance = Hop.objects.filter(name='Warrior')[0]
+
+        response = self.client.get('/beerdb/edit/%d/hops/' % hop_instance.id)
+
+        self.assertEqual(response.status_code, 200)
+
+        edit_form = response.context['form']
+        hop_record = edit_form.initial
+
+        hop_record['name'] = 'Chinook'
+
+        response = self.client.post('/beerdb/edit/%d/hops/' % hop_instance.id, data=hop_record)
+
+        self.assertEqual(response.status_code, 302)
+
+        hop_list = Hop.objects.filter(name='Chinook')
+
+        self.assertEqual(len(hop_list), 1)
+
+        hop_list = Hop.objects.filter(name='Warrior')
+
+        self.assertEqual(len(hop_list), 0)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 
 class Hop(models.Model):
@@ -38,3 +39,6 @@ class Hop(models.Model):
                                )
 
     comments = models.TextField(default='')
+
+    def get_absolute_url(self):
+        return reverse('updatehops', kwargs={'pk': self.id})

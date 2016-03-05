@@ -1,12 +1,11 @@
 from django.test import TestCase
-import unittest
 
 from homebrewdatabase.forms import HopForm
 
 
 class HopFormTest(TestCase):
 
-    def test_form(self):
+    def test_form_returns_correct_elements(self):
         form = HopForm()
 
         form_elements = ['name="name', 'id="new_hops"', 'name="min_alpha_acid"',
