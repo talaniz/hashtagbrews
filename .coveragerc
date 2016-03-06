@@ -1,0 +1,26 @@
+[run]
+plugins = django_coverage_plugin
+
+[report]
+show_missing = False
+include = *.py
+omit =
+    tests.py
+    *_test.py
+    *_tests.py
+    */apps.py
+    */test_*.py
+    */site-packages/*
+    */migrations/*
+    */functional_tests/*
+    */settings.py
+    */urls.py
+    */tests.py
+    */wsgi.py
+    */__init__.py
+    settings.py
+    wsgy.py
+
+[html]
+title = Code Coverage
+directory = local_coverage_report
