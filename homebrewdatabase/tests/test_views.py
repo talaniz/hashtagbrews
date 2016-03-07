@@ -130,3 +130,30 @@ class TestHopsPage(TestCase):
         hop_list = Hop.objects.filter(name='Warrior')
 
         self.assertEqual(len(hop_list), 0)
+
+    def test_delete_hop_record(self):
+        self.client.post(
+            '/beerdb/add/hops/',
+            data={
+                'name': 'Northern',
+                'min_alpha_acid': 18.00,
+                'max_alpha_acid': 12.00,
+                'country': 'USA',
+                'comments': 'Very bitter, not good for aroma'
+            })
+
+        hop_instance = Hop.objects.filter(name='Northern')[0]
+
+        self.assertEqual(hop_instance.name, 'Northern')
+
+        response = self.client.get('/beerdb/delete/%d/hops/' % hop_instance.id)
+
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post('/beerdb/delete/%d/hops/' % hop_instance.id)
+
+        self.assertEqual(response.status_code, 302)
+
+        hop_list = Hop.objects.filter(name='Northern')
+
+        self.assertEqual(len(hop_list), 0)

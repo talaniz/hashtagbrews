@@ -28,11 +28,20 @@
             </div>
         </div>
 
+        <!--Modal data begins here to delete hops-->
+        <div class="modal fade" id="deletehops" tabindex="-1" role="dialog" aria-labelledby="deleteHopLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    {% include 'homebrewdatabase/deletehops.html' %}
+                </div>
+            </div>
+        </div>
 
 
         <!--Table data begins here-->
         <table id="hops_list_table" class="table table-bordered table-striped">
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Min Alpha Acid</th>
                 <th>Max Alpha Acid</th>
@@ -41,6 +50,9 @@
             </tr>
             {% for hop in hops %}
             <tr>
+                <td><a data-toggle="modal"
+                        data-target="#deletehops"
+                        href="{% url 'deletehops' pk=hop.id %}">Delete</a></td>
                 <td><a id="{{ hop.name }}"
                        data-toggle="modal"
                        data-target="#updatehops"

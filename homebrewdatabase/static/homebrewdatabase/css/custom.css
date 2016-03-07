@@ -11,3 +11,8 @@ div#updatehops {
     overflow-x: auto;
     overflow: visible;
 }
+
+div#deletehops {
+    overflow-x: auto;
+    overflow: visible;
+}

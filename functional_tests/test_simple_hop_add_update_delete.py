@@ -174,5 +174,58 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertIn('Chinook', [row.text for row in rows])
         self.assertNotIn('Amarillo', [row.text for row in rows])
 
+    def test_user_deletes_hop_record(self):
+        # Josh wants to contribute to the open source beer database.(Rave reviews from Kevin & John)
+        # He navigates to the site (courtesy of Kevin)
+        hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
+        self.browser.get(hop_live_server_url)
+
+        # He eagerly clicks the 'Add Hops' button
+
+        self.browser.find_element_by_id("add_hops").click()
+
+        self.browser.implicitly_wait(6)
+
+        # He enters the information into the form and clicks submit.
+        inputbox = self.browser.find_element_by_id('new_hops')
+        inputbox.send_keys('Northern')
+
+        inputbox = self.browser.find_element_by_id('min_alpha_acid')
+        inputbox.send_keys('9.00')
+
+        inputbox = self.browser.find_element_by_id('max_alpha_acid')
+        inputbox.send_keys('13.00')
+
+        select = Select(self.browser.find_element_by_id('id_country'))
+        select.select_by_visible_text('Australia')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Good for bittering, bad for aroma')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+
+        # He sees the new hop record saved correctly
+        table = self.browser.find_element_by_id('hops_list_table')
+        rows = table.find_elements_by_tag_name('td')
+        self.assertIn('Northern', [row.text for row in rows])
+
+        # But there's a problem, he meant 'Chinook'! He
+        # could change his entry, but he's in a hurry so he selects the delete link
+        self.browser.find_element_by_link_text('Delete').click()
+        self.browser.implicitly_wait(6)
+
+        # The modal opens with the hop record details and asks him to confirm
+        # that he wants to delete the record.
+        submit_button = self.browser.find_element_by_id('delete').find_element_by_id('submit')
+        submit_button.click()
+        self.browser.implicitly_wait(6)
+
+        # He confirms and the record is no longer visible on the hops main table.
+        table = self.browser.find_element_by_id('hops_list_table')
+        rows = table.find_elements_by_tag_name('td')
+        self.assertNotIn('Northern', [row.text for row in rows])
+
+
         # TODO: write additional validation test to make sure the hops record is only saved once instead of additional
-        # TODO (cont) hop instances being created/saved
+        # TODO (cont) hop instances being created/saved in test_hop_form_validation.py

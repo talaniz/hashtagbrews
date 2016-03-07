@@ -48,3 +48,18 @@ def updatehops(request, pk):
                   {'action': hop_form_url,
                    'form': edit_form
                    })
+
+
+def deletehops(request, pk):
+
+    hop_record = Hop.objects.filter(pk=pk)[0]
+
+    if request.method == 'POST':
+        hop_record.delete()
+        success_url = reverse('hops_list')
+        return redirect(success_url)
+    hop_form_url = reverse('deletehops', kwargs={'pk': hop_record.id})
+    return render(request, 'homebrewdatabase/deletehops.html',
+                 {'action': hop_form_url,
+                  'hop': hop_record
+                  })
