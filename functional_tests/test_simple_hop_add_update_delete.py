@@ -15,6 +15,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.browser.refresh()
         self.browser.quit()
 
+    # TODO: helper function needed here to find elements in table, reduce code smell
+
     def test_user_can_navigate_to_hops_page_and_save_hops_record(self):
 
         # Kevin wants to contribute to the Open Source Homebrew Database
@@ -149,6 +151,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # The hop name wasn't 'Amarillo' it was 'Chinook'. He decides to go back and update the record
         self.browser = webdriver.Firefox()
         self.browser.get(hops_page)
+
+        self.browser.implicitly_wait(6)
 
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertEqual(header_text, 'Hops')

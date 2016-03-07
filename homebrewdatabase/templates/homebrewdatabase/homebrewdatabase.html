@@ -3,9 +3,28 @@
     {% block title %}<title>Homebrew Materials Database</title>{% endblock %}
 
     {% block content %}
-    <h1>Homebrew Materials Database</h1>
+    <h1 id="beerdb_header">Homebrew Materials Database</h1>
 
-    <h2><a href="{% url 'hops_list' %}">Hops</a></h2>
-    <h2>Grains</h2>
-    <h2>Yeasts</h2>
+    <!-- Begin "marketing" section-->
+    <div class="container" id="beerdb_marketing"
+        <div class="row">
+            <div class="col-sm-4">
+                <img id="beerdb_pic" class="img-circle img-responsive img-center" src="/static/homebrewdatabase/images/hops-horizontal.jpg" alt="">
+                <h2><a href="{% url 'hops_list' %}">Hops</a></h2>
+                <p>Whether adding balance to your brew or crafting a killer IPA, hops are an essential homebrew ingredient
+                that bitters your hops and adds wonderful aromas!</p>
+            </div>
+            <div class="col-sm-4">
+                <img id="beerdb_pic" class="img-circle img-responsive img-center" src="/static/homebrewdatabase/images/brewers-malt.jpg" alt="">
+                <h2>Grains</h2>
+                <p>The sweet sugars, colors and flavors selected in this homebrew staple can return a black IPA, a smooth
+                stout or a well rounded classic ale!</p>
+            </div>
+            <div class="col-sm-4">
+                <img id="beerdb_pic" class="img-circle img-responsive img-center" src="/static/homebrewdatabase/images/beer-pour.jpg" alt="">
+                <h2>Yeasts</h2>
+                <p>Not just great for making bread! The different varieties and origins of yeasts are crucial in alcohol
+                    production and beer style!</p>
+            </div>
+        </div>
     {% endblock %}

@@ -1,0 +1,12 @@
+img#beerdb_pic {
+    height: 350px;
+    width: 350px;
+}
+
+h1#beerdb_header {
+    text-align: center;
+}
+
+div#beerdb_marketing {
+    padding: 5px;
+}
