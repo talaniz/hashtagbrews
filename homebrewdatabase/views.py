@@ -29,7 +29,7 @@ def addhops(request):
                            country=request.POST['country'],
                            comments=request.POST['comments']
                            )
-        return redirect('/beerdb/hops')
+        return redirect('hops_list')
     return render(request, 'homebrewdatabase/addhops.html', {'form': HopForm()})
 
 

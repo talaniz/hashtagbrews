@@ -77,10 +77,12 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
+        self.browser.implicitly_wait(6)
 
         # He can see the homepage with his hop record in the table
         table = self.browser.find_element_by_id('hops_list_table')
         rows = table.find_elements_by_tag_name('td')
+
         self.assertIn('Amarillo', [row.text for row in rows])
         self.assertIn('8.00', [row.text for row in rows])
         self.assertIn('11.00', [row.text for row in rows])
@@ -204,6 +206,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
+        self.browser.implicitly_wait(6)
 
         # He sees the new hop record saved correctly
         table = self.browser.find_element_by_id('hops_list_table')

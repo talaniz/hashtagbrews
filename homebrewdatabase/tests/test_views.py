@@ -52,7 +52,7 @@ class TestHopsPage(TestCase):
         response = addhops(request)
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/beerdb/hops')
+        self.assertEqual(response['location'], '/beerdb/hops/')
 
     def test_hop_page_only_saves_when_necessary(self):
         request = HttpRequest()
@@ -91,7 +91,7 @@ class TestHopsPage(TestCase):
             })
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/beerdb/hops')
+        self.assertEqual(response['location'], '/beerdb/hops/')
 
         hop_record = Hop.objects.filter(name='Warrior')
 
