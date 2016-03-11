@@ -2,8 +2,9 @@ from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.test import TestCase
 
+from homebrewdatabase.forms import HopForm
 from homebrewdatabase.models import Hop
-from homebrewdatabase.views import index, hops, addhops, updatehops
+from homebrewdatabase.views import index, hops, addhops
 
 
 class TestHomePageView(TestCase):
@@ -157,3 +158,8 @@ class TestHopsPageView(TestCase):
         hop_list = Hop.objects.filter(name='Northern')
 
         self.assertEqual(len(hop_list), 0)
+
+    def test_add_hop_uses_item_form(self):
+
+        response = self.client.get('/beerdb/add/hops/')
+        self.assertIsInstance(response.context['form'], HopForm)

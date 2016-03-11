@@ -73,3 +73,5 @@ class HopFormTest(TestCase):
             hop_form.errors['max_alpha_acid'],
             ['This field requires a decimal number']
         )
+
+        # TODO: add validation for unique hops name
