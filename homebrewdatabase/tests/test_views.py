@@ -27,7 +27,7 @@ class TestHopsPageView(TestCase):
         request.POST['country'] = 'USA'
         request.POST['comments'] = 'Good over all aroma and bittering hops'
 
-        Addin
+        addhops(request)
 
         self.assertEqual(Hop.objects.count(), 1)
 

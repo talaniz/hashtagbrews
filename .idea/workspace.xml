@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ba8a5d7-6fb9-4b1c-8d06-4ba4a0f50137" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/homebrewdatabase/tests.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.MD" afterPath="$PROJECT_DIR$/README.MD" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/homebrewdatabase/forms.py" afterPath="$PROJECT_DIR$/homebrewdatabase/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/homebrewdatabase/tests/test_forms.py" afterPath="$PROJECT_DIR$/homebrewdatabase/tests/test_forms.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/homebrewdatabase/tests/test_views.py" afterPath="$PROJECT_DIR$/homebrewdatabase/tests/test_views.py" />
     </list>
     <ignored path="hashtagbrews.iws" />
@@ -22,8 +19,8 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="true" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__.coverage" NAME="Test:  Coverage Results" MODIFIED="1456444584082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests_test_views.coverage" NAME="Test: homebrewdatabase.tests.test_views Coverage Results" MODIFIED="1456865117968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__functional_tests.coverage" NAME="Test: functional_tests Coverage Results" MODIFIED="1457215617200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests_test_views.coverage" NAME="Test: homebrewdatabase.tests.test_views Coverage Results" MODIFIED="1457727235014" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__functional_tests_tests_NewVisitorTest_test_user_can_navigate_to_hops_page_and_save_hops_record.coverage" NAME="Test: functional_tests.tests.NewVisitorTest.test_user_can_navigate_to_hops_page_and_save_hops_record Coverage Results" MODIFIED="1456950997223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests_py.coverage" NAME="Test: homebrewdatabase/tests.py Coverage Results" MODIFIED="1455345448257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests_test_delete_hop_record.coverage" NAME="Test: homebrewdatabase.tests.test_delete_hop_record Coverage Results" MODIFIED="1457310752106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -59,8 +56,8 @@
       <file leaf-file-name="test_views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/homebrewdatabase/tests/test_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.76584506">
-              <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.3326226">
+              <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -121,9 +118,9 @@
         <option value="$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/homebrewdatabase.html" />
         <option value="$PROJECT_DIR$/homebrewdatabase/static/homebrewdatabase/css/beerdb-custom.css" />
         <option value="$PROJECT_DIR$/functional_tests/test_simple_hop_add_update_delete.py" />
-        <option value="$PROJECT_DIR$/homebrewdatabase/tests/test_views.py" />
         <option value="$PROJECT_DIR$/homebrewdatabase/tests/test_forms.py" />
         <option value="$PROJECT_DIR$/homebrewdatabase/forms.py" />
+        <option value="$PROJECT_DIR$/homebrewdatabase/tests/test_views.py" />
       </list>
     </option>
   </component>
@@ -646,9 +643,9 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest NewVisitorTest.test_user_can_navigate_to_hops_page_and_save_hops_record" />
-        <item index="1" class="java.lang.String" itemvalue="Django tests.Test: functional_tests.tests.NewVisitorTest.test_user_can_navigate_to_hops_page_and_save_hops_record" />
-        <item index="2" class="java.lang.String" itemvalue="Django tests.Test: homebrewdatabase.tests.test_views" />
+        <item index="0" class="java.lang.String" itemvalue="Django tests.Test: homebrewdatabase.tests.test_views" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest NewVisitorTest.test_user_can_navigate_to_hops_page_and_save_hops_record" />
+        <item index="2" class="java.lang.String" itemvalue="Django tests.Test: functional_tests.tests.NewVisitorTest.test_user_can_navigate_to_hops_page_and_save_hops_record" />
         <item index="3" class="java.lang.String" itemvalue="Django tests.Test: homebrewdatabase.tests.test_views.TestHopsPage.test_can_update_hops" />
       </list>
     </recent_temporary>
@@ -808,19 +805,16 @@
       <option name="project" value="LOCAL" />
       <updated>1457336250255</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Added custom form model validation, passing unit tests.">
+      <created>1457727154456</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1457727154456</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 52m 15s.xml">
-      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
-    </history-entry>
-    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 53m 40s.xml">
-      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
-    </history-entry>
-    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 54m 00s.xml">
-      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
-    </history-entry>
     <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 54m 36s.xml">
       <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
@@ -842,6 +836,15 @@
     <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 12h 09m 49s.xml">
       <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
+    <history-entry file="Test__homebrewdatabase_tests_test_views - 2016.03.11 at 12h 13m 00s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_views" configurationId="DjangoTestsConfigurationType" />
+    </history-entry>
+    <history-entry file="Test__homebrewdatabase_tests_test_views - 2016.03.11 at 12h 13m 36s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_views" configurationId="DjangoTestsConfigurationType" />
+    </history-entry>
+    <history-entry file="Test__homebrewdatabase_tests_test_views - 2016.03.11 at 12h 13m 58s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_views" configurationId="DjangoTestsConfigurationType" />
+    </history-entry>
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -861,15 +864,15 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45479453" sideWeight="0.509693" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30547947" sideWeight="0.49030694" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18356164" sideWeight="0.48869145" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31917807" sideWeight="0.48869145" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1276252" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="manage.py@hashtagbrews" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32739726" sideWeight="0.48869145" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43972602" sideWeight="0.49030694" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21324718" sideWeight="0.61744964" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21324718" sideWeight="0.61569417" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.49130434" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21324718" sideWeight="0.38255033" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21324718" sideWeight="0.38430583" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.56164384" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -914,7 +917,8 @@
     <MESSAGE value="Delete hop record feature added, functional and unit tests passing." />
     <MESSAGE value="Updated README with new status. Refactored to addhops view to remove hard coded url." />
     <MESSAGE value="Refactored Homebrew Database main page to add images and css styling. Functional &amp; unit tests passing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored Homebrew Database main page to add images and css styling. Functional &amp; unit tests passing." />
+    <MESSAGE value="Added custom form model validation, passing unit tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added custom form model validation, passing unit tests." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1327,8 +1331,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/homebrewdatabase/tests/test_views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.76584506">
-          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.3326226">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
