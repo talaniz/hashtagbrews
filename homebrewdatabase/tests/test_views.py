@@ -6,7 +6,7 @@ from homebrewdatabase.models import Hop
 from homebrewdatabase.views import index, hops, addhops, updatehops
 
 
-class TestHomePage(TestCase):
+class TestHomePageView(TestCase):
 
     def test_homepage_returns_correct_template(self):
         request = HttpRequest()
@@ -15,7 +15,7 @@ class TestHomePage(TestCase):
         self.assertEqual(response.content.decode(), expected_html)
 
 
-class TestHopsPage(TestCase):
+class TestHopsPageView(TestCase):
 
     def test_can_add_new_hops_and_save_a_POST_request(self):
         request = HttpRequest()
@@ -27,7 +27,7 @@ class TestHopsPage(TestCase):
         request.POST['country'] = 'USA'
         request.POST['comments'] = 'Good over all aroma and bittering hops'
 
-        response = addhops(request)
+        Addin
 
         self.assertEqual(Hop.objects.count(), 1)
 

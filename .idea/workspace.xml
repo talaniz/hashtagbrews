@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ba8a5d7-6fb9-4b1c-8d06-4ba4a0f50137" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/homebrewdatabase/static/homebrewdatabase/css/beerdb-custom.css" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/homebrewdatabase/tests.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.MD" afterPath="$PROJECT_DIR$/README.MD" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functional_tests/test_simple_hop_add_update_delete.py" afterPath="$PROJECT_DIR$/functional_tests/test_simple_hop_add_update_delete.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/homebrewdatabase.html" afterPath="$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/homebrewdatabase.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/index.html" afterPath="$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/homebrewdatabase/forms.py" afterPath="$PROJECT_DIR$/homebrewdatabase/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/homebrewdatabase/tests/test_forms.py" afterPath="$PROJECT_DIR$/homebrewdatabase/tests/test_forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/homebrewdatabase/tests/test_views.py" afterPath="$PROJECT_DIR$/homebrewdatabase/tests/test_views.py" />
     </list>
     <ignored path="hashtagbrews.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,7 +27,7 @@
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__functional_tests_tests_NewVisitorTest_test_user_can_navigate_to_hops_page_and_save_hops_record.coverage" NAME="Test: functional_tests.tests.NewVisitorTest.test_user_can_navigate_to_hops_page_and_save_hops_record Coverage Results" MODIFIED="1456950997223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests_py.coverage" NAME="Test: homebrewdatabase/tests.py Coverage Results" MODIFIED="1455345448257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests_test_delete_hop_record.coverage" NAME="Test: homebrewdatabase.tests.test_delete_hop_record Coverage Results" MODIFIED="1457310752106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests_test_forms.coverage" NAME="Test: homebrewdatabase.tests.test_forms Coverage Results" MODIFIED="1456555824286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests_test_forms.coverage" NAME="Test: homebrewdatabase.tests.test_forms Coverage Results" MODIFIED="1457726985846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hashtagbrews$functional_tests.coverage" NAME="functional_tests Coverage Results" MODIFIED="1457336130031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests.coverage" NAME="Test: homebrewdatabase.tests Coverage Results" MODIFIED="1457336189226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/hashtagbrews$Test__homebrewdatabase_tests_TestHomePage_test_delete_hop_record.coverage" NAME="Test: homebrewdatabase.tests.TestHomePage.test_delete_hop_record Coverage Results" MODIFIED="1457310775915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -56,34 +56,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="homebrewdatabase.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/homebrewdatabase.html">
+      <file leaf-file-name="test_views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/homebrewdatabase/tests/test_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.375">
-              <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test_simple_hop_add_update_delete.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/functional_tests/test_simple_hop_add_update_delete.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25459316">
-              <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.76584506">
+              <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="35" />
               <folding>
-                <element signature="e#0#71#0" expanded="true" />
+                <element signature="e#0#35#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="beerdb-custom.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/homebrewdatabase/static/homebrewdatabase/css/beerdb-custom.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.75">
-              <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -125,9 +105,7 @@
         <option value="$PROJECT_DIR$/homebrewdatabase/tests/__init__.py" />
         <option value="$PROJECT_DIR$/homebrewdatabase/tests.py" />
         <option value="$PROJECT_DIR$/homebrewdatabase/models.py" />
-        <option value="$PROJECT_DIR$/homebrewdatabase/forms.py" />
         <option value="$PROJECT_DIR$/hashtagbrews/urls.py" />
-        <option value="$PROJECT_DIR$/homebrewdatabase/tests/test_forms.py" />
         <option value="$PROJECT_DIR$/functional_tests/tests.py" />
         <option value="$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/updatehops.html" />
         <option value="$PROJECT_DIR$/hashtagbrews/settings.py" />
@@ -139,11 +117,13 @@
         <option value="$PROJECT_DIR$/homebrewdatabase/static/homebrewdatabase/css/custom.css" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/homebrewdatabase/views.py" />
-        <option value="$PROJECT_DIR$/homebrewdatabase/tests/test_views.py" />
         <option value="$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/index.html" />
         <option value="$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/homebrewdatabase.html" />
         <option value="$PROJECT_DIR$/homebrewdatabase/static/homebrewdatabase/css/beerdb-custom.css" />
         <option value="$PROJECT_DIR$/functional_tests/test_simple_hop_add_update_delete.py" />
+        <option value="$PROJECT_DIR$/homebrewdatabase/tests/test_views.py" />
+        <option value="$PROJECT_DIR$/homebrewdatabase/tests/test_forms.py" />
+        <option value="$PROJECT_DIR$/homebrewdatabase/forms.py" />
       </list>
     </option>
   </component>
@@ -216,6 +196,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="homebrewdatabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hashtagbrews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hashtagbrews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="homebrewdatabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hashtagbrews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hashtagbrews" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="functional_tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -790,39 +802,45 @@
       <option name="project" value="LOCAL" />
       <updated>1457319011930</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Refactored Homebrew Database main page to add images and css styling. Functional &amp; unit tests passing.">
+      <created>1457336250255</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1457336250255</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Test__homebrewdatabase_tests - 2016.03.06 at 23h 36m 33s.xml">
-      <configuration name="Test: homebrewdatabase.tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 52m 15s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
-    <history-entry file="functional_tests - 2016.03.06 at 18h 43m 20s.xml">
-      <configuration name="functional_tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 53m 40s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
-    <history-entry file="functional_tests - 2016.03.06 at 18h 44m 06s.xml">
-      <configuration name="functional_tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 54m 00s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
-    <history-entry file="functional_tests - 2016.03.06 at 18h 45m 25s.xml">
-      <configuration name="functional_tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 54m 36s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
-    <history-entry file="functional_tests - 2016.03.06 at 18h 48m 03s.xml">
-      <configuration name="functional_tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 54m 45s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
-    <history-entry file="functional_tests - 2016.03.06 at 18h 49m 30s.xml">
-      <configuration name="functional_tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 11h 58m 37s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
-    <history-entry file="functional_tests - 2016.03.06 at 23h 30m 59s.xml">
-      <configuration name="functional_tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 12h 07m 02s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
-    <history-entry file="functional_tests - 2016.03.06 at 23h 32m 11s.xml">
-      <configuration name="functional_tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 12h 07m 51s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
-    <history-entry file="functional_tests - 2016.03.06 at 23h 33m 26s.xml">
-      <configuration name="functional_tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 12h 09m 04s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
-    <history-entry file="functional_tests - 2016.03.06 at 23h 36m 22s.xml">
-      <configuration name="functional_tests" configurationId="DjangoTestsConfigurationType" />
+    <history-entry file="Test__homebrewdatabase_tests_test_forms - 2016.03.11 at 12h 09m 49s.xml">
+      <configuration name="Test: homebrewdatabase.tests.test_forms" configurationId="DjangoTestsConfigurationType" />
     </history-entry>
   </component>
   <component name="TodoView" selected-index="4">
@@ -836,22 +854,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32739726" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45479453" sideWeight="0.509693" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.49676898" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30547947" sideWeight="0.49030694" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43972602" sideWeight="0.48869145" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18356164" sideWeight="0.48869145" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1276252" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="manage.py@hashtagbrews" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32739726" sideWeight="0.48869145" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38630137" sideWeight="0.49030694" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21324718" sideWeight="0.6136919" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43972602" sideWeight="0.49030694" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21324718" sideWeight="0.61744964" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.49130434" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21324718" sideWeight="0.38630807" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21324718" sideWeight="0.38255033" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.56164384" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -895,7 +913,8 @@
     <MESSAGE value="Refactor to add coverage data. Functionl and unit tests passing." />
     <MESSAGE value="Delete hop record feature added, functional and unit tests passing." />
     <MESSAGE value="Updated README with new status. Refactored to addhops view to remove hard coded url." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated README with new status. Refactored to addhops view to remove hard coded url." />
+    <MESSAGE value="Refactored Homebrew Database main page to add images and css styling. Functional &amp; unit tests passing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored Homebrew Database main page to add images and css styling. Functional &amp; unit tests passing." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -907,14 +926,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../Envs/hashtagbrews/lib/python3.4/site-packages/django/utils/translation/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.05154639">
-          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Envs/hashtagbrews/lib/python3.4/site-packages/django/utils/datastructures.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5395189">
@@ -1067,16 +1078,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/homebrewdatabase/tests/test_forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2567237">
-          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Envs/hashtagbrews/lib/python3.4/site-packages/selenium/webdriver/common/by.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1141,24 +1142,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/homebrewdatabase/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/homebrewdatabase/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.7564403">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.coveragerc">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1191,29 +1174,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/homebrewdatabase/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.42857143">
-          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/addhops.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.71428573">
           <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/homebrewdatabase/tests/test_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="54" column="61" selection-start-line="54" selection-start-column="61" selection-end-line="54" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1304,6 +1269,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/functional_tests/test_simple_hop_add_update_delete.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.7620087">
+          <caret line="237" column="86" selection-start-line="237" selection-start-column="86" selection-end-line="237" selection-end-column="86" />
+          <folding>
+            <element signature="e#0#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/homebrewdatabase/templates/homebrewdatabase/homebrewdatabase.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.375">
@@ -1312,12 +1287,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/functional_tests/test_simple_hop_add_update_delete.py">
+    <entry file="file://$PROJECT_DIR$/homebrewdatabase/tests/test_models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25459316">
-          <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#71#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/homebrewdatabase/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/homebrewdatabase/tests/test_forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="60" column="19" selection-start-line="60" selection-start-column="19" selection-end-line="60" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/homebrewdatabase/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7480315">
+          <caret line="21" column="77" selection-start-line="21" selection-start-column="77" selection-end-line="21" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/homebrewdatabase/tests/test_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.76584506">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
