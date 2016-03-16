@@ -15,7 +15,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.browser.refresh()
         self.browser.quit()
 
-    # TODO: helper function needed here to find elements in table, reduce code smell
+    def find_text_in_hops_table(self, text):
+        table = self.browser.find_element_by_id("hops_list_table")
+        rows = table.find_elements_by_tag_name('td')
+        self.assertIn(text, [row.text for row in rows])
 
     def test_user_can_navigate_to_hops_page_and_save_hops_record(self):
 
@@ -82,14 +85,11 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.browser.implicitly_wait(6)
 
         # He can see the homepage with his hop record in the table
-        table = self.browser.find_element_by_id('hops_list_table')
-        rows = table.find_elements_by_tag_name('td')
-
-        self.assertIn('Amarillo', [row.text for row in rows])
-        self.assertIn('8.00', [row.text for row in rows])
-        self.assertIn('11.00', [row.text for row in rows])
-        self.assertIn('USA', [row.text for row in rows])
-        self.assertIn('Good over all aroma and bittering hops', [row.text for row in rows])
+        self.find_text_in_hops_table('Amarillo')
+        self.find_text_in_hops_table('8.00')
+        self.find_text_in_hops_table('11.00')
+        self.find_text_in_hops_table('USA')
+        self.find_text_in_hops_table('Good over all aroma and bittering hops')
 
         # Satisfied, he closes his browser and brews some beer
         hops_page = self.browser.current_url
@@ -102,14 +102,11 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # to make sure the information he entered is still here
         self.browser.get(hops_page)
 
-        table = self.browser.find_element_by_id('hops_list_table')
-        rows = table.find_elements_by_tag_name('td')
-
-        self.assertIn('Amarillo', [row.text for row in rows])
-        self.assertIn('8.00', [row.text for row in rows])
-        self.assertIn('11.00', [row.text for row in rows])
-        self.assertIn('USA', [row.text for row in rows])
-        self.assertIn('Good over all aroma and bittering hops', [row.text for row in rows])
+        self.find_text_in_hops_table('Amarillo')
+        self.find_text_in_hops_table('8.00')
+        self.find_text_in_hops_table('11.00')
+        self.find_text_in_hops_table('USA')
+        self.find_text_in_hops_table('Good over all aroma and bittering hops')
 
         # Satisfied once again, he returns to his boil.
 
@@ -213,9 +210,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.browser.implicitly_wait(6)
 
         # He sees the new hop record saved correctly
-        table = self.browser.find_element_by_id('hops_list_table')
-        rows = table.find_elements_by_tag_name('td')
-        self.assertIn('Northern', [row.text for row in rows])
+        self.find_text_in_hops_table('Northern')
 
         # But there's a problem, he meant 'Chinook'! He
         # could change his entry, but he's in a hurry so he selects the delete link
