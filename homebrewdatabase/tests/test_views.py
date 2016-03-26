@@ -1,11 +1,13 @@
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from django.test import TestCase
+from django.utils.html import escape
 
 from homebrewdatabase.forms import HopForm
 from homebrewdatabase.models import Hop
 from homebrewdatabase.views import index, hops, addhops
 
+import unittest
 
 class TestHomePageView(TestCase):
 
@@ -163,3 +165,29 @@ class TestHopsPageView(TestCase):
 
         response = self.client.get('/beerdb/add/hops/')
         self.assertIsInstance(response.context['form'], HopForm)
+
+    @unittest.skip('refactoring addhops\n')
+    def test_validation_errors_return_hops_list_page(self):
+        response = self.client.post(
+            '/beerdb/add/hops',
+            data={
+                'name': '',
+                'min_alpha_acid': '',
+                'max_alpha_acid': '',
+                'country': '',
+                'comments': ''
+            })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'hops.html')
+        name_validation_error = escape("A hop name is required")
+        min_alpha_acid_error = escape("You must enter a min alpha acid")
+        max_alpha_acid_error = escape("You must enter a max alpha acid")
+        country_error = escape("You must enter a country")
+        comments_error = escape("You must enter a comment")
+
+        self.assertContains(response, name_validation_error)
+        self.assertContains(response, min_alpha_acid_error)
+        self.assertContains(response, max_alpha_acid_error)
+        self.assertContains(response,country_error)
+        self.assertContains(response, comments_error)

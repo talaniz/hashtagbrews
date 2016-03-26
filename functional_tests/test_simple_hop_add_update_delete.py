@@ -1,24 +1,10 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
+from .base import FunctionalTest
 
-class NewVisitorTest(StaticLiveServerTestCase):
-    # Test to check new visitor functionality
 
-    def setUp(self):
-        self.browser = webdriver.Firefox()
-        self.browser.set_window_size(1750, 1000)
-
-    def tearDown(self):
-        self.browser.refresh()
-        self.browser.quit()
-
-    def find_text_in_hops_table(self, text):
-        table = self.browser.find_element_by_id("hops_list_table")
-        rows = table.find_elements_by_tag_name('td')
-        self.assertIn(text, [row.text for row in rows])
+class NewVisitorTest(FunctionalTest):
 
     def test_user_can_navigate_to_hops_page_and_save_hops_record(self):
 
@@ -113,7 +99,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
     def test_user_can_update_hop_record(self):
         # John has decided to contribute to the open source homebrew database
         # He navigates to the hops page (Kevin showed him), and selects add hops
-
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
         self.browser.get(hop_live_server_url)
 

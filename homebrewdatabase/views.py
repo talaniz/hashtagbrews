@@ -1,5 +1,4 @@
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 
 from .forms import HopForm
@@ -22,6 +21,9 @@ def hops(request):
 
 
 def addhops(request):
+
+    add_form = HopForm(request.POST or None)
+
     if request.method == 'POST':
         Hop.objects.create(name=request.POST['name'],
                            min_alpha_acid=request.POST['min_alpha_acid'],
@@ -30,7 +32,7 @@ def addhops(request):
                            comments=request.POST['comments']
                            )
         return redirect('hops_list')
-    return render(request, 'homebrewdatabase/addhops.html', {'form': HopForm()})
+    return render(request, 'homebrewdatabase/addhops.html', {'form': add_form})
 
 
 def updatehops(request, pk):
@@ -60,6 +62,6 @@ def deletehops(request, pk):
         return redirect(success_url)
     hop_form_url = reverse('deletehops', kwargs={'pk': hop_record.id})
     return render(request, 'homebrewdatabase/deletehops.html',
-                 {'action': hop_form_url,
-                  'hop': hop_record
-                  })
+                  {'action': hop_form_url,
+                   'hop': hop_record
+                   })
