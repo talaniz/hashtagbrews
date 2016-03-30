@@ -25,13 +25,17 @@ def addhops(request):
     add_form = HopForm(request.POST or None)
 
     if request.method == 'POST':
-        Hop.objects.create(name=request.POST['name'],
-                           min_alpha_acid=request.POST['min_alpha_acid'],
-                           max_alpha_acid=request.POST['max_alpha_acid'],
-                           country=request.POST['country'],
-                           comments=request.POST['comments']
-                           )
-        return redirect('hops_list')
+        if add_form.is_valid():
+            Hop.objects.create(name=request.POST['name'],
+                               min_alpha_acid=request.POST['min_alpha_acid'],
+                               max_alpha_acid=request.POST['max_alpha_acid'],
+                               country=request.POST['country'],
+                               comments=request.POST['comments']
+                               )
+            return redirect('hops_list')
+        else:
+            hops_list = Hop.objects.all()
+            return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list, 'form': add_form})
     return render(request, 'homebrewdatabase/addhops.html', {'form': add_form})
 
 

@@ -7,7 +7,6 @@ from homebrewdatabase.forms import HopForm
 from homebrewdatabase.models import Hop
 from homebrewdatabase.views import index, hops, addhops
 
-import unittest
 
 class TestHomePageView(TestCase):
 
@@ -166,28 +165,44 @@ class TestHopsPageView(TestCase):
         response = self.client.get('/beerdb/add/hops/')
         self.assertIsInstance(response.context['form'], HopForm)
 
-    @unittest.skip('refactoring addhops\n')
-    def test_validation_errors_return_hops_list_page(self):
-        response = self.client.post(
-            '/beerdb/add/hops',
-            data={
-                'name': '',
-                'min_alpha_acid': '',
-                'max_alpha_acid': '',
-                'country': '',
-                'comments': ''
-            })
+    def test_blank_input_on_addhops_page_returns_hopslist_page_with_errors(self):
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = ''
+        request.POST['min_alpha_acid'] = ''
+        request.POST['max_alpha_acid'] = ''
+        request.POST['country'] = 'USA'
+        request.POST['comments'] = ''
+
+        response = addhops(request)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'hops.html')
         name_validation_error = escape("A hop name is required")
         min_alpha_acid_error = escape("You must enter a min alpha acid")
         max_alpha_acid_error = escape("You must enter a max alpha acid")
-        country_error = escape("You must enter a country")
         comments_error = escape("You must enter a comment")
 
         self.assertContains(response, name_validation_error)
         self.assertContains(response, min_alpha_acid_error)
         self.assertContains(response, max_alpha_acid_error)
-        self.assertContains(response,country_error)
         self.assertContains(response, comments_error)
+
+    def test_invalid_input_on_addhops_page_returns_hopslist_page_with_errors(self):
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = 'test'
+        request.POST['min_alpha_acid'] = 'bad value'
+        request.POST['max_alpha_acid'] = 'another bad value'
+        request.POST['country'] = 'USA'
+        request.POST['comments'] = 'stuffs'
+
+        response = addhops(request)
+
+        self.assertEqual(response.status_code, 200)
+        min_alpha_acid_error = escape("This field requires a decimal number")
+        max_alpha_acid_error = escape("This field requires a decimal number")
+
+        self.assertContains(response, min_alpha_acid_error)
+        self.assertContains(response, max_alpha_acid_error)

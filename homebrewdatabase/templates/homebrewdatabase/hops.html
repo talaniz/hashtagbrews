@@ -3,6 +3,15 @@
         {% block title %}<title>Homebrew Materials Database</title>{% endblock %}
 
         {% block content %}
+
+        {% if form.errors %}
+            <div id="validation_errors" class="alert alert-danger">
+                {% for value in form.errors.items %}
+                    {{ value.1 }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <h1>Hops</h1>
 
         <!--Button for modal to add hops-->
