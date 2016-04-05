@@ -49,6 +49,9 @@ def updatehops(request, pk):
             edit_form.save()
             success_url = reverse('hops_list')
             return redirect(success_url)
+        else:
+            hops_list = Hop.objects.all()
+            return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list, 'form': edit_form})
     hop_form_url = reverse('updatehops', kwargs={'pk': hop_record.id})
     return render(request, 'homebrewdatabase/updatehops.html',
                   {'action': hop_form_url,

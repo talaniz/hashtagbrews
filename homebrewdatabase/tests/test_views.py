@@ -206,3 +206,41 @@ class TestHopsPageView(TestCase):
 
         self.assertContains(response, min_alpha_acid_error)
         self.assertContains(response, max_alpha_acid_error)
+
+    def test_blank_input_on_update_hops_page_returns_hopslist_page_with_errors(self):
+        self.client.post(
+            '/beerdb/add/hops/',
+            data={
+                'name': 'Warrior',
+                'min_alpha_acid': 24.00,
+                'max_alpha_acid': 32.00,
+                'country': 'USA',
+                'comments': 'Very bitter, not good for aroma'
+            })
+
+        hop_instance = Hop.objects.filter(name='Warrior')[0]
+
+        response = self.client.get('/beerdb/edit/%d/hops/' % hop_instance.id)
+
+        self.assertEqual(response.status_code, 200)
+
+        edit_form = response.context['form']
+        hop_record = edit_form.initial
+
+        hop_record['name'] = ''
+        hop_record['min_alpha_acid'] = ''
+        hop_record['max_alpha_acid'] = ''
+        hop_record['comments'] = ''
+
+        response = self.client.post('/beerdb/edit/%d/hops/' % hop_instance.id, data=hop_record)
+
+        self.assertEqual(response.status_code, 200)
+        name_validation_error = escape("A hop name is required")
+        min_alpha_acid_error = escape("You must enter a min alpha acid")
+        max_alpha_acid_error = escape("You must enter a max alpha acid")
+        comments_error = escape("You must enter a comment")
+
+        self.assertContains(response, name_validation_error)
+        self.assertContains(response, min_alpha_acid_error)
+        self.assertContains(response, max_alpha_acid_error)
+        self.assertContains(response, comments_error)
