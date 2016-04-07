@@ -51,7 +51,10 @@ def updatehops(request, pk):
             return redirect(success_url)
         else:
             hops_list = Hop.objects.all()
-            return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list, 'form': edit_form})
+            return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list,
+                                                                  'form': HopForm(),
+                                                                  'errors': edit_form.errors
+                                                                  })
     hop_form_url = reverse('updatehops', kwargs={'pk': hop_record.id})
     return render(request, 'homebrewdatabase/updatehops.html',
                   {'action': hop_form_url,
@@ -72,3 +75,6 @@ def deletehops(request, pk):
                   {'action': hop_form_url,
                    'hop': hop_record
                    })
+
+def grains(request):
+    return render(request, 'homebrewdatabase/grains.html')

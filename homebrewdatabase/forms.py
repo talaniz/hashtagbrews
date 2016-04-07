@@ -24,3 +24,4 @@ class HopForm(forms.models.ModelForm):
             'country': {'required': 'You must enter a country'},
             'comments': {'required': 'You must enter a comment'}
         }
+    # TODO: Adjust error messages from min/max alpha acid to "{{ field name}} must be a decimal number"

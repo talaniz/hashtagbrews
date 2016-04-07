@@ -10,6 +10,12 @@
                     {{ value.1 }}
                 {% endfor %}
             </div>
+        {% elif errors %}
+            <div id="validation_errors" class="alert alert-danger">
+                {% for value in errors.items %}
+                    {{ value.1 }}
+                {% endfor %}
+            </div>
         {% endif %}
 
         <h1>Hops</h1>

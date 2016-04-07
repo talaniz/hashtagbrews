@@ -5,7 +5,7 @@ from django.utils.html import escape
 
 from homebrewdatabase.forms import HopForm
 from homebrewdatabase.models import Hop
-from homebrewdatabase.views import index, hops, addhops
+from homebrewdatabase.views import index, hops, addhops, grains
 
 
 class TestHomePageView(TestCase):
@@ -244,3 +244,12 @@ class TestHopsPageView(TestCase):
         self.assertContains(response, min_alpha_acid_error)
         self.assertContains(response, max_alpha_acid_error)
         self.assertContains(response, comments_error)
+
+
+class TestGrainsPageView(TestCase):
+
+    def test_grains_page_returns_correct_template(self):
+        request = HttpRequest()
+        response = grains(request)
+        expected_html = render_to_string('homebrewdatabase/grains.html')
+        self.assertEqual(response.content.decode(), expected_html)
