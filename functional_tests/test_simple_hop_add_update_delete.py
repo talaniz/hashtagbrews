@@ -71,11 +71,11 @@ class NewVisitorTest(FunctionalTest):
         self.browser.implicitly_wait(6)
 
         # He can see the homepage with his hop record in the table
-        self.find_text_in_hops_table('Amarillo')
-        self.find_text_in_hops_table('8.00')
-        self.find_text_in_hops_table('11.00')
-        self.find_text_in_hops_table('USA')
-        self.find_text_in_hops_table('Good over all aroma and bittering hops')
+        self.find_text_in_table('Amarillo')
+        self.find_text_in_table('8.00')
+        self.find_text_in_table('11.00')
+        self.find_text_in_table('USA')
+        self.find_text_in_table('Good over all aroma and bittering hops')
 
         # Satisfied, he closes his browser and brews some beer
         hops_page = self.browser.current_url
@@ -88,11 +88,11 @@ class NewVisitorTest(FunctionalTest):
         # to make sure the information he entered is still here
         self.browser.get(hops_page)
 
-        self.find_text_in_hops_table('Amarillo')
-        self.find_text_in_hops_table('8.00')
-        self.find_text_in_hops_table('11.00')
-        self.find_text_in_hops_table('USA')
-        self.find_text_in_hops_table('Good over all aroma and bittering hops')
+        self.find_text_in_table('Amarillo')
+        self.find_text_in_table('8.00')
+        self.find_text_in_table('11.00')
+        self.find_text_in_table('USA')
+        self.find_text_in_table('Good over all aroma and bittering hops')
 
         # Satisfied once again, he returns to his boil.
 
@@ -195,7 +195,7 @@ class NewVisitorTest(FunctionalTest):
         self.browser.implicitly_wait(6)
 
         # He sees the new hop record saved correctly
-        self.find_text_in_hops_table('Northern')
+        self.find_text_in_table('Northern')
 
         # But there's a problem, he meant 'Chinook'! He
         # could change his entry, but he's in a hurry so he selects the delete link
@@ -214,5 +214,4 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotIn('Northern', [row.text for row in rows])
 
 
-        # TODO: write additional validation test to make sure the hops record is only saved once instead of additional
-        # TODO (cont) hop instances being created/saved in test_hop_form_validation.py
+        # TODO: write test for unique hop records

@@ -1,3 +1,6 @@
+from selenium import webdriver
+from selenium.webdriver.support.select import Select
+
 from .base import FunctionalTest
 
 
@@ -40,4 +43,52 @@ class NewGrainVisitorTest(FunctionalTest):
 
         self.assertIn(page_heading, 'Grains')
 
-        self.fail('Finish the test!')
+        # He finds the Add Grain button and clicks, a modal
+        # form appears and he enters in a new hops name
+        self.browser.find_element_by_id("add_grain").click()
+
+        self.browser.implicitly_wait(6)
+
+        # He enters the information into the form and clicks submit.
+        inputbox = self.browser.find_element_by_id('grain_name')
+        inputbox.send_keys('Carared')
+
+        inputbox = self.browser.find_element_by_id('degrees_lovibond')
+        inputbox.send_keys('1.5')
+
+        select = Select(self.browser.find_element_by_id('specific_gravity'))
+        select.select_by_visible_text('1.023')
+
+        inputbox = self.browser.find_element_by_id('malt_type')
+        inputbox.send_keys('GRN')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Red amber color')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+        self.browser.implicitly_wait(6)
+
+        # He can see the homepage with his hop record in the table
+        self.find_text_in_table('Carared')
+        self.find_text_in_table('1.5')
+        self.find_text_in_table('1.023')
+        self.find_text_in_table('Red amber color')
+
+        # Satisfied, he closes his browser and brews some beer
+        grains_page = self.browser.current_url
+        self.browser.refresh()
+        self.browser.quit()
+        self.browser = webdriver.Firefox()
+
+        # Kevin wonders if the site really saved his record.
+        # He opens up the browser to the grains main page and checks
+        # to make sure the information he entered is still here
+        self.browser.get(grains_page)
+
+        self.find_text_in_table('Carared')
+        self.find_text_in_table('1.5')
+        self.find_text_in_table('1.023')
+        self.find_text_in_table('Red amber color')
+
+        # Satisfied once again, he returns to his boil.

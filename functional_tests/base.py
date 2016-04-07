@@ -13,7 +13,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.refresh()
         self.browser.quit()
 
-    def find_text_in_hops_table(self, text):
+    def find_text_in_table(self, text):
         table = self.browser.find_element_by_id("hops_list_table")
         rows = table.find_elements_by_tag_name('td')
         self.assertIn(text, [row.text for row in rows])
