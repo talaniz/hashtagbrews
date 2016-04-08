@@ -1,6 +1,8 @@
+from decimal import Decimal
+
 from django.test import TestCase
 
-from homebrewdatabase.models import Hop
+from homebrewdatabase.models import Hop, Grain
 
 
 class HopModelTest(TestCase):
@@ -38,3 +40,42 @@ class HopModelTest(TestCase):
         self.assertEqual(second_saved_hop.max_alpha_acid, 14.00)
         self.assertEqual(second_saved_hop.country, 'USA')
         self.assertEqual(second_saved_hop.comments, 'Good for bittering, not great for aroma')
+
+
+class GrainModelTest(TestCase):
+
+    def test_saving_grain_and_retrieving_later(self):
+
+        first_grain = Grain()
+        first_grain.name = 'Cara Red'
+        first_grain.degrees_lovibond = '1.5'
+        first_grain.specific_gravity = '1.000'
+        first_grain.grain_type = 'GRN'
+        first_grain.comments = 'Amber red color'
+        first_grain.save()
+
+        second_grain = Grain()
+        second_grain.name = "Pale Chocolate"
+        second_grain.degrees_lovibond ="150.00"
+        second_grain.specific_gravity = "12.000"
+        second_grain.grain_type = 'GRN'
+        second_grain.comments = 'Dark malt that gives a rich red or brown color'
+        second_grain.save()
+
+        saved_grains = Grain.objects.all()
+        self.assertEqual(saved_grains.count(), 2)
+
+        first_saved_grain = saved_grains[0]
+        second_saved_grain = saved_grains[1]
+
+        self.assertEqual(first_saved_grain.name, 'Cara Red')
+        self.assertEqual(first_saved_grain.degrees_lovibond, 1.50)
+        self.assertEqual(first_saved_grain.specific_gravity, 1.000)
+        self.assertEqual(first_saved_grain.grain_type, 'GRN')
+        self.assertEqual(first_saved_grain.comments, 'Amber red color')
+
+        self.assertEqual(second_saved_grain.name, 'Pale Chocolate')
+        self.assertEqual(second_saved_grain.degrees_lovibond, 150.00)
+        self.assertEqual(second_saved_grain.specific_gravity, 12.000)
+        self.assertEqual(second_saved_grain.grain_type, 'GRN')
+        self.assertEqual(second_saved_grain.comments, 'Dark malt that gives a rich red or brown color')

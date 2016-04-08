@@ -42,3 +42,28 @@ class Hop(models.Model):
 
     def get_absolute_url(self):
         return reverse('updatehops', kwargs={'pk': self.id})
+
+
+class Grain(models.Model):
+
+    name = models.CharField(max_length=200, default='')
+    degrees_lovibond = models.DecimalField("Degrees (L)", max_digits=5, decimal_places=2)
+    specific_gravity = models.DecimalField(max_digits=6, decimal_places=3)
+
+    GRAIN = 'GRN'
+    LIQUID_EXTRACT = 'LME'
+    DRY_EXTRACT = 'DME'
+    ADJUNCT = 'ADJ'
+
+    MALT_FORMS = (
+        (GRAIN, 'Grain'),
+        (LIQUID_EXTRACT, 'Liquid Malt Extract'),
+        (DRY_EXTRACT, 'Dry Malt Extract'),
+        (ADJUNCT, 'Adjuncts'),
+    )
+
+    grain_type = models.CharField(max_length=3,
+                                 choices=MALT_FORMS,
+                                 default=LIQUID_EXTRACT)
+
+    comments = models.TextField(default='')
