@@ -5,7 +5,7 @@ from django.utils.html import escape
 
 from homebrewdatabase.forms import HopForm
 from homebrewdatabase.models import Hop
-from homebrewdatabase.views import index, hops, addhops, grains
+from homebrewdatabase.views import index, hops, addhops, grains, addgrains
 
 
 class TestHomePageView(TestCase):
@@ -253,3 +253,21 @@ class TestGrainsPageView(TestCase):
         response = grains(request)
         expected_html = render_to_string('homebrewdatabase/grains.html')
         self.assertEqual(response.content.decode(), expected_html)
+
+    def test_can_add_new_grain_and_save_a_POST_request(self):
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = 'Carared'
+        request.POST['degrees_lovibond'] = 1.5
+        request.POST['grain_type'] = 'GRN'
+        request.POST['specific_gravity'] = 1.032
+        request.POST['comments'] = 'Amber red color'
+
+        response = addgrains(request)
+
+        self.assertIn('Carared', response.content.decode())
+        self.assertIn('1.5', response.content.decode())
+        self.assertIn('GRN', response.content.decode())
+        self.assertIn('1.032', response.content.decode())
+        self.assertIn('Amber red color', response.content.decode())

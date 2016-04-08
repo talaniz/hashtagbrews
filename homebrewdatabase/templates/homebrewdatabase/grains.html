@@ -4,4 +4,22 @@
 {% block title %}<title>Homebrew Materials Database</title>{% endblock %}
 {% block content %}
 <h1>Grains</h1>
+
+
+    <table id="grains_list_table" class="table table-bordered table-striped">
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Degrees (L)</th>
+                <th>Type</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>{{ name }}</td>
+                <td>{{ degrees_lovibond }}</td>
+                <td>{{ grain_type }}</td>
+                <td>{{ specific_gravity }}</td>
+                <td>{{ comments }}</td>
+            </tr>
+        </table>
 {% endblock %}

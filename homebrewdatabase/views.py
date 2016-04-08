@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 
 from .forms import HopForm
@@ -76,5 +77,18 @@ def deletehops(request, pk):
                    'hop': hop_record
                    })
 
+
 def grains(request):
     return render(request, 'homebrewdatabase/grains.html')
+
+
+def addgrains(request):
+    if request.method == 'POST':
+        return render(request, 'homebrewdatabase/grains.html',
+                      {'name': request.POST.get('name', ''),
+                       'degrees_lovibond': request.POST.get('degrees_lovibond', ''),
+                       'grain_type': request.POST.get('grain_type', ''),
+                       'specific_gravity': request.POST.get('specific_gravity', ''),
+                       'comments': request.POST.get('comments')
+                       })
+    return render(request, 'homebrewdatabase/addgrains.html')

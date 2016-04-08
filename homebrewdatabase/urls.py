@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^hops/$', views.hops, name='hops_list'),
     url(r'^add/hops/$', views.addhops, name='addhops'),
     url(r'^grains/$', views.grains, name='grains_list'),
+    url(r'^add/grains/$', views.addgrains, name='addgrains'),
 ]
