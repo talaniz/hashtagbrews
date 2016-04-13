@@ -59,7 +59,7 @@ class NewGrainVisitorTest(FunctionalTest):
         inputbox = self.browser.find_element_by_id('specific_gravity')
         inputbox.send_keys('1.20')
 
-        select = Select(self.browser.find_element_by_id('grain_type'))
+        select = Select(self.browser.find_element_by_id('id_grain_type'))
         select.select_by_visible_text('Grain')
 
         inputbox = self.browser.find_element_by_id('comments')

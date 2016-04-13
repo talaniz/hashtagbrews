@@ -248,6 +248,10 @@ class TestHopsPageView(TestCase):
 
 class TestGrainsPageView(TestCase):
 
+    def test_grains_page_returns_correct_template(self):
+        response = self.client.get('/beerdb/grains/')
+        self.assertTemplateUsed(response, 'homebrewdatabase/grains.html')
+
     def test_can_add_new_grain_and_save_a_POST_request(self):
         request = HttpRequest()
 

@@ -1,6 +1,6 @@
 from django import forms
 
-from homebrewdatabase.models import Hop
+from homebrewdatabase.models import Hop, Grain
 
 
 class HopForm(forms.models.ModelForm):
@@ -25,3 +25,17 @@ class HopForm(forms.models.ModelForm):
             'comments': {'required': 'You must enter a comment'}
         }
     # TODO: Adjust error messages from min/max alpha acid to "{{ field name}} must be a decimal number"
+
+
+class GrainForm(forms.models.ModelForm):
+
+    class Meta:
+        model = Grain
+        fields = ('name', 'degrees_lovibond', 'specific_gravity', 'grain_type', 'comments')
+
+        widgets = {
+            'name': forms.fields.TextInput(attrs={'id': 'name'}),
+            'degrees_lovibond': forms.fields.TextInput(attrs={'id': 'degrees_lovibond'}),
+            'specific_gravity': forms.fields.TextInput(attrs={'id': 'specific_gravity'}),
+            'comments': forms.fields.TextInput(attrs={'id': 'comments'})
+        }

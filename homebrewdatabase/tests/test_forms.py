@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from homebrewdatabase.forms import HopForm
+from homebrewdatabase.forms import HopForm, GrainForm
 
 
 class HopFormTest(TestCase):
@@ -8,7 +8,7 @@ class HopFormTest(TestCase):
     def test_form_returns_correct_elements(self):
         form = HopForm()
 
-        form_elements = ['name="name', 'id="new_hops"', 'name="min_alpha_acid"',
+        form_elements = ['name="name"', 'id="new_hops"', 'name="min_alpha_acid"',
                          'id="min_alpha_acid', 'name="max_alpha_acid"',
                          'id="max_alpha_acid"', 'name="country"',
                          'id="comments"', 'name="comments'
@@ -75,3 +75,16 @@ class HopFormTest(TestCase):
         )
 
         # TODO: add validation for unique hops name
+
+
+class GrainFormTest(TestCase):
+
+    def test_grain_form_returns_correct_elements(self):
+        form = GrainForm()
+
+        form_elements = ['name="name"', 'id="name"', 'id="degrees_lovibond"', 'name="degrees_lovibond"',
+                         'id="id_grain_type"', 'name="grain_type"', 'id="comments"', 'name="comments"'
+                         ]
+
+        for element in form_elements:
+            self.assertIn(element, form.as_p())
