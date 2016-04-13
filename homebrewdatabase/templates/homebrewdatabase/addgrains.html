@@ -6,8 +6,16 @@
         </div>
         <form action="{% url 'addgrains' %}" method="POST">
             <div class="modal-body">
-                <input id="name">
-                <input id="degrees_lovibond">
+                Grain Name: <input name="name" id="name">
+                Degrees (L): <input name="degrees_lovibond" id="degrees_lovibond">
+                Specific Gravity: <input name="specific_gravity" id="specific_gravity">
+                Grain Type: <select name="grain_type" id="grain_type">
+                                <option value="GRN">Grain</option>
+                                <option value="LME">Liquid Malt Extract</option>
+                                <option value="DME">Dry Malt Extract</option>
+                                <option value="ADJ">Adjunct</option>
+                             </select>
+                Comments: <input name="comments" id="comments">
                 {%  csrf_token %}
             </div>
         <div class="modal-footer">

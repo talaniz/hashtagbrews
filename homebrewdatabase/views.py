@@ -3,7 +3,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 
 from .forms import HopForm
-from .models import Hop
+from .models import Hop, Grain
 
 
 def index(request):
@@ -79,16 +79,18 @@ def deletehops(request, pk):
 
 
 def grains(request):
-    return render(request, 'homebrewdatabase/grains.html')
+    grains_list = Grain.objects.all()
+    return render(request, 'homebrewdatabase/grains.html', {'grains': grains_list})
 
 
 def addgrains(request):
     if request.method == 'POST':
-        return render(request, 'homebrewdatabase/grains.html',
-                      {'name': request.POST.get('name', ''),
-                       'degrees_lovibond': request.POST.get('degrees_lovibond', ''),
-                       'grain_type': request.POST.get('grain_type', ''),
-                       'specific_gravity': request.POST.get('specific_gravity', ''),
-                       'comments': request.POST.get('comments')
-                       })
+        Grain.objects.create(name=request.POST.get('name', ''),
+                             degrees_lovibond=request.POST.get('degrees_lovibond', ''),
+                             specific_gravity=request.POST.get('specific_gravity', ''),
+                             grain_type=request.POST.get('grain_type', ''),
+                             comments=request.POST.get('comments', '')
+                             )
+        success_url = reverse('grains_list')
+        return redirect(success_url)
     return render(request, 'homebrewdatabase/addgrains.html')

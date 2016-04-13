@@ -3,23 +3,43 @@
 
 {% block title %}<title>Homebrew Materials Database</title>{% endblock %}
 {% block content %}
+
 <h1>Grains</h1>
 
 
-    <table id="grains_list_table" class="table table-bordered table-striped">
+
+    <!--Button for modal to add grains-->
+        <button id="add_grain" type="button" data-toggle="modal" data-target="#addgrain" class="btn btn-primary">
+            Add Grains
+        </button>
+
+    <!--Modal data begins here to add grains-->
+        <div class="modal fade" id="addgrain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                   {% include 'homebrewdatabase/addgrains.html' %}
+               </div>
+            </div>
+        </div>
+
+    <table id="list_table" class="table table-bordered table-striped">
             <tr>
                 <th></th>
                 <th>Name</th>
                 <th>Degrees (L)</th>
-                <th>Type</th>
+                <th>Grain Type</th>
+                <th>Specific Gravity</th>
+                <th>Comments</th>
             </tr>
+            {% for grain in grains %}
             <tr>
                 <td></td>
-                <td>{{ name }}</td>
-                <td>{{ degrees_lovibond }}</td>
-                <td>{{ grain_type }}</td>
-                <td>{{ specific_gravity }}</td>
-                <td>{{ comments }}</td>
+                <td>{{ grain.name }}</td>
+                <td>{{ grain.degrees_lovibond }}</td>
+                <td>{{ grain.grain_type }}</td>
+                <td>{{ grain.specific_gravity }}</td>
+                <td>{{ grain.comments }}</td>
             </tr>
+            {% endfor %}
         </table>
 {% endblock %}

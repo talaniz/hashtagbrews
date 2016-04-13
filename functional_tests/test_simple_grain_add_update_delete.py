@@ -50,17 +50,17 @@ class NewGrainVisitorTest(FunctionalTest):
         self.browser.implicitly_wait(6)
 
         # He enters the information into the form and clicks submit.
-        inputbox = self.browser.find_element_by_id('grain_name')
+        inputbox = self.browser.find_element_by_id('name')
         inputbox.send_keys('Carared')
 
         inputbox = self.browser.find_element_by_id('degrees_lovibond')
         inputbox.send_keys('1.5')
 
-        select = Select(self.browser.find_element_by_id('specific_gravity'))
-        select.select_by_visible_text('1.023')
+        inputbox = self.browser.find_element_by_id('specific_gravity')
+        inputbox.send_keys('1.20')
 
-        inputbox = self.browser.find_element_by_id('malt_type')
-        inputbox.send_keys('GRN')
+        select = Select(self.browser.find_element_by_id('grain_type'))
+        select.select_by_visible_text('Grain')
 
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('Red amber color')
@@ -71,8 +71,8 @@ class NewGrainVisitorTest(FunctionalTest):
 
         # He can see the homepage with his hop record in the table
         self.find_text_in_table('Carared')
-        self.find_text_in_table('1.5')
-        self.find_text_in_table('1.023')
+        self.find_text_in_table('1.50')
+        self.find_text_in_table('1.200')
         self.find_text_in_table('Red amber color')
 
         # Satisfied, he closes his browser and brews some beer
@@ -87,8 +87,8 @@ class NewGrainVisitorTest(FunctionalTest):
         self.browser.get(grains_page)
 
         self.find_text_in_table('Carared')
-        self.find_text_in_table('1.5')
-        self.find_text_in_table('1.023')
+        self.find_text_in_table('1.50')
+        self.find_text_in_table('1.200')
         self.find_text_in_table('Red amber color')
 
         # Satisfied once again, he returns to his boil.

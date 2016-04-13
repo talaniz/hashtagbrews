@@ -1,5 +1,3 @@
-from decimal import Decimal
-
 from django.test import TestCase
 
 from homebrewdatabase.models import Hop, Grain

@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils.html import escape
 
 from homebrewdatabase.forms import HopForm
-from homebrewdatabase.models import Hop
+from homebrewdatabase.models import Hop, Grain
 from homebrewdatabase.views import index, hops, addhops, grains, addgrains
 
 
@@ -248,26 +248,80 @@ class TestHopsPageView(TestCase):
 
 class TestGrainsPageView(TestCase):
 
-    def test_grains_page_returns_correct_template(self):
-        request = HttpRequest()
-        response = grains(request)
-        expected_html = render_to_string('homebrewdatabase/grains.html')
-        self.assertEqual(response.content.decode(), expected_html)
-
     def test_can_add_new_grain_and_save_a_POST_request(self):
         request = HttpRequest()
 
         request.method = 'POST'
         request.POST['name'] = 'Carared'
         request.POST['degrees_lovibond'] = 1.5
+        request.POST['specific_gravity'] = 120.00
         request.POST['grain_type'] = 'GRN'
-        request.POST['specific_gravity'] = 1.032
+        request.POST['comments'] = 'Amber red color'
+
+        addgrains(request)
+
+        new_grain = Grain.objects.first()
+
+        self.assertEqual(new_grain.name, 'Carared')
+        self.assertAlmostEqual(new_grain.degrees_lovibond, 1.50)
+        self.assertEqual(new_grain.specific_gravity, 120.00)
+        self.assertEqual(new_grain.grain_type, 'GRN')
+        self.assertEqual(new_grain.comments, 'Amber red color')
+
+    def test_add_grains_redirects_after_POST(self):
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = 'Carared'
+        request.POST['degrees_lovibond'] = 1.5
+        request.POST['specific_gravity'] = 120.00
+        request.POST['grain_type'] = 'GRN'
         request.POST['comments'] = 'Amber red color'
 
         response = addgrains(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/beerdb/grains/')
+
+    def test_add_grain_page_only_saves_when_necessary(self):
+        request = HttpRequest()
+        addgrains(request)
+        self.assertEqual(Grain.objects.count(), 0)
+
+    def test_grains_page_displays_all_hops_records(self):
+        Grain.objects.create(name='Carared',
+                             degrees_lovibond=1.50,
+                             specific_gravity=120.00,
+                             grain_type='GRN',
+                             comments='Amber red color'
+                             )
+
+        Grain.objects.create(name='Pale Chocolate',
+                             degrees_lovibond='150.00',
+                             specific_gravity='12.00',
+                             grain_type='GRN',
+                             comments='Dark malt that gives a rich red or brown color'
+                             )
+
+        request = HttpRequest()
+        response = grains(request)
 
         self.assertIn('Carared', response.content.decode())
-        self.assertIn('1.5', response.content.decode())
-        self.assertIn('GRN', response.content.decode())
-        self.assertIn('1.032', response.content.decode())
-        self.assertIn('Amber red color', response.content.decode())
+        self.assertIn('Pale Chocolate', response.content.decode())
+
+    def test_add_grains_view_saves_record(self):
+        response = self.client.post(
+            '/beerdb/add/grains/',
+            data={
+                'name': 'Carared',
+                'degrees_lovibond': 1.50,
+                'specific_gravity': 120.00,
+                'grain_type': 'GRN',
+                'comments': 'Amber red color'
+            })
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/beerdb/grains/')
+
+        grain_record = Grain.objects.filter(name='Carared')
+
+        self.assertEqual(grain_record[0].name, 'Carared')

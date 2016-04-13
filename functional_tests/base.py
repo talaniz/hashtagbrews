@@ -14,6 +14,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.quit()
 
     def find_text_in_table(self, text):
-        table = self.browser.find_element_by_id("hops_list_table")
+        table = self.browser.find_element_by_id("list_table")
         rows = table.find_elements_by_tag_name('td')
         self.assertIn(text, [row.text for row in rows])
