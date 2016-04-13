@@ -92,3 +92,69 @@ class NewGrainVisitorTest(FunctionalTest):
         self.find_text_in_table('Red amber color')
 
         # Satisfied once again, he returns to his boil.
+
+    def test_user_can_update_grain_record(self):
+        # John has decided to contribute to the open source homebrew database
+        # He navigates to the hops page (Kevin showed him), and selects add hops
+        hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+        self.browser.get(hop_live_server_url)
+
+        self.browser.find_element_by_id("add_grain").click()
+
+        self.browser.implicitly_wait(6)
+
+        # He enters the information into the form and clicks submit.
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('Carared')
+
+        inputbox = self.browser.find_element_by_id('degrees_lovibond')
+        inputbox.send_keys('1.50')
+
+        inputbox = self.browser.find_element_by_id('specific_gravity')
+        inputbox.send_keys('11.00')
+
+        select = Select(self.browser.find_element_by_id('id_grain_type'))
+        select.select_by_visible_text('Grain')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Adds reddish brown color')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+
+        # He closes out his browser, but then realizes that he's made a mistake.
+        grains_page = self.browser.current_url
+        self.browser.refresh()
+        self.browser.quit()
+
+        # The hop name wasn't 'Amarillo' it was 'Chinook'. He decides to go back and update the record
+        self.browser = webdriver.Firefox()
+        self.browser.get(grains_page)
+
+        self.browser.implicitly_wait(6)
+
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertEqual(header_text, 'Grains')
+
+        # He sees the link for the Amarillo hop record he just entered
+        # and he clicks on it, a bootstrap modal form with the information
+        # pops up
+        self.browser.find_element_by_link_text('Carared').click()
+        self.browser.implicitly_wait(6)
+
+        # He changes the hop name from Amarillo to Chinook and clicks submit.
+        # He's redirected back to the hops list page and can see the change updated
+        # in the table
+        inputbox = self.browser.find_element_by_id('update').find_element_by_id('name')
+
+        inputbox.clear()
+        inputbox.send_keys('Chocolate Pale')
+
+        submit_button = self.browser.find_element_by_id('update').find_element_by_id('submit')
+        submit_button.click()
+
+        table = self.browser.find_element_by_id('list_table')
+        rows = table.find_elements_by_tag_name('td')
+
+        self.assertIn('Chocolate Pale', [row.text for row in rows])
+        self.assertNotIn('Carared', [row.text for row in rows])

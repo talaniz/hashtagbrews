@@ -329,3 +329,37 @@ class TestGrainsPageView(TestCase):
         grain_record = Grain.objects.filter(name='Carared')
 
         self.assertEqual(grain_record[0].name, 'Carared')
+
+    def test_can_update_grain(self):
+        self.client.post(
+            '/beerdb/add/grains/',
+            data={
+                'name': 'Carared',
+                'degrees_lovibond': 24.00,
+                'specific_gravity': 32.00,
+                'grain_type': 'GRN',
+                'comments': 'Adds reddish brown color'
+            })
+
+        grain_instance = Grain.objects.filter(name='Carared')[0]
+
+        response = self.client.get('/beerdb/edit/%d/grains/' % grain_instance.id)
+
+        self.assertEqual(response.status_code, 200)
+
+        edit_form = response.context['form']
+        grain_record = edit_form.initial
+
+        grain_record['name'] = 'Chocolate Pale'
+
+        response = self.client.post('/beerdb/edit/%d/grains/' % grain_instance.id, data=grain_record)
+
+        self.assertEqual(response.status_code, 302)
+
+        grain_list = Grain.objects.filter(name='Chocolate Pale')
+
+        self.assertEqual(len(grain_list), 1)
+
+        hop_list = Hop.objects.filter(name='Carared')
+
+        self.assertEqual(len(hop_list), 0)

@@ -96,3 +96,20 @@ def addgrains(request):
         success_url = reverse('grains_list')
         return redirect(success_url)
     return render(request, 'homebrewdatabase/addgrains.html', {'form': add_form})
+
+
+def updategrains(request, pk):
+
+    grain_record = Grain.objects.filter(pk=pk)[0]
+    edit_form = GrainForm(request.POST or None, instance=grain_record)
+
+    if request.method == 'POST':
+        if edit_form.is_valid():
+            edit_form.save()
+            success_url = reverse('grains_list')
+            return redirect(success_url)
+    grain_form_url = reverse('updategrains', kwargs={'pk': grain_record.id})
+    return render(request, 'homebrewdatabase/updategrains.html', {
+                  'action': grain_form_url,
+                  'form': edit_form
+                  })

@@ -22,6 +22,15 @@
             </div>
         </div>
 
+            <!--Modal data begins here to edit hops-->
+        <div class="modal fade" id="updategrain" tabindex="-1" role="dialog" aria-labelledby="updateGrainLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    {% include 'homebrewdatabase/updategrains.html' %}
+                </div>
+            </div>
+        </div>
+
     <table id="list_table" class="table table-bordered table-striped">
             <tr>
                 <th></th>
@@ -34,7 +43,14 @@
             {% for grain in grains %}
             <tr>
                 <td></td>
-                <td>{{ grain.name }}</td>
+                <td>
+                    <a id="{{ grain.name }}"
+                       data-toggle="modal"
+                       data-target="#updategrain"
+                       href="{% url 'updategrains' pk=grain.id %}">
+                    {{ grain.name }}
+                    </a>
+                </td>
                 <td>{{ grain.degrees_lovibond }}</td>
                 <td>{{ grain.grain_type }}</td>
                 <td>{{ grain.specific_gravity }}</td>
