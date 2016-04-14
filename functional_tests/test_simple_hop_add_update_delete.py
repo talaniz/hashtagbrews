@@ -156,7 +156,7 @@ class NewVisitorTest(FunctionalTest):
         submit_button = self.browser.find_element_by_id('update').find_element_by_id('submit')
         submit_button.click()
 
-        table = self.browser.find_element_by_id('hops_list_table')
+        table = self.browser.find_element_by_id('list_table')
         rows = table.find_elements_by_tag_name('td')
 
         self.assertIn('Chinook', [row.text for row in rows])
@@ -209,7 +209,7 @@ class NewVisitorTest(FunctionalTest):
         self.browser.implicitly_wait(6)
 
         # He confirms and the record is no longer visible on the hops main table.
-        table = self.browser.find_element_by_id('hops_list_table')
+        table = self.browser.find_element_by_id('list_table')
         rows = table.find_elements_by_tag_name('td')
         self.assertNotIn('Northern', [row.text for row in rows])
 

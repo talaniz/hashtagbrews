@@ -113,3 +113,19 @@ def updategrains(request, pk):
                   'action': grain_form_url,
                   'form': edit_form
                   })
+
+
+def deletegrains(request, pk):
+
+    grain_record = Grain.objects.filter(pk=pk)[0]
+
+    if request.method == 'POST':
+        grain_record.delete()
+        success_url = reverse('grains_list')
+        return redirect(success_url)
+
+    grain_form_url = reverse('deletegrains', kwargs={'pk': grain_record.id})
+    return render(request, 'homebrewdatabase/deletegrains.html', {
+                  'action': grain_form_url,
+                  'grain': grain_record
+                  })

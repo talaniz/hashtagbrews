@@ -363,3 +363,29 @@ class TestGrainsPageView(TestCase):
         hop_list = Hop.objects.filter(name='Carared')
 
         self.assertEqual(len(hop_list), 0)
+
+    def test_can_delete_grain(self):
+        self.client.post(
+            '/beerdb/add/grains/',
+            data={'name': 'Munich Malt',
+                  'degrees_lovibond': 10.00,
+                  'specific_gravity': 1.20,
+                  'grain_type': 'LME',
+                  'comments': 'Sweet, toasted flavor and aroma'
+                  })
+
+        grain_instance = Grain.objects.filter(name='Munich Malt')[0]
+
+        self.assertEqual(grain_instance.name, 'Munich Malt')
+
+        response = self.client.get('/beerdb/delete/%s/grains/' % grain_instance.id)
+
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post('/beerdb/delete/%s/grains/' % grain_instance.id)
+
+        self.assertEqual(response.status_code, 302)
+
+        grains_list = Grain.objects.filter(name='Munich Malt')
+
+        self.assertEqual(len(grains_list), 0)

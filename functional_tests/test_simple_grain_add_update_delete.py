@@ -158,3 +158,54 @@ class NewGrainVisitorTest(FunctionalTest):
 
         self.assertIn('Chocolate Pale', [row.text for row in rows])
         self.assertNotIn('Carared', [row.text for row in rows])
+
+    def test_user_deletes_grain_record(self):
+        # Josh wants to contribute to the open source beer database.(Rave reviews from Kevin & John)
+        # He navigates to the site (courtesy of Kevin)
+        hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+        self.browser.get(hop_live_server_url)
+
+        # He eagerly clicks the 'Add Grains' button
+
+        self.browser.find_element_by_id("add_grain").click()
+
+        self.browser.implicitly_wait(6)
+
+        # He enters the information into the form and clicks submit.
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('Crystal Malt')
+
+        inputbox = self.browser.find_element_by_id('degrees_lovibond')
+        inputbox.send_keys('19.00')
+
+        inputbox = self.browser.find_element_by_id('specific_gravity')
+        inputbox.send_keys('13.00')
+
+        select = Select(self.browser.find_element_by_id('id_grain_type'))
+        select.select_by_visible_text('Liquid Malt Extract')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Good standard malt for ales')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+        self.browser.implicitly_wait(6)
+
+        # He sees the new hop record saved correctly
+        self.find_text_in_table('Crystal Malt')
+
+        # But there's a problem, he meant 'Chinook'! He
+        # could change his entry, but he's in a hurry so he selects the delete link
+        self.browser.find_element_by_link_text('Delete').click()
+        self.browser.implicitly_wait(6)
+
+        # The modal opens with the hop record details and asks him to confirm
+        # that he wants to delete the record.
+        submit_button = self.browser.find_element_by_id('delete').find_element_by_id('submit')
+        submit_button.click()
+        self.browser.implicitly_wait(6)
+
+        # He confirms and the record is no longer visible on the hops main table.
+        table = self.browser.find_element_by_id('list_table')
+        rows = table.find_elements_by_tag_name('td')
+        self.assertNotIn('Crystal Malt', [row.text for row in rows])
