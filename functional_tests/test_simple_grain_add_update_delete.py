@@ -34,17 +34,17 @@ class NewGrainVisitorTest(FunctionalTest):
         self.assertIn('Grains', page_text)
         self.assertIn('Yeasts', page_text)
 
-        # He decides to try grains, clicks the Hops link and  is
+        # He decides to try grains, clicks the Grains link and  is
         # redirected to the grains page.
-        hops_link = self.browser.find_element_by_link_text('Grains')
-        hops_link.click()
+        grains_link = self.browser.find_element_by_link_text('Grains')
+        grains_link.click()
 
         page_heading = self.browser.find_element_by_tag_name('h1').text
 
         self.assertIn(page_heading, 'Grains')
 
         # He finds the Add Grain button and clicks, a modal
-        # form appears and he enters in a new hops name
+        # form appears and he enters in a new grain name
         self.browser.find_element_by_id("add_grain").click()
 
         self.browser.implicitly_wait(6)
@@ -69,7 +69,7 @@ class NewGrainVisitorTest(FunctionalTest):
         submit_button.click()
         self.browser.implicitly_wait(6)
 
-        # He can see the homepage with his hop record in the table
+        # He can see the homepage with his grain record in the table
         self.find_text_in_table('Carared')
         self.find_text_in_table('1.50')
         self.find_text_in_table('1.200')
@@ -95,9 +95,9 @@ class NewGrainVisitorTest(FunctionalTest):
 
     def test_user_can_update_grain_record(self):
         # John has decided to contribute to the open source homebrew database
-        # He navigates to the hops page (Kevin showed him), and selects add hops
-        hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
-        self.browser.get(hop_live_server_url)
+        # He navigates to the grains page (Kevin showed him), and selects add grains
+        grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+        self.browser.get(grain_live_server_url)
 
         self.browser.find_element_by_id("add_grain").click()
 
@@ -127,7 +127,7 @@ class NewGrainVisitorTest(FunctionalTest):
         self.browser.refresh()
         self.browser.quit()
 
-        # The hop name wasn't 'Amarillo' it was 'Chinook'. He decides to go back and update the record
+        # The grain name wasn't 'Carared' it was 'Chocolate Paul'. He decides to go back and update the record
         self.browser = webdriver.Firefox()
         self.browser.get(grains_page)
 
@@ -136,14 +136,14 @@ class NewGrainVisitorTest(FunctionalTest):
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertEqual(header_text, 'Grains')
 
-        # He sees the link for the Amarillo hop record he just entered
+        # He sees the link for the Carared grain record he just entered
         # and he clicks on it, a bootstrap modal form with the information
         # pops up
         self.browser.find_element_by_link_text('Carared').click()
         self.browser.implicitly_wait(6)
 
-        # He changes the hop name from Amarillo to Chinook and clicks submit.
-        # He's redirected back to the hops list page and can see the change updated
+        # He changes the grain name from Carared to Chocolate Pale and clicks submit.
+        # He's redirected back to the grains list page and can see the change updated
         # in the table
         inputbox = self.browser.find_element_by_id('update').find_element_by_id('name')
 
@@ -162,8 +162,8 @@ class NewGrainVisitorTest(FunctionalTest):
     def test_user_deletes_grain_record(self):
         # Josh wants to contribute to the open source beer database.(Rave reviews from Kevin & John)
         # He navigates to the site (courtesy of Kevin)
-        hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
-        self.browser.get(hop_live_server_url)
+        grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+        self.browser.get(grain_live_server_url)
 
         # He eagerly clicks the 'Add Grains' button
 
@@ -191,21 +191,21 @@ class NewGrainVisitorTest(FunctionalTest):
         submit_button.click()
         self.browser.implicitly_wait(6)
 
-        # He sees the new hop record saved correctly
+        # He sees the new grain record saved correctly
         self.find_text_in_table('Crystal Malt')
 
-        # But there's a problem, he meant 'Chinook'! He
+        # But there's a problem, he meant 'Chocolate Pale'! He
         # could change his entry, but he's in a hurry so he selects the delete link
         self.browser.find_element_by_link_text('Delete').click()
         self.browser.implicitly_wait(6)
 
-        # The modal opens with the hop record details and asks him to confirm
+        # The modal opens with the grain record details and asks him to confirm
         # that he wants to delete the record.
         submit_button = self.browser.find_element_by_id('delete').find_element_by_id('submit')
         submit_button.click()
         self.browser.implicitly_wait(6)
 
-        # He confirms and the record is no longer visible on the hops main table.
+        # He confirms and the record is no longer visible on the grains main table.
         table = self.browser.find_element_by_id('list_table')
         rows = table.find_elements_by_tag_name('td')
         self.assertNotIn('Crystal Malt', [row.text for row in rows])
