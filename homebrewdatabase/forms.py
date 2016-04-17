@@ -42,7 +42,9 @@ class GrainForm(forms.models.ModelForm):
 
         error_messages = {
             'name': {'required': 'A grain name is required'},
-            'degrees_lovibond': {'required': 'You must specify degrees lovibond'},
-            'specific_gravity': {'required': 'You must enter a specific gravity'},
+            'degrees_lovibond': {'required': 'You must specify degrees lovibond',
+                                 'invalid': 'Degrees lovibond must be a decimal number'},
+            'specific_gravity': {'required': 'You must enter a specific gravity',
+                                 'invalid': 'Specific gravity must be a decimal number'},
             'comments': {'required': 'You must leave a comment'}
         }

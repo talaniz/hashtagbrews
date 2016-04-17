@@ -117,3 +117,23 @@ class GrainFormTest(TestCase):
             grain_form.errors['comments'],
             ['You must leave a comment']
         )
+
+    def test_grain_form_validates_incorrect_input(self):
+        grain_form = GrainForm(data={'name': 'Amber Pale',
+                                     'degrees_lovibond': 'ninety three',
+                                     'specific_gravity': 'seventy one',
+                                     'grain_type': 'LME',
+                                     'comments': 'Gives an amber color'
+                                     })
+
+        self.assertFalse(grain_form.is_valid())
+
+        self.assertEqual(
+            grain_form.errors['degrees_lovibond'],
+            ['Degrees lovibond must be a decimal number']
+        )
+
+        self.assertEqual(
+            grain_form.errors['specific_gravity'],
+            ['Specific gravity must be a decimal number']
+        )
