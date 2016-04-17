@@ -27,6 +27,6 @@ class GrainFormValidation(FunctionalTest):
         errors = section_errors.find_elements_by_tag_name('li')
 
         self.assertIn("A grain name is required", [error.text for error in errors])
-        self.assertIn("You must specify degrees Lovibond", [error.text for error in errors])
+        self.assertIn("You must specify degrees lovibond", [error.text for error in errors])
         self.assertIn("You must enter a specific gravity", [error.text for error in errors])
-        self.assertIn("You must enter a comment", [error.text for error in errors])
+        self.assertIn("You must leave a comment", [error.text for error in errors])

@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.test import TestCase
 from django.utils.html import escape
 
-from homebrewdatabase.forms import HopForm
+from homebrewdatabase.forms import HopForm, GrainForm
 from homebrewdatabase.models import Hop, Grain
 from homebrewdatabase.views import index, hops, addhops, grains, addgrains
 
@@ -291,7 +291,7 @@ class TestGrainsPageView(TestCase):
         addgrains(request)
         self.assertEqual(Grain.objects.count(), 0)
 
-    def test_grains_page_displays_all_hops_records(self):
+    def test_grains_page_displays_all_grains_records(self):
         Grain.objects.create(name='Carared',
                              degrees_lovibond=1.50,
                              specific_gravity=120.00,
@@ -389,3 +389,31 @@ class TestGrainsPageView(TestCase):
         grains_list = Grain.objects.filter(name='Munich Malt')
 
         self.assertEqual(len(grains_list), 0)
+
+    def test_add_grain_uses_grain_form(self):
+        response = self.client.get('/beerdb/add/grains/')
+
+        self.assertIsInstance(response.context['form'], GrainForm)
+
+    def test_blank_input_on_update_grains_page_returns_grainslist_page_with_errors(self):
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = ''
+        request.POST['degrees_lovibond'] = ''
+        request.POST['specific_gravity'] = ''
+        request.POST['grain_type'] = 'GRN'
+        request.POST['comments'] = ''
+
+        response = addgrains(request)
+
+        self.assertEqual(response.status_code, 200)
+        name_validation_error = escape('A grain name is required')
+        degrees_lovibond_validation_error = escape('You must specify degrees lovibond')
+        specific_gravity_validation_error = escape('You must enter a specific gravity')
+        comments_validation_error = escape('You must leave a comment')
+
+        self.assertContains(response, name_validation_error)
+        self.assertContains(response, degrees_lovibond_validation_error)
+        self.assertContains(response, specific_gravity_validation_error)
+        self.assertContains(response, comments_validation_error)

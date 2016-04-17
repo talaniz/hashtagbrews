@@ -84,17 +84,21 @@ def grains(request):
 
 
 def addgrains(request):
+
     add_form = GrainForm(request.POST or None)
 
     if request.method == 'POST':
-        Grain.objects.create(name=request.POST.get('name', ''),
-                             degrees_lovibond=request.POST.get('degrees_lovibond', ''),
-                             specific_gravity=request.POST.get('specific_gravity', ''),
-                             grain_type=request.POST.get('grain_type', ''),
-                             comments=request.POST.get('comments', '')
-                             )
-        success_url = reverse('grains_list')
-        return redirect(success_url)
+        if add_form.is_valid():
+            Grain.objects.create(name=request.POST['name'],
+                                 degrees_lovibond=request.POST['degrees_lovibond'],
+                                 specific_gravity=request.POST['specific_gravity'],
+                                 grain_type=request.POST['grain_type'],
+                                 comments=request.POST['comments']
+                                 )
+            return redirect('grains_list')
+        else:
+            grains_list = Grain.objects.all()
+            return render(request, 'homebrewdatabase/grains.html', {'grains': grains_list, 'form': add_form})
     return render(request, 'homebrewdatabase/addgrains.html', {'form': add_form})
 
 

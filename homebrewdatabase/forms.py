@@ -39,3 +39,10 @@ class GrainForm(forms.models.ModelForm):
             'specific_gravity': forms.fields.TextInput(attrs={'id': 'specific_gravity'}),
             'comments': forms.fields.TextInput(attrs={'id': 'comments'})
         }
+
+        error_messages = {
+            'name': {'required': 'A grain name is required'},
+            'degrees_lovibond': {'required': 'You must specify degrees lovibond'},
+            'specific_gravity': {'required': 'You must enter a specific gravity'},
+            'comments': {'required': 'You must leave a comment'}
+        }

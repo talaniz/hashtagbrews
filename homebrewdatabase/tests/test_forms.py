@@ -88,3 +88,32 @@ class GrainFormTest(TestCase):
 
         for element in form_elements:
             self.assertIn(element, form.as_p())
+
+    def test_grain_form_validates_blank_input(self):
+        grain_form = GrainForm(data={'name': '',
+                                     'degrees_lovibond': '',
+                                     'specific_gravity': '',
+                                     'comments': ''
+                                     })
+
+        self.assertFalse(grain_form.is_valid())
+
+        self.assertEqual(
+            grain_form.errors['name'],
+            ["A grain name is required"]
+        )
+
+        self.assertEqual(
+            grain_form.errors['degrees_lovibond'],
+            ['You must specify degrees lovibond']
+        )
+
+        self.assertEqual(
+            grain_form.errors['specific_gravity'],
+            ['You must enter a specific gravity']
+        )
+
+        self.assertEqual(
+            grain_form.errors['comments'],
+            ['You must leave a comment']
+        )
