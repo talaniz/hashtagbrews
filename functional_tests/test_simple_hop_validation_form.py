@@ -149,3 +149,75 @@ class HopFormValidation(FunctionalTest):
         self.assertIn("You must enter a min alpha acid", [error.text for error in errors])
         self.assertIn("You must enter a max alpha acid", [error.text for error in errors])
         self.assertIn("You must enter a comment", [error.text for error in errors])
+
+    def test_update_hops_invalid_input_validation(self):
+        # Jim has decided to contribute to the open source homebrew database
+        # He navigates to the hops page (Kevin showed him), and selects add hops
+        hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
+        self.browser.get(hop_live_server_url)
+
+        self.browser.find_element_by_id("add_hops").click()
+
+        self.browser.implicitly_wait(6)
+
+        # He enters the information into the form and clicks submit.
+        inputbox = self.browser.find_element_by_id('new_hops')
+        inputbox.send_keys('Amarillo')
+
+        inputbox = self.browser.find_element_by_id('min_alpha_acid')
+        inputbox.send_keys('8.00')
+
+        inputbox = self.browser.find_element_by_id('max_alpha_acid')
+        inputbox.send_keys('11.00')
+
+        select = Select(self.browser.find_element_by_id('id_country'))
+        select.select_by_visible_text('United States')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Good over all aroma and bittering hops')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+
+        # He closes out his browser, but then realizes that he's made a mistake.
+        hops_page = self.browser.current_url
+        self.browser.refresh()
+        self.browser.quit()
+
+        # He realizes the information he input was all wrong
+        self.browser = webdriver.Firefox()
+        self.browser.get(hops_page)
+
+        self.browser.implicitly_wait(6)
+
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertEqual(header_text, 'Hops')
+
+        # He sees the link for the Amarillo hop record he just entered
+        # and he clicks on it, a bootstrap modal form with the information
+        # pops up
+        self.browser.find_element_by_link_text('Amarillo').click()
+        self.browser.implicitly_wait(6)
+
+        # He's distracted while he's fixing the information and accidentally spells out
+        # the min and max alpha acid fields before submitting
+        inputbox = self.browser.find_element_by_id('update').find_element_by_id('min_alpha_acid')
+        inputbox.clear()
+
+        inputbox.send_keys('one twenty')
+
+        inputbox = self.browser.find_element_by_id('update').find_element_by_id('max_alpha_acid')
+        inputbox.clear()
+
+        inputbox.send_keys('twelve')
+
+        submit_button = self.browser.find_element_by_id('update').find_element_by_id('submit')
+        submit_button.click()
+
+        # Instead of seeing his entry with blank forms, he is redirected
+        # to the home page with errors displaying validation errors
+        section_errors = self.browser.find_element_by_id('validation_errors')
+        errors = section_errors.find_elements_by_tag_name('li')
+
+        self.assertIn("This field requires a decimal number", [error.text for error in errors])
+        self.assertIn("This field requires a decimal number", [error.text for error in errors])
