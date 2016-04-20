@@ -10,13 +10,13 @@
                     {{ value.1 }}
                 {% endfor %}
             </div>
-        {% elif errors %}
+    {% elif errors %}
             <div id="validation_errors" class="alert alert-danger">
                 {% for value in errors.items %}
                     {{ value.1 }}
                 {% endfor %}
             </div>
-        {% endif %}
+    {% endif %}
 
 <h1>Grains</h1>
 
