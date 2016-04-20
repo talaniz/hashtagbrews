@@ -165,7 +165,7 @@ class TestHopsPageView(TestCase):
         response = self.client.get('/beerdb/add/hops/')
         self.assertIsInstance(response.context['form'], HopForm)
 
-    def test_blank_input_on_addhops_page_returns_hopslist_page_with_errors(self):
+    def test_blank_input_on_addhops_page_returns_hops_list_page_with_errors(self):
         request = HttpRequest()
 
         request.method = 'POST'
@@ -188,7 +188,7 @@ class TestHopsPageView(TestCase):
         self.assertContains(response, max_alpha_acid_error)
         self.assertContains(response, comments_error)
 
-    def test_invalid_input_on_addhops_page_returns_hopslist_page_with_errors(self):
+    def test_invalid_input_on_addhops_page_returns_hops_list_page_with_errors(self):
         request = HttpRequest()
 
         request.method = 'POST'
@@ -207,7 +207,7 @@ class TestHopsPageView(TestCase):
         self.assertContains(response, min_alpha_acid_error)
         self.assertContains(response, max_alpha_acid_error)
 
-    def test_blank_input_on_update_hops_page_returns_hopslist_page_with_errors(self):
+    def test_blank_input_on_update_hops_page_returns_hops_list_page_with_errors(self):
         self.client.post(
             '/beerdb/add/hops/',
             data={
@@ -395,7 +395,7 @@ class TestGrainsPageView(TestCase):
 
         self.assertIsInstance(response.context['form'], GrainForm)
 
-    def test_blank_input_on_update_grains_page_returns_grainslist_page_with_errors(self):
+    def test_blank_input_on_add_grains_page_returns_grains_list_page_with_errors(self):
         request = HttpRequest()
 
         request.method = 'POST'
@@ -409,6 +409,64 @@ class TestGrainsPageView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         name_validation_error = escape('A grain name is required')
+        degrees_lovibond_validation_error = escape('You must specify degrees lovibond')
+        specific_gravity_validation_error = escape('You must enter a specific gravity')
+        comments_validation_error = escape('You must leave a comment')
+
+        self.assertContains(response, name_validation_error)
+        self.assertContains(response, degrees_lovibond_validation_error)
+        self.assertContains(response, specific_gravity_validation_error)
+        self.assertContains(response, comments_validation_error)
+
+    def test_invalid_input_on_add_grains_page_returns_grains_list_page_with_errors(self):
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = 'Amber'
+        request.POST['degrees_lovibond'] = 'number'
+        request.POST['specific_gravity'] = 'another number'
+        request.POST['grain_type'] = 'GRN'
+        request.POST['comments'] = 'Amber color'
+
+        response = addgrains(request)
+
+        self.assertEqual(response.status_code, 200)
+        degrees_lovibond_validation_error = escape('Degrees lovibond must be a decimal number')
+        specific_gravity_validation_error = escape('Specific gravity must be a decimal number')
+
+        self.assertContains(response, degrees_lovibond_validation_error)
+        self.assertContains(response, specific_gravity_validation_error)
+
+    def test_blank_input_on_update_grains_page_returns_grains_list_with_errors(self):
+        self.client.post(
+            '/beerdb/add/grains/',
+            data={
+                'name': 'Amber Dry',
+                'degrees_lovibond': 23.00,
+                'specific_gravity': 15.00,
+                'grain_type': 'GRN',
+                'comments': 'Dry grain, amber color'
+             })
+
+        grain_instance = Grain.objects.filter(name='Amber Dry')[0]
+
+        response = self.client.get('/beerdb/edit/%d/grains/' % grain_instance.id)
+
+        self.assertEqual(response.status_code, 200)
+
+        edit_form = response.context['form']
+        grain_record = edit_form.initial
+
+        grain_record['name'] = ''
+        grain_record['degrees_lovibond'] = ''
+        grain_record['specific_gravity'] = ''
+        grain_record['grain_type'] = 'GRN'
+        grain_record['comments'] = ''
+
+        response = self.client.post('/beerdb/edit/%d/grains/' % grain_instance.id, data=grain_record)
+
+        self.assertEqual(response.status_code, 200)
+        name_validation_error = escape("A grain name is required")
         degrees_lovibond_validation_error = escape('You must specify degrees lovibond')
         specific_gravity_validation_error = escape('You must enter a specific gravity')
         comments_validation_error = escape('You must leave a comment')
