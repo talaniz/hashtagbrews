@@ -6,7 +6,7 @@ from .base import FunctionalTest
 
 class GrainFormValidation(FunctionalTest):
 
-    def test_addgrains_blank_form_validation(self):
+    def test_add_grains_blank_form_validation(self):
         # Ethan wants to contribute to the Homebrew Database
         # He navigates to the grains page and selects 'Add Grains'
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
@@ -31,7 +31,7 @@ class GrainFormValidation(FunctionalTest):
         self.assertIn("You must enter a specific gravity", [error.text for error in errors])
         self.assertIn("You must leave a comment", [error.text for error in errors])
 
-    def test_addgrains_invalid_input_form_validation(self):
+    def test_add_grains_invalid_input_form_validation(self):
         # Ben wants to contribute to the Homebrew Database
         # He navigates to the grains page and selects 'Add Grains'
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
@@ -147,3 +147,75 @@ class GrainFormValidation(FunctionalTest):
         self.assertIn("You must specify degrees lovibond", [error.text for error in errors])
         self.assertIn("You must enter a specific gravity", [error.text for error in errors])
         self.assertIn("You must leave a comment", [error.text for error in errors])
+
+    def test_update_grains_invalid_form_validation(self):
+        # Jim has decided to contribute to the open source homebrew database
+        # He navigates to the grains page (Kevin showed him), and selects add grain
+        grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+        self.browser.get(grain_live_server_url)
+
+        self.browser.find_element_by_id("add_grain").click()
+
+        self.browser.implicitly_wait(6)
+
+        # He enters the information into the form and clicks submit.
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('Black Barley')
+
+        inputbox = self.browser.find_element_by_id('degrees_lovibond')
+        inputbox.send_keys('12.00')
+
+        inputbox = self.browser.find_element_by_id('specific_gravity')
+        inputbox.send_keys('125.00')
+
+        select = Select(self.browser.find_element_by_id('id_grain_type'))
+        select.select_by_visible_text('Liquid Malt Extract')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Imparts dryness. Unmalted; use in porters')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+
+        # He closes out his browser, but then realizes that he's made a mistake.
+        grains_page = self.browser.current_url
+        self.browser.refresh()
+        self.browser.quit()
+
+        # He realizes the specific gravity and degrees lovibond were wrong
+        self.browser = webdriver.Firefox()
+        self.browser.get(grains_page)
+
+        self.browser.implicitly_wait(6)
+
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertEqual(header_text, 'Grains')
+
+        # He sees the link for the Black Barley grain record he just entered
+        # and he clicks on it, a bootstrap modal form with the information
+        # pops up
+        self.browser.find_element_by_link_text('Black Barley').click()
+        self.browser.implicitly_wait(6)
+
+        # While he's correcting the information, he gets distracted and accidentally
+        # spells out the fields instead of using numbers
+        inputbox = self.browser.find_element_by_id('update').find_element_by_id('degrees_lovibond')
+        inputbox.clear()
+
+        inputbox.send_keys('twelve')
+
+        inputbox = self.browser.find_element_by_id('update').find_element_by_id('specific_gravity')
+        inputbox.clear()
+
+        inputbox.send_keys('one twenty')
+
+        submit_button = self.browser.find_element_by_id('update').find_element_by_id('submit')
+        submit_button.click()
+
+        # Instead of seeing his entry with blank forms, he is redirected
+        # to the home page with errors displaying validation errors
+        section_errors = self.browser.find_element_by_id('validation_errors')
+        errors = section_errors.find_elements_by_tag_name('li')
+
+        self.assertIn("Degrees lovibond must be a decimal number", [error.text for error in errors])
+        self.assertIn("Specific gravity must be a decimal number", [error.text for error in errors])
