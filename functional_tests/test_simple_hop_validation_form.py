@@ -69,8 +69,8 @@ class HopFormValidation(FunctionalTest):
         section_errors = self.browser.find_element_by_id('validation_errors')
         errors = section_errors.find_elements_by_tag_name('li')
 
-        self.assertIn("This field requires a decimal number", [error.text for error in errors])
-        self.assertIn("This field requires a decimal number", [error.text for error in errors])
+        self.assertIn("Min alpha acid must be a decimal number", [error.text for error in errors])
+        self.assertIn("Max alpha acid must be a decimal number a decimal number", [error.text for error in errors])
 
         # TODO: invalid input for min/max alpha acid needs to specify the field name
 
@@ -219,5 +219,5 @@ class HopFormValidation(FunctionalTest):
         section_errors = self.browser.find_element_by_id('validation_errors')
         errors = section_errors.find_elements_by_tag_name('li')
 
-        self.assertIn("This field requires a decimal number", [error.text for error in errors])
-        self.assertIn("This field requires a decimal number", [error.text for error in errors])
+        self.assertIn("Min alpha acid must be a decimal number", [error.text for error in errors])
+        self.assertIn("Max alpha acid must be a decimal number a decimal number", [error.text for error in errors])
