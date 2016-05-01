@@ -3,6 +3,9 @@ from django.core.urlresolvers import reverse
 
 
 class Hop(models.Model):
+    """
+    Class representing a hops profile.
+    """
 
     name = models.CharField(max_length=200, default='')
     min_alpha_acid = models.DecimalField(max_digits=4, decimal_places=2)
@@ -45,6 +48,9 @@ class Hop(models.Model):
 
 
 class Grain(models.Model):
+    """
+    Class representing the general profile of a malt.
+    """
 
     name = models.CharField(max_length=200, default='')
     degrees_lovibond = models.DecimalField("Degrees (L)", max_digits=5, decimal_places=2)

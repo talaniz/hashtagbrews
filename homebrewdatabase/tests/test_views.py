@@ -5,10 +5,13 @@ from django.utils.html import escape
 
 from homebrewdatabase.forms import HopForm, GrainForm
 from homebrewdatabase.models import Hop, Grain
-from homebrewdatabase.views import index, hops, addhops, grains, addgrains
+from homebrewdatabase.views import index, hops, addhops, grains, addgrains, yeasts, addyeasts
 
 
 class TestHomePageView(TestCase):
+    """
+    Class for testing the main homepage view
+    """
 
     def test_homepage_returns_correct_template(self):
         request = HttpRequest()
@@ -18,6 +21,9 @@ class TestHomePageView(TestCase):
 
 
 class TestHopsPageView(TestCase):
+    """
+    Class for testing hops related views
+    """
 
     def test_can_add_new_hops_and_save_a_POST_request(self):
         request = HttpRequest()
@@ -201,8 +207,8 @@ class TestHopsPageView(TestCase):
         response = addhops(request)
 
         self.assertEqual(response.status_code, 200)
-        min_alpha_acid_error = escape("This field requires a decimal number")
-        max_alpha_acid_error = escape("This field requires a decimal number")
+        min_alpha_acid_error = escape("Min alpha acid must be a decimal number")
+        max_alpha_acid_error = escape("Max alpha acid must be a decimal number")
 
         self.assertContains(response, min_alpha_acid_error)
         self.assertContains(response, max_alpha_acid_error)
@@ -247,6 +253,9 @@ class TestHopsPageView(TestCase):
 
 
 class TestGrainsPageView(TestCase):
+    """
+    Class for testing grain related views
+    """
 
     def test_grains_page_returns_correct_template(self):
         response = self.client.get('/beerdb/grains/')
@@ -475,3 +484,42 @@ class TestGrainsPageView(TestCase):
         self.assertContains(response, degrees_lovibond_validation_error)
         self.assertContains(response, specific_gravity_validation_error)
         self.assertContains(response, comments_validation_error)
+
+
+class TestYeastPageView(TestCase):
+    """
+    Class for testing yeast related views
+    """
+
+    def test_yeast_page_returns_correct_template(self):
+        response = self.client.get('/beerdb/yeasts/')
+        self.assertTemplateUsed(response, 'homebrewdatabase/yeasts.html')
+
+    def test_can_add_new_yeast_and_save_a_POST_request(self):
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = 'Amarillo'
+        request.POST['lab'] = 'Wyeast'
+        request.POST['yeast_type'] = 'Ale'
+        request.POST['yeast_form'] = 'Liquid'
+        request.POST['min_temp'] = 60
+        request.POST['max_temp'] = 72
+        request.POST['attenuation'] = 75
+        request.POST['flocculation'] = 'Medium'
+        request.POST['comments'] = 'Well balanced.'
+
+        response = addyeasts(request)
+
+        self.assertEqual(response.status_code, 200)
+
+        content = response.content.decode()
+        self.assertIn('Amarillo', content)
+        self.assertIn('Wyeast', content)
+        self.assertIn('Ale', content)
+        self.assertIn('Liquid', content)
+        self.assertIn('60', content)
+        self.assertIn('72', content)
+        self.assertIn('75', content)
+        self.assertIn('Medium', content)
+        self.assertIn('Well balanced.', content)

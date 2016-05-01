@@ -1,0 +1,51 @@
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add Yeasts</h4>
+        </div>
+        <form action="{% url 'addyeasts' %}" method="POST">
+            <div class="modal-body">
+                Name: <input id="name" name="name" type="text">
+                Lab: <select id="lab" name="lab">
+                         <option value="Brewferm">Brewferm</option>
+                         <option value="Brewtek">Brewtek</option>
+                         <option value="Coopers">Coopers</option>
+                         <option value="Danstar">Danstar</option>
+                         <option value="DCL/Fermentis">DCL/Fermentis</option>
+                         <option value="Doric">Doric</option>
+                         <option value="East Coast Yeast">East Coast Yeast</option>
+                         <option value="Edme">Edme</option>
+                         <option value="Glenbrew">Glenbrew</option>
+                         <option value="Lallemend">Lallemend</option>
+                         <option value="Munton Fison">Munton Fison</option>
+                         <option value="Red Star">Red Star</option>
+                         <option value="Wyeast">Wyeast</option>
+                         <option value="Wylabs">Wylabs</option>
+                         <option value="The Yeast Bay">The Yeast Bay</option>
+                     </select>
+                Yeast Type: <select id="yeast_type" name="yeast_type">
+                                <option value="Ale">Ale</option>
+                                <option value="Champagne">Champagne</option>
+                                <option value="Lager">Lager</option>
+                                <option value="Wheat">Wheat</option>
+                                <option value="Wine">Wine</option>
+                            </select>
+                Yeast Form: <select id="yeast_form" name="yeast_form">
+                                <option value="Liquid">Liquid</option>
+                                <option value="Dry">Dry</option>
+                            </select>
+                Min Temp: <input id="min_temp" name="min_temp" type="text">
+                Max Temp: <input id="max_temp" name="max_temp" type="text">
+                Attenuation: <input id="attenuation" name="attenuation" type="text">
+                Flocculation: <input id="flocculation" name="flocculation" type="text">
+                Comments: <input id="comments" name="comments" type="text">
+                {%  csrf_token %}
+            </div>
+        <div class="modal-footer">
+            <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+    </div>
+    </div>

@@ -4,6 +4,9 @@ from homebrewdatabase.models import Hop, Grain
 
 
 class HopForm(forms.models.ModelForm):
+    """
+    Instance of a form used to add/edit/delete data related to hop records
+    """
 
     class Meta:
         model = Hop
@@ -28,6 +31,9 @@ class HopForm(forms.models.ModelForm):
 
 
 class GrainForm(forms.models.ModelForm):
+    """
+    Instance of a form used to add/edit/delete data related to grain records
+    """
 
     class Meta:
         model = Grain

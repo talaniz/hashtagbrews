@@ -7,7 +7,7 @@ from .base import FunctionalTest
 class NewGrainVisitorTest(FunctionalTest):
 
     def test_user_can_navigate_to_grains_page_and_save_grains_record(self):
-        # Kevin wants to contribute to the Open Source Homebrew Database
+        # Kevin wants to contribute to the Open Source Homebrew Database.
         # He navigates to the homepage and clicks the link to navigate
         # to the Open Source Homebrew database.
         self.browser.get(self.live_server_url)
