@@ -25,9 +25,6 @@ Setup
 Planning
 --------
 
-`Sprint Plans Detail
-<https://bitbucket.org/talaniz715/hashtagbrews/wiki/Sprint%20Planning>`_
-
 `Page Design Mockups Here
 <https://bitbucket.org/talaniz715/hashtagbrews/wiki/Catalogue%20Page%20Designs>`_
 

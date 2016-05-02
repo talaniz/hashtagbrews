@@ -14,6 +14,10 @@ class TestHomePageView(TestCase):
     """
 
     def test_homepage_returns_correct_template(self):
+        """
+        Checks to ensure that the index view is returning index.html
+                :return: pass or fail
+        """
         request = HttpRequest()
         response = index(request)
         expected_html = render_to_string('homebrewdatabase/index.html')
@@ -26,6 +30,11 @@ class TestHopsPageView(TestCase):
     """
 
     def test_can_add_new_hops_and_save_a_POST_request(self):
+        """
+        Testing that the user can add and save a hop record using a POST request
+                :return: pass or fail
+        """
+
         request = HttpRequest()
 
         request.method = 'POST'
@@ -48,6 +57,11 @@ class TestHopsPageView(TestCase):
         self.assertEqual(new_hop.comments, 'Good over all aroma and bittering hops')
 
     def test_add_hops_redirects_after_POST(self):
+        """
+        Test to check that accessing the 'addhops' url redirects with 302 and a url of '/beerdb/hops'
+                :return: pass or fail
+        """
+
         request = HttpRequest()
 
         request.method = 'POST'
@@ -63,11 +77,21 @@ class TestHopsPageView(TestCase):
         self.assertEqual(response['location'], '/beerdb/hops/')
 
     def test_hop_page_only_saves_when_necessary(self):
+        """
+        Tests that a non-POST request does not save values to the database
+                :return: pass or fail
+        """
+
         request = HttpRequest()
         hops(request)
         self.assertEqual(Hop.objects.count(), 0)
 
     def test_home_page_displays_all_hops_records(self):
+        """
+        Checks that the home page displays all available hop records. Will be changed to a limited view in the future.
+                :return: pass or fail
+        """
+
         Hop.objects.create(name='Century',
                            min_alpha_acid=8.00,
                            max_alpha_acid=12.00,
@@ -87,6 +111,10 @@ class TestHopsPageView(TestCase):
         self.assertIn('Warrior', response.content.decode())
 
     def test_add_hops_view_saves_record(self):
+        """
+        Checks that the 'addhops' view can take a POST request and save to the database
+                :return: pass or fail
+        """
 
         response = self.client.post(
             '/beerdb/add/hops/',
@@ -106,6 +134,11 @@ class TestHopsPageView(TestCase):
         self.assertEqual(hop_record[0].name, 'Warrior')
 
     def test_can_update_hops(self):
+        """
+        Checks that the '/beerdb/edit/%d/hops/' url can update a hop record with creating an additional record
+                 :return: pass or fail
+        """
+
         self.client.post(
             '/beerdb/add/hops/',
             data={
@@ -140,6 +173,11 @@ class TestHopsPageView(TestCase):
         self.assertEqual(len(hop_list), 0)
 
     def test_delete_hop_record(self):
+        """
+        Checks that the '/beerdb/delete/%d/hops' url can delete a hop record
+                :return: pass or fail
+        """
+
         self.client.post(
             '/beerdb/add/hops/',
             data={
@@ -167,11 +205,22 @@ class TestHopsPageView(TestCase):
         self.assertEqual(len(hop_list), 0)
 
     def test_add_hop_uses_item_form(self):
+        """
+        Checks that the 'addhops' form is using the HopForm() in models.py
+                :return: pass or fail
+        """
 
         response = self.client.get('/beerdb/add/hops/')
         self.assertIsInstance(response.context['form'], HopForm)
 
     def test_blank_input_on_addhops_page_returns_hops_list_page_with_errors(self):
+        """
+        Validation testing, user should not be able to save a hop record with blank information
+                :return: pass or fail
+
+                * 'country' field is excluded as it is a multiselect field with a valid default option
+        """
+
         request = HttpRequest()
 
         request.method = 'POST'
@@ -195,6 +244,11 @@ class TestHopsPageView(TestCase):
         self.assertContains(response, comments_error)
 
     def test_invalid_input_on_addhops_page_returns_hops_list_page_with_errors(self):
+        """
+        Validation test to check that strings will not be saved in Integer or Decimal fields
+                :return: pass or fail
+        """
+
         request = HttpRequest()
 
         request.method = 'POST'
@@ -214,6 +268,11 @@ class TestHopsPageView(TestCase):
         self.assertContains(response, max_alpha_acid_error)
 
     def test_blank_input_on_update_hops_page_returns_hops_list_page_with_errors(self):
+        """
+        Checks that validation error messages appear on the 'hops_list' page when blank input is saved
+                :return: pass or fail
+        """
+
         self.client.post(
             '/beerdb/add/hops/',
             data={
@@ -258,10 +317,20 @@ class TestGrainsPageView(TestCase):
     """
 
     def test_grains_page_returns_correct_template(self):
+        """
+        Test to check that '/beerdb/grains/' returns the grains.html template
+                :return: pass or fail
+        """
+
         response = self.client.get('/beerdb/grains/')
         self.assertTemplateUsed(response, 'homebrewdatabase/grains.html')
 
     def test_can_add_new_grain_and_save_a_POST_request(self):
+        """
+        Checks that a user can save a new post request using the Grain model
+                :return: pass or fail
+        """
+
         request = HttpRequest()
 
         request.method = 'POST'
@@ -282,6 +351,11 @@ class TestGrainsPageView(TestCase):
         self.assertEqual(new_grain.comments, 'Amber red color')
 
     def test_add_grains_redirects_after_POST(self):
+        """
+        Checks that the 'addgrains' url redirects to 'grains_list' after a POST request
+                :return: pass or fail
+        """
+
         request = HttpRequest()
 
         request.method = 'POST'
@@ -296,11 +370,21 @@ class TestGrainsPageView(TestCase):
         self.assertEqual(response['location'], '/beerdb/grains/')
 
     def test_add_grain_page_only_saves_when_necessary(self):
+        """
+        Test to check that the 'addgrains' page does not save additional records for non-POST requests
+                :return: pass or fail
+        """
+
         request = HttpRequest()
         addgrains(request)
         self.assertEqual(Grain.objects.count(), 0)
 
     def test_grains_page_displays_all_grains_records(self):
+        """
+        Test to check that the 'grains_list' page displays all grain records
+                :return: pass or fail
+        """
+
         Grain.objects.create(name='Carared',
                              degrees_lovibond=1.50,
                              specific_gravity=120.00,
@@ -322,6 +406,11 @@ class TestGrainsPageView(TestCase):
         self.assertIn('Pale Chocolate', response.content.decode())
 
     def test_add_grains_view_saves_record(self):
+        """
+        Test to check that the 'addgrains' view saves records using the Grain model
+                :return: pass or fail
+        """
+
         response = self.client.post(
             '/beerdb/add/grains/',
             data={
@@ -340,6 +429,11 @@ class TestGrainsPageView(TestCase):
         self.assertEqual(grain_record[0].name, 'Carared')
 
     def test_can_update_grain(self):
+        """
+        Tests that the user is able to use the '/beerdb/edit/%d/grains/' url to update a grain record
+                :return: pass or fail
+        """
+
         self.client.post(
             '/beerdb/add/grains/',
             data={
@@ -374,6 +468,11 @@ class TestGrainsPageView(TestCase):
         self.assertEqual(len(hop_list), 0)
 
     def test_can_delete_grain(self):
+        """
+        Test to check that '/beerdb/delete/%d/grains/' allows users to successfully delete records
+                :return: pass or fail
+        """
+
         self.client.post(
             '/beerdb/add/grains/',
             data={'name': 'Munich Malt',
@@ -400,11 +499,21 @@ class TestGrainsPageView(TestCase):
         self.assertEqual(len(grains_list), 0)
 
     def test_add_grain_uses_grain_form(self):
+        """
+        Asserts that the 'addgrains' view is using a Grain form
+                :return: pass or fail
+        """
+
         response = self.client.get('/beerdb/add/grains/')
 
         self.assertIsInstance(response.context['form'], GrainForm)
 
     def test_blank_input_on_add_grains_page_returns_grains_list_page_with_errors(self):
+        """
+        Testing for blank input on 'addgrains' redirects to 'grains_list' with validation errors
+                :return: pass or fail
+        """
+
         request = HttpRequest()
 
         request.method = 'POST'
@@ -428,6 +537,11 @@ class TestGrainsPageView(TestCase):
         self.assertContains(response, comments_validation_error)
 
     def test_invalid_input_on_add_grains_page_returns_grains_list_page_with_errors(self):
+        """
+        Checks that invalid input on the 'addgrains' view redirects to 'grains_list' with validation errors
+                :return: pass or fail
+        """
+
         request = HttpRequest()
 
         request.method = 'POST'
@@ -447,6 +561,11 @@ class TestGrainsPageView(TestCase):
         self.assertContains(response, specific_gravity_validation_error)
 
     def test_blank_input_on_update_grains_page_returns_grains_list_with_errors(self):
+        """
+        Checks that blank input saved on the 'updategrain' view redirects to the 'grains_list' page with errors
+                :return: pass or fail
+        """
+
         self.client.post(
             '/beerdb/add/grains/',
             data={
@@ -492,10 +611,20 @@ class TestYeastPageView(TestCase):
     """
 
     def test_yeast_page_returns_correct_template(self):
+        """
+        Checks that the 'yeasts_list' page returns the 'yeasts.html' template
+                :return: pass or fail
+        """
+
         response = self.client.get('/beerdb/yeasts/')
         self.assertTemplateUsed(response, 'homebrewdatabase/yeasts.html')
 
     def test_can_add_new_yeast_and_save_a_POST_request(self):
+        """
+        Checks that the user is able to save a yeast record using the Yeast model with a POST request
+                :return: pass or fail
+        """
+
         request = HttpRequest()
 
         request.method = 'POST'

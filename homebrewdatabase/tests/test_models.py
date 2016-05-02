@@ -4,8 +4,16 @@ from homebrewdatabase.models import Hop, Grain, Yeast
 
 
 class HopModelTest(TestCase):
+    """
+    Tests the ability to save and retrieve data using the Hop model
+    """
 
     def test_saving_items_and_retrieving_later(self):
+        """
+        Asserts that a user can successfully enter and retrieve a hop record using the Hop model
+                :return: pass or fail
+        """
+
         first_hop = Hop()
         first_hop.name = 'Amarillo'
         first_hop.min_alpha_acid = '8.00'
@@ -41,8 +49,15 @@ class HopModelTest(TestCase):
 
 
 class GrainModelTest(TestCase):
+    """
+    Tests the ability to save and retrieve data using the Grain model
+    """
 
     def test_saving_grain_and_retrieving_later(self):
+        """
+        Asserts that a user can successfully enter and retrieve a hop record using the Grain model
+                :return: pass or fail
+        """
 
         first_grain = Grain()
         first_grain.name = 'Cara Red'
@@ -78,8 +93,38 @@ class GrainModelTest(TestCase):
         self.assertEqual(second_saved_grain.grain_type, 'GRN')
         self.assertEqual(second_saved_grain.comments, 'Dark malt that gives a rich red or brown color')
 
+
 class YeastModelTest(TestCase):
+    """
+    Tests the ability to save and retrieve data using the Yeast model
+    """
 
     def test_saving_yeast_and_retrieving_later(self):
+        """
+        Asserts that a user can successfully enter and retrieve a hop record using the Yeast model
+                :return: pass or fail
+        """
+
         first_yeast = Yeast()
-        first_yeast.name = ''
+        first_yeast.name = 'Alpine'
+        first_yeast.lab = 'Wyeast'
+        first_yeast.yeast_type = 'Ale'
+        first_yeast.yeast_form = 'Liquid'
+        first_yeast.min_temp = '60'
+        first_yeast.max_temp = '70'
+        first_yeast.attenuation = '75'
+        first_yeast.flocculation = 'Medium'
+        first_yeast.comments = 'Well balanced.'
+
+        saved_yeasts = Yeast.objects.all()
+        first_yeast_record = saved_yeasts[0]
+
+        self.assertEqual(first_yeast_record.name, 'Alpine')
+        self.assertEqual(first_yeast_record.lab, 'Wyeast')
+        self.assertEqual(first_yeast_record.yeast_type, 'Ale')
+        self.assertEqual(first_yeast_record.yeast_form, 'Liquid')
+        self.assertEqual(first_yeast_record.min_temp, 60)
+        self.assertEqual(first_yeast_record.max_temp, 70)
+        self.assertEqual(first_yeast_record.attenuation, 75)
+        self.assertEqual(first_yeast_record.flocculation, 'Medium')
+        self.assertEqual(first_yeast.comments, 'Well balanced.')

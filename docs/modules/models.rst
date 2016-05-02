@@ -3,7 +3,7 @@ Models
 
 .. module:: homebrewdatabase.models
 
-.. autoclass:: Hop
+.. autoclass:: Hop()
     :members:
 
     Contains the following attributes:
@@ -14,7 +14,7 @@ Models
            | -country codes: AUS, CAN, CHN, CZE, FRA, DEU, NZL, POL, GBR, USA
            | -comments: final notes about the hop profile
 
-.. autoclass:: Grain
+.. autoclass:: Grain()
     :members:
 
     Contains the following attributes:
