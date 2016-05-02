@@ -6,6 +6,10 @@ from homebrewdatabase.models import Hop, Grain
 class HopForm(forms.models.ModelForm):
     """
     Instance of a form used to add/edit/delete data related to hop records
+
+            * error_messages
+                - required: name, min_alpha_acid, max_alpha_acid, comments
+                - invalid: name, min_alpha_acid, max_alpha_acid, country, comments
     """
 
     class Meta:
@@ -33,6 +37,10 @@ class HopForm(forms.models.ModelForm):
 class GrainForm(forms.models.ModelForm):
     """
     Instance of a form used to add/edit/delete data related to grain records
+
+            * error_messages
+                - required: name, degrees_lovibond, specific_gravity, comments
+                - invalid: derees_lovibond, specific_gravity
     """
 
     class Meta:

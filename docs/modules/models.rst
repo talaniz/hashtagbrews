@@ -22,5 +22,6 @@ Models
            | -degrees_lovibond: SRM/color measurement
            | -grain_type: Grain, LME, DME or Adjunct
            | -specific_gravity: SG, measurement for converted sugars
-           | -grain_type in future versions
-           | -comments: any final comments about the malt
+           | -grain_type: Grain (GRN), Liquid Malt Extract (LME), Dry Malt Extract) DME, (Adjunct) ADJ
+           | -comments: final comments about the malt
+

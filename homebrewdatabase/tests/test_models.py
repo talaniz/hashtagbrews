@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from homebrewdatabase.models import Hop, Grain
+from homebrewdatabase.models import Hop, Grain, Yeast
 
 
 class HopModelTest(TestCase):
@@ -77,3 +77,9 @@ class GrainModelTest(TestCase):
         self.assertEqual(second_saved_grain.specific_gravity, 12.000)
         self.assertEqual(second_saved_grain.grain_type, 'GRN')
         self.assertEqual(second_saved_grain.comments, 'Dark malt that gives a rich red or brown color')
+
+class YeastModelTest(TestCase):
+
+    def test_saving_yeast_and_retrieving_later(self):
+        first_yeast = Yeast()
+        first_yeast.name = ''

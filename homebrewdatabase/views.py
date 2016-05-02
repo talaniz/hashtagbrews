@@ -9,8 +9,8 @@ from .models import Hop, Grain
 def index(request):
     """
     HashtagBrews main site page view
-    :param request: Django HttpRequest object
-    :return: renders 'homebrewdatabase/index.html'
+            :param request: Django HttpRequest object
+            :return: renders 'homebrewdatabase/index.html'
     """
 
     return render(request, template_name='homebrewdatabase/index.html')
@@ -19,8 +19,8 @@ def index(request):
 def homebrewmain(request):
     """
     Main page for the Homebrew Database
-    :param request: Django HttpRequest object
-    :return: renders
+            :param request: Django HttpRequest object
+            :return: renders
     """
 
     return render(request, template_name='homebrewdatabase/homebrewdatabase.html')
@@ -29,8 +29,12 @@ def homebrewmain(request):
 def hops(request):
     """
     Main hops page list
-    :param request: Django HttpRequest object
-    :return: renders 'homebrewdatabase/hops.html'; context = 'hops' and 'form'
+             :param request: Django HttpRequest object
+             :return: renders 'homebrewdatabase/hops.html';
+
+             * context
+                 - 'hops'
+                 - 'form'
     """
 
     hops_list = Hop.objects.all()
@@ -40,9 +44,14 @@ def hops(request):
 def addhops(request):
     """
     Modal form for adding a hop record. Shows all form fields.
-    :param request: Django HttpRequest object
-    :return: renders 'homebrewdatabase/addhops.html' by default, otherwise 'homebrewdatabase/hops.html' with context
-    'hops' and 'form' if the form is invalid; redirects to 'hops_list' if form is successfully saved
+            :param request: Django HttpRequest object
+            :return: renders 'homebrewdatabase/addhops.html' by default, otherwise 'homebrewdatabase/hops.html'
+
+        * context
+            - 'hops'
+            - 'form'
+
+        * success_url: 'hops_list'
     """
 
     add_form = HopForm(request.POST or None)
@@ -65,11 +74,16 @@ def addhops(request):
 def updatehops(request, pk):
     """
     Modal form to update a hop record. Shows all form fields.
-    :param request: Django HttpRequest object
-    :param pk: primary key of the hop record to be updated
-    :return: renders 'hombrewdatabase/updatehops.html' by default, otherwise 'hombrewdatabase'hops.html' with context
-    'hops', 'form' and 'errors' if there is an issue with form validation; redirects to 'hops_list' if the form is
-    saved successfully
+            :param request: Django HttpRequest object
+            :param pk: primary key of the hop record to be updated
+            :return: renders 'hombrewdatabase/updatehops.html' by default, otherwise 'hombrewdatabase'hops.html'
+
+        * context
+                - 'hops'
+                - 'form'
+                - 'errors'
+
+        * success_url: 'hops_list'
     """
 
     hop_record = Hop.objects.filter(pk=pk)[0]
@@ -96,10 +110,11 @@ def updatehops(request, pk):
 def deletehops(request, pk):
     """
     Modal form to delete hop record. Shows hop record name
-    :param request: Django HttpRequest object
-    :param pk: primary key of the hop record to be deleted
-    :return: renders 'homebrewdatabase/deletehops.html' by default, redirects to 'hops_list' after hop record is deleted
-    successfully
+            :param request: Django HttpRequest object
+            :param pk: primary key of the hop record to be deleted
+            :return: renders 'homebrewdatabase/deletehops.html'
+
+            * success_url: 'hops_list'
     """
 
     hop_record = Hop.objects.filter(pk=pk)[0]
@@ -118,8 +133,12 @@ def deletehops(request, pk):
 def grains(request):
     """
     Main grains page list
-    :param request: Django HttpRequest object
-    :return: renders 'homebrewdatabase/grains.html'; context = 'hops' and 'form'
+            :param request: Django HttpRequest object
+            :return: renders 'homebrewdatabase/grains.html'
+
+            * context
+                - 'hops'
+                - 'form'
     """
 
     grains_list = Grain.objects.all()
@@ -129,9 +148,14 @@ def grains(request):
 def addgrains(request):
     """
     Modal form for adding a grain record. Shows all form fields.
-    :param request: Django HttpRequest object
-    :return: renders 'homebrewdatabase/addgrains.html' by default, otherwise 'homebrewdatabase/grains.html' with context
-    'grains' and 'form' if the form is invalid; redirects to 'grains_list' if form is successfully saved
+            :param request: Django HttpRequest object
+            :return: renders 'homebrewdatabase/addgrains.html' by default, otherwise 'homebrewdatabase/grains.html'
+
+            * context
+                - 'grains'
+                - 'form'
+
+            * success_url: 'grains_list'
     """
 
     add_form = GrainForm(request.POST or None)
@@ -154,11 +178,16 @@ def addgrains(request):
 def updategrains(request, pk):
     """
     Modal form to update a grain record. Shows all form fields.
-    :param request: Django HttpRequest object
-    :param pk: primary key of the grain record to be updated
-    :return: renders 'hombrewdatabase/updategrains.html' by default, otherwise 'hombrewdatabase/grains.html' with
-    context 'grains', 'form' and 'errors' if there is an issue with form validation; redirects to 'grains_list' if the
-    form is saved successfully
+            :param request: Django HttpRequest object
+            :param pk: primary key of the grain record to be updated
+            :return: renders 'hombrewdatabase/updategrains.html' by default, otherwise 'hombrewdatabase/grains.html'
+
+            * context
+                - 'grains'
+                - 'form'
+                - 'errors'
+
+            * success_url: 'grains_list'
     """
 
     grain_record = Grain.objects.filter(pk=pk)[0]
@@ -184,10 +213,11 @@ def updategrains(request, pk):
 def deletegrains(request, pk):
     """
     Modal form to delete grain record. Shows grain record name
-    :param request: Django HttpRequest object
-    :param pk: primary key of the grain record to be deleted
-    :return: renders 'homebrewdatabase/deletegrains.html' by default, redirects to 'grains_list' after grain record is
-    deleted successfully
+            :param request: Django HttpRequest object
+            :param pk: primary key of the grain record to be deleted
+            :return: renders 'homebrewdatabase/deletegrains.html' by default
+
+            * success_url: 'grains_list'
     """
 
     grain_record = Grain.objects.filter(pk=pk)[0]
@@ -207,8 +237,12 @@ def deletegrains(request, pk):
 def yeasts(request):
     """
     Main homepage for viewing yeast records
-    :param request: Django HttpRequest object
-    :return: renders 'homebrewdatabase/yeasts.html'; context = 'yeasts' and 'form'
+            :param request: Django HttpRequest object
+            :return: renders 'homebrewdatabase/yeasts.html'
+
+            * context
+                - 'yeasts'
+                - 'form'
     """
 
     return render(request, 'homebrewdatabase/yeasts.html')
@@ -217,9 +251,14 @@ def yeasts(request):
 def addyeasts(request):
     """
     Modal form for adding a yeast record. Shows all form fields.
-    :param request: Django HttpRequest object
-    :return: renders 'homebrewdatabase/addyeasts.html' by default, otherwise 'homebrewdatabase/yeasts.html' with context
-    'yeasts' and 'form' if the form is invalid; redirects to 'yeasts_list' if form is successfully saved
+            :param request: Django HttpRequest object
+            :return: renders 'homebrewdatabase/addyeasts.html' by default, otherwise 'homebrewdatabase/yeasts.html'
+
+            * context
+                - 'yeasts'
+                - 'form'
+
+            * success_url: 'yeasts_list'
     """
 
     if request.method == 'POST':

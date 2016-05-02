@@ -35,27 +35,29 @@ Planning
     * Finish functional test to add hops (includes unit tests to save to db, etc.) - Completed
     * Refactor to use templating - Completed
     * Add edit and delete hops views - Completed
-    * Refactor: Homebrew Database Main Page - In Progress
-    * Add grains and yeasts code
-    * Test Suites: Adjust tests to test all 3 categories at once (hops, grains, yeasts)
-    * Add error handling
+    * Refactor: Homebrew Database Main Page - Completed
+    * Add grains and yeasts code - Almost completed
+    * Add uniqe record error handling
     * Move to class based views
-    * Add update and delete views
-    * Add user authentication.
+    * Add user authentication
 
 2. Homebrew Planner and Timer
-    * Needs planning
+    * Design & implement pybrew library
+    * Initial functional testing for users
+    * Database design (one to many, many to many)
 
 3. Vendor/Inventory Site
     * Needs planning
+    * UI design for vendor/purchasers
 
 4. Hombrew Recipe Creator
     * Needs planning
+    * Braintree API sandbox setup
 
 To Do
 -----
 
-* Homebrew database and hops pages need additional formatting
+* Homebrew database pages need additional tightening (divs)
 * Unit and functional tests for yeasts
 * Pybrew library development
 * Sprint planning for homebrew planner, inventory site and homebrew recipe creator
