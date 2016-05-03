@@ -3,7 +3,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 
 from .forms import HopForm, GrainForm
-from .models import Hop, Grain
+from .models import Hop, Grain, Yeast
 
 
 def index(request):
@@ -244,8 +244,8 @@ def yeasts(request):
                 - 'yeasts'
                 - 'form'
     """
-
-    return render(request, 'homebrewdatabase/yeasts.html')
+    yeasts_list = Yeast.objects.all()
+    return render(request, 'homebrewdatabase/yeasts.html', {'yeasts': yeasts_list})
 
 
 def addyeasts(request):
@@ -262,15 +262,15 @@ def addyeasts(request):
     """
 
     if request.method == 'POST':
-        return render(request, 'homebrewdatabase/yeasts.html',
-                      {'name': request.POST.get('name', ''),
-                       'lab': request.POST.get('lab', ''),
-                       'yeast_type': request.POST.get('yeast_type', ''),
-                       'yeast_form': request.POST.get('yeast_form', ''),
-                       'min_temp': request.POST.get('min_temp', ''),
-                       'max_temp': request.POST.get('max_temp', ''),
-                       'attenuation': request.POST.get('attenuation', ''),
-                       'flocculation': request.POST.get('flocculation'),
-                       'comments': request.POST.get('comments', '')
-                       })
+        Yeast.objects.create(name=request.POST.get('name', ''),
+                             lab=request.POST.get('lab', ''),
+                             yeast_type=request.POST.get('yeast_type', ''),
+                             yeast_form=request.POST.get('yeast_form', ''),
+                             min_temp=request.POST.get('min_temp', ''),
+                             max_temp=request.POST.get('max_temp', ''),
+                             attenuation=request.POST.get('attenuation', ''),
+                             flocculation=request.POST.get('flocculation'),
+                             comments=request.POST.get('comments', '')
+                             )
+        return redirect('yeasts_list')
     return render(request, 'homebrewdatabase/addyeasts.html')

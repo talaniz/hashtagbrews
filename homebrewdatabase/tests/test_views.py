@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils.html import escape
 
 from homebrewdatabase.forms import HopForm, GrainForm
-from homebrewdatabase.models import Hop, Grain
+from homebrewdatabase.models import Hop, Grain, Yeast
 from homebrewdatabase.views import index, hops, addhops, grains, addgrains, yeasts, addyeasts
 
 
@@ -638,17 +638,18 @@ class TestYeastPageView(TestCase):
         request.POST['flocculation'] = 'Medium'
         request.POST['comments'] = 'Well balanced.'
 
-        response = addyeasts(request)
+        addyeasts(request)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Yeast.objects.count(), 1)
 
-        content = response.content.decode()
-        self.assertIn('Amarillo', content)
-        self.assertIn('Wyeast', content)
-        self.assertIn('Ale', content)
-        self.assertIn('Liquid', content)
-        self.assertIn('60', content)
-        self.assertIn('72', content)
-        self.assertIn('75', content)
-        self.assertIn('Medium', content)
-        self.assertIn('Well balanced.', content)
+        new_yeast = Yeast.objects.first()
+
+        self.assertEqual(new_yeast.name, 'Amarillo')
+        self.assertEqual(new_yeast.lab, 'Wyeast')
+        self.assertEqual(new_yeast.yeast_type, 'Ale')
+        self.assertEqual(new_yeast.yeast_form, 'Liquid')
+        self.assertEqual(new_yeast.min_temp, 60)
+        self.assertEqual(new_yeast.max_temp, 72)
+        self.assertEqual(new_yeast.attenuation, 75)
+        self.assertEqual(new_yeast.flocculation, 'Medium')
+        self.assertEqual(new_yeast.comments, 'Well balanced.')

@@ -34,17 +34,19 @@
                         <th>Flocculation</th>
                         <th>Comments</th>
                     </tr>
+                    {% for yeast in yeasts %}
                     <tr>
                         <td></td>
-                        <td>{{ name }}</td>
-                        <td>{{ lab }}</td>
-                        <td>{{ yeast_type }}</td>
-                        <td>{{ yeast_form }}</td>
-                        <td>{{ min_temp }}</td>
-                        <td>{{ max_temp }}</td>
-                        <td>{{ attenuation }}</td>
-                        <td>{{ flocculation }}</td>
-                        <td>{{ comments }}</td>
+                        <td>{{ yeast.name }}</td>
+                        <td>{{ yeast.lab }}</td>
+                        <td>{{ yeast.yeast_type }}</td>
+                        <td>{{ yeast.yeast_form }}</td>
+                        <td>{{ yeast.min_temp }}</td>
+                        <td>{{ yeast.max_temp }}</td>
+                        <td>{{ yeast.attenuation }}</td>
+                        <td>{{ yeast.flocculation }}</td>
+                        <td>{{ yeast.comments }}</td>
                     </tr>
+                    {% endfor %}
             </table>
         {% endblock %}
