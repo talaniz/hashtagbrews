@@ -4,9 +4,25 @@ from selenium.webdriver.support.select import Select
 from .base import FunctionalTest
 
 
-class NewVisitorTest(FunctionalTest):
+class NewHopsVisitorTest(FunctionalTest):
+    """
+    Simulation of a first time user adding yeast records
+
+    * Note: View[Model]Visitor tests could use a helper function to navigate through the first 2 pages at this point
+    """
 
     def test_user_can_navigate_to_hops_page_and_save_hops_record(self):
+        """
+        User performs the following tasks to add hop record:
+                * Navigate to site index
+                * Navigate to homebrew database page
+                * Select 'Hops' & redirect to hops main page
+                * Click on modal 'Add Hops', fill in form & submit
+                * Check for submitted record on hops page
+                * Quite browser, reopen hops main page and re-check for record
+
+                :return: pass or fail
+        """
 
         # Kevin wants to contribute to the Open Source Homebrew Database
         # He navigates to the homepage and clicks the link to navigate
@@ -97,6 +113,18 @@ class NewVisitorTest(FunctionalTest):
         # Satisfied once again, he returns to his boil.
 
     def test_user_can_update_hop_record(self):
+        """
+        User performs the following tasks to update hop record:
+                * Navigate to hops
+                * Select 'Hops' & redirect to hops main page
+                * Click on modal 'Add Hops', fill in form & submit
+                * Check for submitted record on hops page
+                * Click on hop name, change field name in modal, save
+                * Check hops page to make sure record was successfully updated
+
+                :return: pass or fail
+        """
+
         # John has decided to contribute to the open source homebrew database
         # He navigates to the hops page (Kevin showed him), and selects add hops
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
@@ -163,6 +191,18 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotIn('Amarillo', [row.text for row in rows])
 
     def test_user_deletes_hop_record(self):
+        """
+        User performs the following tasks to delete hop record:
+                * Navigate to hops
+                * Select 'Hops' & redirect to hops main page
+                * Click on modal 'Add Hops', fill in form & submit
+                * Check for submitted record on hops page
+                * Click on 'Delete' link, confirm delete
+                * Check hops page to make sure record was successfully deleted
+
+                :return: pass or fail
+        """
+
         # Josh wants to contribute to the open source beer database.(Rave reviews from Kevin & John)
         # He navigates to the site (courtesy of Kevin)
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')

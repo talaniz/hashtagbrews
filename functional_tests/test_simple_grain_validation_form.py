@@ -5,8 +5,20 @@ from .base import FunctionalTest
 
 
 class GrainFormValidation(FunctionalTest):
+    """
+    User simulation entering blank or incorrect form data on grain forms
+    """
 
     def test_add_grains_blank_form_validation(self):
+        """
+        User performs the following tasks to submit blank grain form data:
+                    * User goes to the grainss page
+                    * User submits new form with all blank fields
+                    * Check that 'addgrains' form redirects to grains page with validation errors
+
+                    :return: pass or fail
+        """
+
         # Ethan wants to contribute to the Homebrew Database
         # He navigates to the grains page and selects 'Add Grains'
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
@@ -32,6 +44,15 @@ class GrainFormValidation(FunctionalTest):
         self.assertIn("You must leave a comment", [error.text for error in errors])
 
     def test_add_grains_invalid_input_form_validation(self):
+        """
+        User performs the following tasks to input invalid data
+                * User navigates directly to the grains page
+                * User submits 'addgrains' form with strings instead of numbers on degrees_lovibond & specific_gravity
+                * Check that the 'addgrains' form redirects to the grain page with validation errors
+
+                :return: pass or fail
+        """
+
         # Ben wants to contribute to the Homebrew Database
         # He navigates to the grains page and selects 'Add Grains'
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
@@ -73,6 +94,17 @@ class GrainFormValidation(FunctionalTest):
         self.assertIn("Specific gravity must be a decimal number", [error.text for error in errors])
 
     def test_update_grains_blank_form_validation(self):
+        """
+        User performs the following tasks to submit blank input on update form
+                * User navigates to the grains page
+                * User submits the 'addgrains' form correctly
+                * Check that form saved correctly
+                * User clicks on grain name, clears all input fields, submits
+                * Check redirect to grains page with validation errors
+
+                :return: pass or fail
+        """
+
         # Jim has decided to contribute to the open source homebrew database
         # He navigates to the grains page (Kevin showed him), and selects add grain
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
@@ -149,6 +181,17 @@ class GrainFormValidation(FunctionalTest):
         self.assertIn("You must leave a comment", [error.text for error in errors])
 
     def test_update_grains_invalid_form_validation(self):
+        """
+        User performs the following tasks to input invalid data in update form
+                * User navigates directly to the grain page
+                * User submits 'addgrains' form correctly
+                * Check that form data saved correctly
+                * User clicks on grain name, changes degrees_lovibond & specific_gravity to strings, submits
+                * Check that 'addgrains' form redirects to grains page with validation errors
+
+                :return: pass or fail
+        """
+
         # Jim has decided to contribute to the open source homebrew database
         # He navigates to the grains page (Kevin showed him), and selects add grain
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')

@@ -5,8 +5,20 @@ from .base import FunctionalTest
 
 
 class HopFormValidation(FunctionalTest):
+    """
+    User simulation entering blank or incorrect form data on hop forms
+    """
 
     def test_addhops_blank_form_validation(self):
+        """
+        User performs the following tasks to submit blank hop form data:
+                * User goes to the hops page
+                * User submits new form with all blank fields
+                * Check that 'addhops' form redirects to hops page with validation errors
+
+                :return: pass or fail
+        """
+
         # Ethan wants to contribute to the Homebrew Database
         # He navigates to the hops page and selects 'Add Hops'
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
@@ -32,6 +44,15 @@ class HopFormValidation(FunctionalTest):
         self.assertIn("You must enter a comment", [error.text for error in errors])
 
     def test_addhops_invalid_input_form_validation(self):
+        """
+        User performs the following tasks to input invalid data
+                * User navigates directly to the hops page
+                * User submits 'addhops' form with strings instead of numbers on min/max alpha acid
+                * Check that the 'addhops' form redirects to the hops page with validation errors
+
+                :return: pass or fail
+        """
+
         # Ben wants to contribute to the Homebrew Database
         # He navigates to the hops page and selects 'Add Hops'
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
@@ -75,6 +96,17 @@ class HopFormValidation(FunctionalTest):
         # TODO: invalid input for min/max alpha acid needs to specify the field name
 
     def test_update_hops_blank_input_validation(self):
+        """
+        User performs the following tasks to submit blank input on update form
+                * User navigates to the hops page
+                * User submits the 'addhops' form correctly
+                * Check that form saved correctly
+                * User clicks on hop name, clears all input fields, submits
+                * Check redirect to hops page with validation errors
+
+                :return: pass or fail
+        """
+
         # Jim has decided to contribute to the open source homebrew database
         # He navigates to the hops page (Kevin showed him), and selects add hops
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
@@ -151,6 +183,17 @@ class HopFormValidation(FunctionalTest):
         self.assertIn("You must enter a comment", [error.text for error in errors])
 
     def test_update_hops_invalid_input_validation(self):
+        """
+        User performs the following tasks to input invalid data in update form
+                * User navigates directly to the hops page
+                * User submits 'addhops' form correctly
+                * Check that form data saved correctly
+                * User clicks on hop name, changes min/max alpha acid to strings, submits
+                * Check that 'addhops' form redirects to hops page with validation errors
+
+                :return: pass or fail
+        """
+
         # Jim has decided to contribute to the open source homebrew database
         # He navigates to the hops page (Kevin showed him), and selects add hops
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')

@@ -4,7 +4,7 @@ from selenium.webdriver.support.select import Select
 from .base import FunctionalTest
 
 
-class NewYeastVisitor(FunctionalTest):
+class NewYeastVisitorTest(FunctionalTest):
     """
     Simulation of a first time user adding yeast records
 
@@ -201,14 +201,12 @@ class NewYeastVisitor(FunctionalTest):
         self.assertEqual(header_text, 'Yeasts')
 
         # He sees the link for the yeast record he just entered
-        # and he clicks on it, a bootstrap modal form with the information
-        # pops up
+        # and he clicks on it, a bootstrap modal form with the information pops up
         self.browser.find_element_by_link_text('American Ale 1056').click()
         self.browser.implicitly_wait(6)
 
         # He changes the grain name from Carared to Chocolate Pale and clicks submit.
-        # He's redirected back to the grains list page and can see the change updated
-        # in the table
+        # He's redirected back to the grains list page and can see the change updated in the table
         inputbox = self.browser.find_element_by_id('update').find_element_by_id('name')
 
         inputbox.clear()

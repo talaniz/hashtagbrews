@@ -66,6 +66,11 @@ class HopFormTest(TestCase):
         )
 
     def test_form_validates_incorrect_input(self):
+        """
+        Test to ensure that the HopForm provides the correct validation error messages when invalid input is submitted
+                :return: pass or fail
+        """
+
         hop_form = HopForm(data={
             'name': 'Chinook',
             'min_alpha_acid': 'str',
@@ -95,6 +100,11 @@ class GrainFormTest(TestCase):
     """
 
     def test_grain_form_returns_correct_elements(self):
+        """
+        Test checks that the Grain is rendered with the correct html id's and names
+                :return: pass or fail
+        """
+
         form = GrainForm()
 
         form_elements = ['name="name"', 'id="name"', 'id="degrees_lovibond"', 'name="degrees_lovibond"',
@@ -105,6 +115,11 @@ class GrainFormTest(TestCase):
             self.assertIn(element, form.as_p())
 
     def test_grain_form_validates_blank_input(self):
+        """
+        Test to check that the GrainForm returns the correction validation input with blank data
+                :return: pass or fail
+        """
+
         grain_form = GrainForm(data={'name': '',
                                      'degrees_lovibond': '',
                                      'specific_gravity': '',
@@ -134,6 +149,11 @@ class GrainFormTest(TestCase):
         )
 
     def test_grain_form_validates_incorrect_input(self):
+        """
+        Test to check that the GrainForm returns invalid submissions with the correct validation errors
+                :return: pass or fail
+        """
+
         grain_form = GrainForm(data={'name': 'Amber Pale',
                                      'degrees_lovibond': 'ninety three',
                                      'specific_gravity': 'seventy one',
