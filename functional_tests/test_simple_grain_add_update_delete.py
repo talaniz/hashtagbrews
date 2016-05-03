@@ -5,8 +5,25 @@ from .base import FunctionalTest
 
 
 class NewGrainVisitorTest(FunctionalTest):
+    """
+    Simulation of a first time user adding grain records
+
+    * Note: View[Model]Visitor tests could use a helper function to navigate through the first 2 pages at this point
+    """
 
     def test_user_can_navigate_to_grains_page_and_save_grains_record(self):
+        """
+        User performs the following tasks to add grains record:
+                * Navigate to site index
+                * Navigate to homebrew database page
+                * Select 'Grains' & redirect to grains main page
+                * Click on modal 'Add Grains', fill in form & submit
+                * Check for submitted record on grains page
+                * Quite browser, reopen grains main page and re-check for record
+
+                :return: pass or fail
+        """
+
         # Kevin wants to contribute to the Open Source Homebrew Database.
         # He navigates to the homepage and clicks the link to navigate
         # to the Open Source Homebrew database.
@@ -94,6 +111,19 @@ class NewGrainVisitorTest(FunctionalTest):
         # Satisfied once again, he returns to his boil.
 
     def test_user_can_update_grain_record(self):
+        """
+        User performs the following tasks to update grain record:
+                * Navigate to grains page
+                * Select 'Grains' & redirect to grains main page
+                * Click on modal 'Add Grains', fill in form & submit
+                * Check for submitted record on grains page
+                * Click on grain name, change field name in modal, save
+                * Check grains page to make sure record was successfully update
+
+                :return: pass or fail
+
+        """
+
         # John has decided to contribute to the open source homebrew database
         # He navigates to the grains page (Kevin showed him), and selects add grains
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
@@ -160,6 +190,16 @@ class NewGrainVisitorTest(FunctionalTest):
         self.assertNotIn('Carared', [row.text for row in rows])
 
     def test_user_deletes_grain_record(self):
+        """
+        User performs the following tasks to delete grain record:
+                * Navigate to the grains page
+                * Submit a grain record
+                * Click on the 'Delete' link, confirm delete
+                * Check that submitted grain record is no longer present
+
+                :return: pass or fail
+        """
+
         # Josh wants to contribute to the open source beer database.(Rave reviews from Kevin & John)
         # He navigates to the site (courtesy of Kevin)
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')

@@ -20,6 +20,7 @@
                          <option value="Lallemend">Lallemend</option>
                          <option value="Munton Fison">Munton Fison</option>
                          <option value="Red Star">Red Star</option>
+                         <option value="White Labs">White Labs</option>
                          <option value="Wyeast">Wyeast</option>
                          <option value="Wylabs">Wylabs</option>
                          <option value="The Yeast Bay">The Yeast Bay</option>
@@ -28,6 +29,7 @@
                                 <option value="Ale">Ale</option>
                                 <option value="Champagne">Champagne</option>
                                 <option value="Lager">Lager</option>
+                                <option value="Saison">Saison</option>
                                 <option value="Wheat">Wheat</option>
                                 <option value="Wine">Wine</option>
                             </select>
@@ -38,7 +40,12 @@
                 Min Temp: <input id="min_temp" name="min_temp" type="text">
                 Max Temp: <input id="max_temp" name="max_temp" type="text">
                 Attenuation: <input id="attenuation" name="attenuation" type="text">
-                Flocculation: <input id="flocculation" name="flocculation" type="text">
+                Flocculation: <select id="flocculation" name="flocculation">
+                                   <option value="Low">Low</option>
+                                   <option value="Medium">Medium</option>
+                                   <option value="High">High</option>
+                                   <option value="Very High">Very High</option>
+                              </select>
                 Comments: <input id="comments" name="comments" type="text">
                 {%  csrf_token %}
             </div>

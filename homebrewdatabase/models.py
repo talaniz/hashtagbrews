@@ -93,6 +93,7 @@ class Yeast(models.Model):
     LALLEMEND = 'Lallemend'
     MUNTON_FISON = 'Munton Fison'
     RED_STAR = 'Red Star'
+    WHITE_LABS = 'White Labs'
     WYEAST = 'Wyeast'
     WYLABS = 'Wylabs'
     YEAST_BAY = 'Yeast Bay'
@@ -101,6 +102,7 @@ class Yeast(models.Model):
     ALE = 'Ale'
     CHAMPAGNE = 'Champagne'
     LAGER = 'Lager'
+    SAISON = 'Saison'
     WHEAT = 'Wheat'
     WINE = 'Wine'
 
@@ -127,6 +129,7 @@ class Yeast(models.Model):
         (LALLEMEND, 'Lallemend'),
         (MUNTON_FISON, 'Munton Fison'),
         (RED_STAR, 'Red Star'),
+        (WHITE_LABS, 'White Labs'),
         (WYEAST, 'Wyeast'),
         (WYLABS, 'Wylabs'),
         (YEAST_BAY, 'The Yeast Bay'),
@@ -136,6 +139,7 @@ class Yeast(models.Model):
         (ALE, 'Ale'),
         (CHAMPAGNE, 'Champagne'),
         (LAGER, 'Lager'),
+        (SAISON, 'Saison'),
         (WHEAT, 'Wheat'),
         (WINE, 'Wine'),
     )

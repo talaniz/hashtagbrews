@@ -86,9 +86,9 @@ class TestHopsPageView(TestCase):
         hops(request)
         self.assertEqual(Hop.objects.count(), 0)
 
-    def test_home_page_displays_all_hops_records(self):
+    def test_hops_page_displays_all_hops_records(self):
         """
-        Checks that the home page displays all available hop records. Will be changed to a limited view in the future.
+        Checks that the hops page displays all available hop records. Will be changed to a limited view in the future.
                 :return: pass or fail
         """
 
@@ -653,3 +653,98 @@ class TestYeastPageView(TestCase):
         self.assertEqual(new_yeast.attenuation, 75)
         self.assertEqual(new_yeast.flocculation, 'Medium')
         self.assertEqual(new_yeast.comments, 'Well balanced.')
+
+    def test_add_yeasts_redirects_after_POST(self):
+        """
+        Test to check that accessing the 'addyeasts' url redirects with 302 and a url of '/beerdb/yeasts'
+                :return: pass or fail
+        """
+
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = 'Alpine'
+        request.POST['lab'] = 'Wyeast'
+        request.POST['yeast_type'] = 'Ale'
+        request.POST['yeast_form'] = 'Liquid'
+        request.POST['min_temp'] = 60
+        request.POST['max_temp'] = 72
+        request.POST['attenuation'] = 75
+        request.POST['flocculation'] = 'Medium'
+        request.POST['comments'] = 'Well balanced.'
+
+        response = addyeasts(request)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/beerdb/yeasts/')
+
+    def test_yeast_page_only_saves_when_necessary(self):
+        """
+        Tests that a non-POST request does not save values to the database
+                :return: pass or fail
+        """
+
+        request = HttpRequest()
+        addyeasts(request)
+        self.assertEqual(Yeast.objects.count(), 0)
+
+    def test_yeast_page_displays_all_yeast_records(self):
+        """
+        Test to check that the yeasts page displays all saved yeast records
+                :return: pass or fail
+        """
+
+        Yeast.objects.create(name="WLP002 ENGLISH ALE YEAST",
+                             lab="White Labs",
+                             yeast_type="Ale",
+                             yeast_form="Liquid",
+                             min_temp="65",
+                             max_temp="68",
+                             attenuation="68",
+                             flocculation="Very High",
+                             comments="A classic ESB strain from one of England's largest independent breweries.")
+
+        Yeast.objects.create(name='WLP566 BELGIAN SAISON II YEAST',
+                             lab='White Labs',
+                             yeast_type='Saison',
+                             yeast_form='Liquid',
+                             min_temp='68',
+                             max_temp='78',
+                             attenuation='82',
+                             flocculation='Medium',
+                             comments='Saison strain with more fruity ester production than with WLP565')
+
+        request = HttpRequest()
+        response = yeasts(request)
+
+        self.assertIn('WLP002 ENGLISH ALE YEAST', response.content.decode())
+        self.assertIn('WLP566 BELGIAN SAISON II YEAST', response.content.decode())
+
+    def test_add_yeast_view_saves_record(self):
+        """
+        Checks that 'addyeasts' vew can take a POT request and save to the database
+                :return: pass or fail
+
+        * Note: location check is redundant. Could be refactored to check more of the yeast model
+        """
+
+        response = self.client.post(
+            '/beerdb/add/yeasts/',
+            data={
+                'name': "WLP002 ENGLISH ALE YEAST",
+                'lab': "White Labs",
+                'yeast_type': "Ale",
+                'yeast_form': "Liquid",
+                'min_temp': "65",
+                'max_temp': "68",
+                'attenuation': "68",
+                'flocculation': "Very High",
+                'comments': "A classic ESB strain from one of England's largest independent breweries."
+            })
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/beerdb/yeasts/')
+
+        yeast_record = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')
+
+        self.assertEqual(yeast_record[0].name, 'WLP002 ENGLISH ALE YEAST')
