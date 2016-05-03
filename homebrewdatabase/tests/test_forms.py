@@ -4,8 +4,15 @@ from homebrewdatabase.forms import HopForm, GrainForm
 
 
 class HopFormTest(TestCase):
+    """
+    Test model for all tests related to HopForm
+    """
 
     def test_form_returns_correct_elements(self):
+        """
+        This test makes sure that the form elements contain the correct html names and IDs
+                :return: pass or fail
+        """
         form = HopForm()
 
         form_elements = ['name="name"', 'id="new_hops"', 'name="min_alpha_acid"',
@@ -18,6 +25,11 @@ class HopFormTest(TestCase):
             self.assertIn(element, form.as_p())
 
     def test_form_validates_blank_input(self):
+        """
+        Test to check that the HopForm provides validation errors for blank items
+                :return: pass or fail
+        """
+
         hop_form = HopForm(data={
             'name': '',
             'min_alpha_acid': '',
@@ -78,6 +90,9 @@ class HopFormTest(TestCase):
 
 
 class GrainFormTest(TestCase):
+    """
+    Test model for all tests related to the GrainForm
+    """
 
     def test_grain_form_returns_correct_elements(self):
         form = GrainForm()

@@ -115,9 +115,23 @@ class YeastModelTest(TestCase):
         first_yeast.attenuation = '75'
         first_yeast.flocculation = 'Medium'
         first_yeast.comments = 'Well balanced.'
+        first_yeast.save()
+
+        second_yeast = Yeast()
+        second_yeast.name = 'American Ale 1056'
+        second_yeast.lab = 'Wyeast'
+        second_yeast.yeast_type = 'Ale'
+        second_yeast.yeast_form = 'Liquid'
+        second_yeast.min_temp = '60'
+        second_yeast.max_temp = '72'
+        second_yeast.attenuation = '75'
+        second_yeast.flocculation = 'Low'
+        second_yeast.comments = 'Well balanced. Ferments dry, finishes soft.'
+        second_yeast.save()
 
         saved_yeasts = Yeast.objects.all()
         first_yeast_record = saved_yeasts[0]
+        second_yeast_record = saved_yeasts[1]
 
         self.assertEqual(first_yeast_record.name, 'Alpine')
         self.assertEqual(first_yeast_record.lab, 'Wyeast')
@@ -128,3 +142,13 @@ class YeastModelTest(TestCase):
         self.assertEqual(first_yeast_record.attenuation, 75)
         self.assertEqual(first_yeast_record.flocculation, 'Medium')
         self.assertEqual(first_yeast.comments, 'Well balanced.')
+
+        self.assertEqual(second_yeast_record.name, 'American Ale 1056')
+        self.assertEqual(second_yeast_record.lab, 'Wyeast')
+        self.assertEqual(second_yeast_record.yeast_type, 'Ale')
+        self.assertEqual(second_yeast_record.yeast_form, 'Liquid')
+        self.assertEqual(second_yeast_record.min_temp, 60)
+        self.assertEqual(second_yeast_record.max_temp, 72)
+        self.assertEqual(second_yeast_record.attenuation, 75)
+        self.assertEqual(second_yeast_record.flocculation, 'Low')
+        self.assertEqual(second_yeast_record.comments, 'Well balanced. Ferments dry, finishes soft.')

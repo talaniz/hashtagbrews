@@ -73,3 +73,94 @@ class Grain(models.Model):
                                  default=LIQUID_EXTRACT)
 
     comments = models.TextField(default='')
+
+
+class Yeast(models.Model):
+    """
+    Class representing a yeast profile.
+    """
+
+    # YEAST_LAB_CHOICES
+    BREWFERM = 'Brewferm'
+    BREWTEK = 'Brewtek'
+    COOPERS = 'Coopers'
+    DANSTAR = 'Danstar'
+    DCL_FERMENTIS = 'DCL/Fermentis'
+    DORIC = 'Doric'
+    EAST_COAST_YEAST = 'East Coast Yeast'
+    EDME = 'Edme'
+    GLENBREW = 'Glenbrew'
+    LALLEMEND = 'Lallemend'
+    MUNTON_FISON = 'Munton Fison'
+    RED_STAR = 'Red Star'
+    WYEAST = 'Wyeast'
+    WYLABS = 'Wylabs'
+    YEAST_BAY = 'Yeast Bay'
+
+    # YEAST_TYPE_CHOICES
+    ALE = 'Ale'
+    CHAMPAGNE = 'Champagne'
+    LAGER = 'Lager'
+    WHEAT = 'Wheat'
+    WINE = 'Wine'
+
+    # YEAST_FORM_CHOICES
+    LIQUID = 'Liquid'
+    DRY = 'Dry'
+
+    # YEAST_FLOCCULATION_CHOICES
+    LOW = 'Low'
+    MEDIUM = 'Medium'
+    HIGH = 'High'
+    VERY_HIGH = 'Very High'
+
+    YEAST_LAB_CHOICES = (
+        (BREWFERM, 'Brewferm'),
+        (BREWTEK, 'Brewtek'),
+        (COOPERS, 'Coopers'),
+        (DANSTAR, 'Danstar'),
+        (DCL_FERMENTIS, 'DCL/Fermentis'),
+        (DORIC, 'Doric'),
+        (EAST_COAST_YEAST, 'East Coast Yeast'),
+        (EDME, 'Edme'),
+        (GLENBREW, 'Glenbrew'),
+        (LALLEMEND, 'Lallemend'),
+        (MUNTON_FISON, 'Munton Fison'),
+        (RED_STAR, 'Red Star'),
+        (WYEAST, 'Wyeast'),
+        (WYLABS, 'Wylabs'),
+        (YEAST_BAY, 'The Yeast Bay'),
+    )
+
+    YEAST_TYPE_CHOICES = (
+        (ALE, 'Ale'),
+        (CHAMPAGNE, 'Champagne'),
+        (LAGER, 'Lager'),
+        (WHEAT, 'Wheat'),
+        (WINE, 'Wine'),
+    )
+
+    YEAST_FORM_CHOICES = (
+        (LIQUID, 'Liquid'),
+        (DRY, 'Dry'),
+    )
+
+    YEAST_FLOCCULATION_CHOICES = (
+        (LOW, 'Low'),
+        (MEDIUM, 'Medium'),
+        (HIGH, 'High'),
+        (VERY_HIGH, 'Very high'),
+    )
+
+    name = models.CharField(max_length=200, unique=True)
+    lab = models.CharField(max_length=20, choices=YEAST_LAB_CHOICES, default=WYLABS)
+    yeast_type = models.CharField(max_length=15, choices=YEAST_TYPE_CHOICES, default=ALE)
+    yeast_form = models.CharField(max_length=10, choices=YEAST_FORM_CHOICES, default=LIQUID)
+    min_temp = models.IntegerField()
+    max_temp = models.IntegerField()
+    attenuation = models.IntegerField()
+    flocculation = models.CharField(max_length=15, choices=YEAST_FLOCCULATION_CHOICES, default=MEDIUM)
+    comments = models.TextField()
+
+    def __unicode__(self):
+        return self.name
