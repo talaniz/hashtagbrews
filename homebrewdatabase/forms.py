@@ -1,6 +1,6 @@
 from django import forms
 
-from homebrewdatabase.models import Hop, Grain
+from homebrewdatabase.models import Hop, Grain, Yeast
 
 
 class HopForm(forms.models.ModelForm):
@@ -31,7 +31,6 @@ class HopForm(forms.models.ModelForm):
             'country': {'required': 'You must enter a country'},
             'comments': {'required': 'You must enter a comment'}
         }
-    # TODO: Adjust error messages from min/max alpha acid to "{{ field name}} must be a decimal number"
 
 
 class GrainForm(forms.models.ModelForm):
@@ -61,4 +60,31 @@ class GrainForm(forms.models.ModelForm):
             'specific_gravity': {'required': 'You must enter a specific gravity',
                                  'invalid': 'Specific gravity must be a decimal number'},
             'comments': {'required': 'You must leave a comment'}
+        }
+
+
+class YeastForm(forms.models.ModelForm):
+    """
+    Instance of a form used to add/edit/delete data related to yeast records
+
+            * error_messages
+                - required: name, lab, min_temp, max_temp, attenuation, flocculation, comments
+                - invalid: min_temp, max_temp, attenuation
+    """
+
+    class Meta:
+        model = Yeast
+        fields = ('name', 'lab', 'yeast_type', 'yeast_form', 'min_temp', 'max_temp', 'attenuation', 'flocculation',
+                  'comments')
+
+        widgets = {
+            'name': forms.fields.TextInput(attrs={'id': 'name'}),
+            'lab': forms.fields.NumberInput(attrs={'id': 'lab'}),
+            'yeast_type': forms.fields.Select(attrs={'id': 'yeast_type'}),
+            'yeast_form': forms.fields.Select(attrs={'id': 'yeast_form'}),
+            'min_temp': forms.fields.NumberInput(attrs={'id': 'min_temp'}),
+            'max_temp': forms.fields.NumberInput(attrs={'id': 'max_temp'}),
+            'attenuation': forms.fields.TextInput(attrs={'id': 'attenuation'}),
+            'flocculation': forms.fields.TextInput(attrs={'id': 'flocculation'}),
+            'comments': forms.fields.TextInput(attrs={'id': 'comments'})
         }

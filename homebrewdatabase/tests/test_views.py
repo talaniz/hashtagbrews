@@ -748,3 +748,43 @@ class TestYeastPageView(TestCase):
         yeast_record = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')
 
         self.assertEqual(yeast_record[0].name, 'WLP002 ENGLISH ALE YEAST')
+
+    def test_can_update_yeasts(self):
+        """
+        Checks that the '/beerdb/edit/%d/yeasts/' url can update a yeast record with creating an additional record
+                 :return: pass or fail
+        """
+
+        self.client.post('/beerdb/edit/%d/yeasts/',
+                         data={'name': "WLP002 ENGLISH ALE YEAST",
+                               'lab': "White Labs",
+                               'yeast_type': "Ale",
+                               'yeast_form': "Liquid",
+                               'min_temp': "65",
+                               'max_temp': "68",
+                               'attenuation': "68",
+                               'flocculation': "Very High",
+                               'comments': "A classic ESB strain"})
+
+        yeast_instance = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')[0]
+
+        response = self.client.get('/beerdb/edit/%d/grains/' % yeast_instance.id)
+
+        self.assertEqual(response.status_code, 200)
+
+        edit_form = response.context['form']
+        yeast_record = edit_form.initial
+
+        yeast_record['name'] = 'WLP004 IRISH ALE YEAST'
+
+        response = self.client.post('/beerdb/edit/%s/yeasts/' % yeast_instance.id, data=yeast_record)
+
+        self.assertEqual(response.status_code, 302)
+
+        yeast_list = Yeast.objects.filter(name='WLP004 IRISH ALE YEAST')
+
+        self.assertEqual(Len(yeast_list), 1)
+
+        yeast_list = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')
+
+        self.assertEqual(len(yeast_list), 0)

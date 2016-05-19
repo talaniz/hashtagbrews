@@ -274,3 +274,22 @@ def addyeasts(request):
                              )
         return redirect('yeasts_list')
     return render(request, 'homebrewdatabase/addyeasts.html')
+
+# TODO: Stop working on update yeasts, first update the add view to use the form model
+
+
+def updateyeasts(request, pk):
+    """
+    Modal form to update a yeast record. Shows all form fields.
+            :param request: Django HttpRequest object
+            :param pk: primary key of the yeast record to be updated
+            :return: renders 'hombrewdatabase/updateyeasts.html' by default, otherwise 'hombrewdatabase/yeasts.html'
+
+            * context
+                - 'yeasts'
+                - 'form'
+                - 'errors'
+
+            * success_url: 'yeasts_list'
+    """
+    pass

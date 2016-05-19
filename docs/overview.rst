@@ -15,12 +15,40 @@ Setup
 2. Install virtualenv
 3. Create virtualenv with python3 executable and activate
 4. Create project directory and cd into directory
-5. Clone using git
+5. Clone using git (don't forget to install requirements.txt)
     $ git clone https://talaniz715@bitbucket.org/talaniz715/hashtagbrews.git/wiki
 6. Run unit tests
     python manage.py test
 7. Run `python manage.py runserver` then run functional tests `python functional_tests.py`
 8. If tests pass, ready to contribute!
+
+Requirements
+------------
+
+Hashtag brews requires the following:
+
+* alabaster==0.7.7
+* Babel==2.3.4
+* coverage==4.0.3
+* Django==1.9.1
+* django-coverage-plugin==1.2.2
+* django-debug-toolbar==1.4
+* django-debug-toolbar-django-info==0.2.0
+* django-extensions==1.6.1
+* docutils==0.12
+* imagesize==0.7.1
+* Jinja2==2.8
+* MarkupSafe==0.23
+* psycopg2==2.6.1
+* Pygments==2.1.3
+* pytz==2016.4
+* selenium==2.52.0
+* six==1.10.0
+* snowballstemmer==1.2.1
+* Sphinx==1.4.1
+* sqlparse==0.1.18
+* Werkzeug==0.11.4
+* wheel==0.24.0
 
 Planning
 --------
@@ -58,3 +86,4 @@ To Do
 * Unit and functional tests for yeasts
 * Pybrew library development
 * Sprint planning for homebrew planner, inventory site and homebrew recipe creator
+* Separate local and production environment settings

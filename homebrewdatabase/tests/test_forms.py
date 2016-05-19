@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from homebrewdatabase.forms import HopForm, GrainForm
+from homebrewdatabase.forms import HopForm, GrainForm, YeastForm
 
 
 class HopFormTest(TestCase):
@@ -13,6 +13,7 @@ class HopFormTest(TestCase):
         This test makes sure that the form elements contain the correct html names and IDs
                 :return: pass or fail
         """
+
         form = HopForm()
 
         form_elements = ['name="name"', 'id="new_hops"', 'name="min_alpha_acid"',
@@ -172,3 +173,23 @@ class GrainFormTest(TestCase):
             grain_form.errors['specific_gravity'],
             ['Specific gravity must be a decimal number']
         )
+
+
+class YeastFormTest(TestCase):
+    """
+    Test model for all tests related to YeastForm
+    """
+
+    def test_form_returns_correct_elements(self):
+        """
+        Checks that all form elements contain the correct html names and Ids
+                :return: pass or fail
+        """
+
+        form = YeastForm()
+
+        form_elements = ['name="name"', 'id="name"', 'id="lab', 'id="yeast_type"', 'id="yeast_form"',
+                         'id="min_temp', 'id="max_temp"', 'id="attenuation"', 'id="flocculation"', 'id="comments"']
+
+        for element in form_elements:
+            self.assertIn(element, form.as_p())
