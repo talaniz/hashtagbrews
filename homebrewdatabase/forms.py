@@ -79,12 +79,12 @@ class YeastForm(forms.models.ModelForm):
 
         widgets = {
             'name': forms.fields.TextInput(attrs={'id': 'name'}),
-            'lab': forms.fields.NumberInput(attrs={'id': 'lab'}),
+            'lab': forms.fields.Select(attrs={'id': 'lab'}),
             'yeast_type': forms.fields.Select(attrs={'id': 'yeast_type'}),
             'yeast_form': forms.fields.Select(attrs={'id': 'yeast_form'}),
             'min_temp': forms.fields.NumberInput(attrs={'id': 'min_temp'}),
             'max_temp': forms.fields.NumberInput(attrs={'id': 'max_temp'}),
             'attenuation': forms.fields.TextInput(attrs={'id': 'attenuation'}),
-            'flocculation': forms.fields.TextInput(attrs={'id': 'flocculation'}),
+            'flocculation': forms.fields.Select(attrs={'id': 'flocculation'}),
             'comments': forms.fields.TextInput(attrs={'id': 'comments'})
         }

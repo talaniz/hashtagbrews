@@ -6,47 +6,7 @@
         </div>
         <form action="{% url 'addyeasts' %}" method="POST">
             <div class="modal-body">
-                Name: <input id="name" name="name" type="text">
-                Lab: <select id="lab" name="lab">
-                         <option value="Brewferm">Brewferm</option>
-                         <option value="Brewtek">Brewtek</option>
-                         <option value="Coopers">Coopers</option>
-                         <option value="Danstar">Danstar</option>
-                         <option value="DCL/Fermentis">DCL/Fermentis</option>
-                         <option value="Doric">Doric</option>
-                         <option value="East Coast Yeast">East Coast Yeast</option>
-                         <option value="Edme">Edme</option>
-                         <option value="Glenbrew">Glenbrew</option>
-                         <option value="Lallemend">Lallemend</option>
-                         <option value="Munton Fison">Munton Fison</option>
-                         <option value="Red Star">Red Star</option>
-                         <option value="White Labs">White Labs</option>
-                         <option value="Wyeast">Wyeast</option>
-                         <option value="Wylabs">Wylabs</option>
-                         <option value="The Yeast Bay">The Yeast Bay</option>
-                     </select>
-                Yeast Type: <select id="yeast_type" name="yeast_type">
-                                <option value="Ale">Ale</option>
-                                <option value="Champagne">Champagne</option>
-                                <option value="Lager">Lager</option>
-                                <option value="Saison">Saison</option>
-                                <option value="Wheat">Wheat</option>
-                                <option value="Wine">Wine</option>
-                            </select>
-                Yeast Form: <select id="yeast_form" name="yeast_form">
-                                <option value="Liquid">Liquid</option>
-                                <option value="Dry">Dry</option>
-                            </select>
-                Min Temp: <input id="min_temp" name="min_temp" type="text">
-                Max Temp: <input id="max_temp" name="max_temp" type="text">
-                Attenuation: <input id="attenuation" name="attenuation" type="text">
-                Flocculation: <select id="flocculation" name="flocculation">
-                                   <option value="Low">Low</option>
-                                   <option value="Medium">Medium</option>
-                                   <option value="High">High</option>
-                                   <option value="Very High">Very High</option>
-                              </select>
-                Comments: <input id="comments" name="comments" type="text">
+                {{ form.as_p }}
                 {%  csrf_token %}
             </div>
         <div class="modal-footer">

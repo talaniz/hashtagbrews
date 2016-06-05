@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 
-from .forms import HopForm, GrainForm
+from .forms import HopForm, GrainForm, YeastForm
 from .models import Hop, Grain, Yeast
 
 
@@ -244,8 +244,9 @@ def yeasts(request):
                 - 'yeasts'
                 - 'form'
     """
+
     yeasts_list = Yeast.objects.all()
-    return render(request, 'homebrewdatabase/yeasts.html', {'yeasts': yeasts_list})
+    return render(request, 'homebrewdatabase/yeasts.html', {'yeasts': yeasts_list, 'form': YeastForm()})
 
 
 def addyeasts(request):
@@ -261,19 +262,22 @@ def addyeasts(request):
             * success_url: 'yeasts_list'
     """
 
+    add_form = YeastForm(request.POST or None)
+
     if request.method == 'POST':
-        Yeast.objects.create(name=request.POST.get('name', ''),
-                             lab=request.POST.get('lab', ''),
-                             yeast_type=request.POST.get('yeast_type', ''),
-                             yeast_form=request.POST.get('yeast_form', ''),
-                             min_temp=request.POST.get('min_temp', ''),
-                             max_temp=request.POST.get('max_temp', ''),
-                             attenuation=request.POST.get('attenuation', ''),
-                             flocculation=request.POST.get('flocculation'),
-                             comments=request.POST.get('comments', '')
-                             )
+        if add_form.is_valid():
+            Yeast.objects.create(name=request.POST['name'],
+                                 lab=request.POST['lab'],
+                                 yeast_type=request.POST['yeast_type'],
+                                 yeast_form=request.POST['yeast_form'],
+                                 min_temp=request.POST['min_temp'],
+                                 max_temp=request.POST['max_temp'],
+                                 attenuation=request.POST['attenuation'],
+                                 flocculation=request.POST['flocculation'],
+                                 comments=request.POST['comments']
+                                 )
         return redirect('yeasts_list')
-    return render(request, 'homebrewdatabase/addyeasts.html')
+    return render(request, 'homebrewdatabase/addyeasts.html', {'form': add_form})
 
 # TODO: Stop working on update yeasts, first update the add view to use the form model
 
