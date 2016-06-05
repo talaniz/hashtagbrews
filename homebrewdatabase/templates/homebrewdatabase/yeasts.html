@@ -20,6 +20,15 @@
                 </div>
             </div>
 
+            <!--Modal data begins here to edit hops-->
+            <div class="modal fade" id="updateyeasts" tabindex="-1" role="dialog" aria-labelledby="updateYeastLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        {% include 'homebrewdatabase/updateyeasts.html' %}
+                    </div>
+                </div>
+            </div>
+
             <!-- Table data begins here -->
             <table id="list_table" class="table table-bordered table-striped">
                     <tr>
@@ -37,7 +46,9 @@
                     {% for yeast in yeasts %}
                     <tr>
                         <td></td>
-                        <td>{{ yeast.name }}</td>
+                        <td><a id="{{ yeast.name }}"
+                               data-toggle="#updateyeasts"
+                               href="{% url 'updateyeasts' pk=yeast.id %}">{{ yeast.name }}</a></td>
                         <td>{{ yeast.lab }}</td>
                         <td>{{ yeast.yeast_type }}</td>
                         <td>{{ yeast.yeast_form }}</td>
