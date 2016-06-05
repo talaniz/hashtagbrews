@@ -310,3 +310,26 @@ def updateyeasts(request, pk):
                   {'action': yeast_form_url,
                    'form': edit_form
                    })
+
+
+def deleteyeasts(request, pk):
+    """
+    Modal form to delete yeast record. Shows yeast record name
+            :param request: Django HttpRequest object
+            :param pk: primary key of the yeast record to be deleted
+            :return: renders 'hombrewdatabase/deleteyeasts.html'
+
+            * success_url: 'yeasts_list'
+    """
+
+    yeast_record = Yeast.objects.filter(pk=pk)[0]
+
+    if request.method == 'POST':
+        yeast_record.delete()
+        success_url = reverse('yeasts_list')
+        return redirect(success_url)
+    yeast_form_url = reverse('deleteyeasts', kwargs={'pk': yeast_record.id})
+    return render(request, 'homebrewdatabase/deleteyeasts.html',
+                  {'action': yeast_form_url,
+                   'yeast': yeast_record
+                   })

@@ -186,14 +186,14 @@ class NewYeastVisitorTest(FunctionalTest):
         submit_button.click()
 
         # He closes out his browser, but then realizes that he's made a mistake.
-        grains_page = self.browser.current_url
+        yeasts_page = self.browser.current_url
         self.browser.refresh()
         self.browser.quit()
 
         # The grain name wasn't 'American Ale 1056' it was 'WLP080 CREAM ALE YEAST BLEND'.
         # He decides to go back and update the record
         self.browser = webdriver.Firefox()
-        self.browser.get(grains_page)
+        self.browser.get(yeasts_page)
 
         self.browser.implicitly_wait(6)
 
@@ -220,3 +220,76 @@ class NewYeastVisitorTest(FunctionalTest):
 
         self.assertIn('WLP080 CREAM ALE YEAST BLEND', [row.text for row in rows])
         self.assertNotIn('American Ale 1056', [row.text for row in rows])
+
+    def test_users_deletes_yeast_record(self):
+        """
+        User performs the following tasks to delete yeast record:
+                * Navigate to yeasts
+                * Select 'Yeasts' & redirect to yeasts main page
+                * Click on modal 'Add Yeasts', fill in form & submit
+                * Check for submitted record on yeasts page
+                * Click on 'Delete' link, confirm delete
+                * Check yeasts page to make sure record was successfully deleted
+
+                :return: pass or fail
+        """
+
+        # Josh wants to add a few more records to the open source beer database
+        # He's been playing with different yeast styles and wants to try to add a record
+        yeast_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/yeasts')
+        self.browser.get(yeast_live_server_url)
+
+        # He clicks the 'Add Yeasts' button
+        self.browser.find_element_by_id("add_yeasts").click()
+
+        self.browser.implicitly_wait(6)
+
+        # He enters the information into the form and clicks submit
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('British Ale 1056')
+
+        select = Select(self.browser.find_element_by_id('lab'))
+        select.select_by_visible_text('Wyeast')
+
+        select = Select(self.browser.find_element_by_id('yeast_type'))
+        select.select_by_visible_text('Ale')
+
+        select = Select(self.browser.find_element_by_id('yeast_form'))
+        select.select_by_visible_text('Liquid')
+
+        inputbox = self.browser.find_element_by_id('min_temp')
+        inputbox.send_keys('60')
+
+        inputbox = self.browser.find_element_by_id('max_temp')
+        inputbox.send_keys('72')
+
+        inputbox = self.browser.find_element_by_id('attenuation')
+        inputbox.send_keys('75')
+
+        select = Select(self.browser.find_element_by_id('flocculation'))
+        select.select_by_visible_text('Medium')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Well balanced.')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+
+        # He sees the new yeast record saved correctly
+        self.find_text_in_table('British Ale 1056')
+
+        # But there's a problem, he meant 'American Ale 1056'
+        # He could change his entry, but Josh is always in a hurry! So he deletes the record
+        self.browser.find_element_by_link_text('Delete').click()
+        self.browser.implicitly_wait(6)
+
+        # The modal opens with the yeast record details and asks him to confirm
+        # that he wants to delete the record
+        submit_button = self.browser.find_element_by_id('delete').find_element_by_id('submit')
+        submit_button.click()
+        self.browser.implicitly_wait(6)
+
+        # He confirms and the record is no longer visible on the yeast main table.
+        table = self.browser.find_element_by_id('list_table')
+        rows = table.find_elements_by_tag_name('td')
+        self.assertNotIn('British', [row.text for row in rows])

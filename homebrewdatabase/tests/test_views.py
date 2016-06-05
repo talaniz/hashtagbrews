@@ -797,3 +797,36 @@ class TestYeastPageView(TestCase):
         yeast_list = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')
 
         self.assertEqual(len(yeast_list), 0)
+
+    def test_can_delete_yeasts(self):
+        """
+        Checks that the '/beerdb/delete/%d/yeasts' urls can delete a hop record
+                :return: pass or fail
+        """
+
+        self.client.post('/beerdb/add/yeasts/',
+                         data={
+                             'name': "WLP002 ENGLISH ALE YEAST",
+                             'lab': "White Labs",
+                             'yeast_type': "Ale",
+                             'yeast_form': "Liquid",
+                             'min_temp': "65",
+                             'max_temp': "68",
+                             'attenuation': "68",
+                             'flocculation': "Very High",
+                             'comments': "A classic ESB strain from one of England's largest independent breweries."
+                         })
+
+        yeast_instance = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')[0]
+
+        self.assertEqual(yeast_instance.name, 'WLP002 ENGLISH ALE YEAST')
+
+        response = self.client.get('/beerdb/delete/%d/yeasts/' % yeast_instance.id)
+
+        self.assertEqual(response.status_code, 200)
+
+        self.client.post('/beerdb/delete/%d/yeasts/' % yeast_instance.id)
+
+        yeast_list = Yeast.objects.filter(name="WLP002 ENGLISH ALE YEAST")
+
+        self.assertEqual(len(yeast_list), 0)

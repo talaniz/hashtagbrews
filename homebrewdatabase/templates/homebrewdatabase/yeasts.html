@@ -11,7 +11,7 @@
                 Add Yeasts
             </button>
 
-            <!--Modal data begins here to add hops-->
+            <!--Modal data begins here to add yeasts-->
             <div class="modal fade" id="addyeasts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <!--Modal data begins here to edit hops-->
+            <!--Modal data begins here to edit yeasts-->
             <div class="modal fade" id="updateyeasts" tabindex="-1" role="dialog" aria-labelledby="updateYeastLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -28,6 +28,15 @@
                     </div>
                 </div>
             </div>
+
+        <!--Modal data begins here to delete yeast-->
+        <div class="modal fade" id="deleteyeasts" tabindex="-1" role="dialog" aria-labelledby="deleteYeastLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    {% include 'homebrewdatabase/deleteyeasts.html' %}
+                </div>
+            </div>
+        </div>
 
             <!-- Table data begins here -->
             <table id="list_table" class="table table-bordered table-striped">
@@ -45,9 +54,12 @@
                     </tr>
                     {% for yeast in yeasts %}
                     <tr>
-                        <td></td>
+                        <td><a data-toggle="modal"
+                               data-target="#deleteyeasts"
+                               href="{% url 'deleteyeasts' pk=yeast.id %}">Delete</a></td>
                         <td><a id="{{ yeast.name }}"
-                               data-toggle="#updateyeasts"
+                               data-toggle="modal"
+                               data-target="#updateyeasts"
                                href="{% url 'updateyeasts' pk=yeast.id %}">{{ yeast.name }}</a></td>
                         <td>{{ yeast.lab }}</td>
                         <td>{{ yeast.yeast_type }}</td>

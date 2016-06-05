@@ -145,10 +145,13 @@ Testing Forms
 
 .. automodule:: homebrewdatabase.tests.test_forms
     :members:
-    :exclude-members: HopFormTest, GrainFormTest
+    :exclude-members: HopFormTest, GrainFormTest, YeastFormTest
 
 .. autoclass:: HopFormTest()
     :members:
 
 .. autoclass:: GrainFormTest()
+    :members:
+
+.. autoclass:: YeastFormTest()
     :members:

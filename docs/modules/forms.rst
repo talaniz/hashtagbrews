@@ -7,3 +7,7 @@ Forms
     :members:
 
 .. autoclass:: GrainForm()
+    :members:
+
+.. autoclass:: YeastForm()
+    :members:

@@ -26,6 +26,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.refresh()
         self.browser.quit()
 
+    # TODO: add a flag that specifies whether to assertIn or assertNotIn, default to assertIn
+
     def find_text_in_table(self, text):
         """
         Helper function to find text in html tables. Only searches tables with 'list_table' html id
