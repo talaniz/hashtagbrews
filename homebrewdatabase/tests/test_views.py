@@ -830,3 +830,37 @@ class TestYeastPageView(TestCase):
         yeast_list = Yeast.objects.filter(name="WLP002 ENGLISH ALE YEAST")
 
         self.assertEqual(len(yeast_list), 0)
+
+    def test_invalid_input_on_add_yeasts_page_returns_grains_list_page_with_errors(self):
+        """
+        Checks that invalid input on the 'addyeasts' view redirects to 'yeasts_list' with validation errors
+                :return: pass or fail
+        """
+
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = ''
+        request.POST['lab'] = 'Brewferm'
+        request.POST['yeast_type'] = 'Ale'
+        request.POST['yeast_form'] = 'Liquid'
+        request.POST['min_temp'] = ''
+        request.POST['max_temp'] = ''
+        request.POST['attenuation'] = ''
+        request.POST['flocculation'] = 'Medium'
+        request.POST['comments'] = ''
+
+        response = addyeasts(request)
+
+        self.assertEqual(response.status_code, 200)
+        name_validation_error = escape("A yeast name is required")
+        min_temp_validation_error = escape("You must enter a min temp")
+        max_temp_validation_error = escape("You must enter a max temp")
+        attenuation_validation_error = escape("You must enter an attenuation")
+        comment_validation_error = escape("You must enter a comment")
+
+        self.assertContains(response, name_validation_error)
+        self.assertContains(response, min_temp_validation_error)
+        self.assertContains(response, max_temp_validation_error)
+        self.assertContains(response, attenuation_validation_error)
+        self.assertContains(response, comment_validation_error)
