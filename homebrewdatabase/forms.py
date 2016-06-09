@@ -88,3 +88,11 @@ class YeastForm(forms.models.ModelForm):
             'flocculation': forms.fields.Select(attrs={'id': 'flocculation'}),
             'comments': forms.fields.TextInput(attrs={'id': 'comments'})
         }
+
+        error_messages = {
+            'name': {'required': 'A yeast name is required'},
+            'min_temp': {'required': 'You must enter a min temp'},
+            'max_temp': {'required': 'You must enter a max temp'},
+            'attenuation': {'required': 'You must enter an attenuation'},
+            'comments': {'required': 'You must enter a comment'}
+        }

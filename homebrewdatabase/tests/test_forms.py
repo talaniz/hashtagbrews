@@ -193,3 +193,39 @@ class YeastFormTest(TestCase):
 
         for element in form_elements:
             self.assertIn(element, form.as_p())
+
+    def test_yeast_form_validates_blank_input(self):
+        """
+        Test to check that the GrainForm returns the correction validation input with blank data
+                :return: pass or fail
+        """
+
+        yeast_form = YeastForm(data={'name': '',
+                                     'lab': 'Brewferm',
+                                     'yeast_type': 'Ale',
+                                     'yeast_form': 'Liquid',
+                                     'min_temp': '',
+                                     'max_temp': '',
+                                     'attenuation': '',
+                                     'flocculation': 'Medium',
+                                     'comments': ''})
+
+        self.assertEqual(yeast_form.errors['name'],
+                         ["A yeast name is required"]
+                         )
+
+        self.assertEqual(yeast_form.errors['min_temp'],
+                         ["You must enter a min temp"]
+                         )
+
+        self.assertEqual(yeast_form.errors['max_temp'],
+                         ["You must enter a max temp"]
+                         )
+
+        self.assertEqual(yeast_form.errors['attenuation'],
+                         ["You must enter an attenuation"]
+                         )
+
+        self.assertEqual(yeast_form.errors['comments'],
+                         ["You must enter a comment"]
+                         )
