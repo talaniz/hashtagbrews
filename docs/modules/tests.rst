@@ -82,7 +82,7 @@ Grains
 
 .. automodule:: functional_tests.test_simple_grain_validation_form
     :members:
-    :exclude-Members: GrainFormValidation
+    :exclude-members: GrainFormValidation
 
 .. autoclass:: GrainFormValidation()
     :members:
@@ -91,7 +91,12 @@ Grains
 Yeasts
 ######
 
-Not yet created
+.. automodule:: functional_tests.test_simple_yeast_validation_form
+    :members:
+    :exclude-members: YeastFormValidation
+
+.. autoclass:: YeastFormValidation()
+    :members:
 
 
 

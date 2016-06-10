@@ -4,6 +4,19 @@
         {% block title %}<title>Yeasts | Homebrew Materials Database</title>{% endblock %}
 
         {% block content %}
+            {% if form.errors %}
+            <div id="validation_errors" class="alert alert-danger">
+                {% for value in form.errors.items %}
+                    {{ value.1 }}
+                {% endfor %}
+            </div>
+        {% elif errors %}
+            <div id="validation_errors" class="alert alert-danger">
+                {% for value in errors.items %}
+                    {{ value.1 }}
+                {% endfor %}
+            </div>
+        {% endif %}
 
             <h1>Yeasts</h1>
             <!--Button for modal to add yeasts-->
