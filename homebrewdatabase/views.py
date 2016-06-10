@@ -276,10 +276,11 @@ def addyeasts(request):
                                  flocculation=request.POST['flocculation'],
                                  comments=request.POST['comments']
                                  )
-        return redirect('yeasts_list')
+            return redirect('yeasts_list')
+        else:
+            yeasts_list = Yeast.objects.all()
+            return render(request, 'homebrewdatabase/yeasts.html', {'yeasts': yeasts_list, 'form': add_form})
     return render(request, 'homebrewdatabase/addyeasts.html', {'form': add_form})
-
-# TODO: Stop working on update yeasts, first update the add view to use the form model
 
 
 def updateyeasts(request, pk):
