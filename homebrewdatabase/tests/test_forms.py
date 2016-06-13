@@ -196,7 +196,7 @@ class YeastFormTest(TestCase):
 
     def test_yeast_form_validates_blank_input(self):
         """
-        Test to check that the GrainForm returns the correction validation input with blank data
+        Test to check that the YeastForm returns the correction validation input with blank data
                 :return: pass or fail
         """
 
@@ -228,4 +228,28 @@ class YeastFormTest(TestCase):
 
         self.assertEqual(yeast_form.errors['comments'],
                          ["You must enter a comment"]
+                         )
+
+    def test_add_yeast_form_validates_invalid_input(self):
+        """
+        Test to check that the YeastForm validates invalid input with the correct error messages.
+                :return: pass or fail
+        """
+
+        yeast_form = YeastForm(data={'name': 'WLP0065 Ale Yeast',
+                                     'lab': 'Brewferm',
+                                     'yeast_type': 'Ale',
+                                     'yeast_form': 'liquid',
+                                     'min_temp': 'eighty eight',
+                                     'max_temp': 'nintety three',
+                                     'attenuation': 'twenty seven',
+                                     'flocculation': 'Medium',
+                                     'comments': 'Testing'})
+
+        self.assertEqual(yeast_form.errors['min_temp'],
+                         ["Min temp acid must be a number"]
+                         )
+
+        self.assertEqual(yeast_form.errors['max_temp'],
+                         ["Max temp acid must be a number"]
                          )

@@ -82,8 +82,8 @@ class YeastForm(forms.models.ModelForm):
             'lab': forms.fields.Select(attrs={'id': 'lab'}),
             'yeast_type': forms.fields.Select(attrs={'id': 'yeast_type'}),
             'yeast_form': forms.fields.Select(attrs={'id': 'yeast_form'}),
-            'min_temp': forms.fields.NumberInput(attrs={'id': 'min_temp'}),
-            'max_temp': forms.fields.NumberInput(attrs={'id': 'max_temp'}),
+            'min_temp': forms.fields.TextInput(attrs={'id': 'min_temp'}),
+            'max_temp': forms.fields.TextInput(attrs={'id': 'max_temp'}),
             'attenuation': forms.fields.TextInput(attrs={'id': 'attenuation'}),
             'flocculation': forms.fields.Select(attrs={'id': 'flocculation'}),
             'comments': forms.fields.TextInput(attrs={'id': 'comments'})
@@ -91,8 +91,10 @@ class YeastForm(forms.models.ModelForm):
 
         error_messages = {
             'name': {'required': 'A yeast name is required'},
-            'min_temp': {'required': 'You must enter a min temp'},
-            'max_temp': {'required': 'You must enter a max temp'},
+            'min_temp': {'required': 'You must enter a min temp',
+                         'invalid': 'Min temp acid must be a number'},
+            'max_temp': {'required': 'You must enter a max temp',
+                         'invalid': 'Max temp acid must be a number'},
             'attenuation': {'required': 'You must enter an attenuation'},
             'comments': {'required': 'You must enter a comment'}
         }
