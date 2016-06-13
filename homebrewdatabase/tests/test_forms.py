@@ -230,7 +230,7 @@ class YeastFormTest(TestCase):
                          ["You must enter a comment"]
                          )
 
-    def test_add_yeast_form_validates_invalid_input(self):
+    def test_yeast_form_validates_invalid_input(self):
         """
         Test to check that the YeastForm validates invalid input with the correct error messages.
                 :return: pass or fail
@@ -247,9 +247,12 @@ class YeastFormTest(TestCase):
                                      'comments': 'Testing'})
 
         self.assertEqual(yeast_form.errors['min_temp'],
-                         ["Min temp acid must be a number"]
+                         ["Min temp must be a number"]
                          )
 
         self.assertEqual(yeast_form.errors['max_temp'],
-                         ["Max temp acid must be a number"]
+                         ["Max temp must be a number"]
                          )
+
+        self.assertEqual(yeast_form.errors['attenuation'],
+                         ["Attenuation must be a number"])

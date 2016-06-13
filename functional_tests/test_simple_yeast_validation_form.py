@@ -105,5 +105,6 @@ class YeastFormValidation(FunctionalTest):
         section_errors = self.browser.find_element_by_id('validation_errors')
         errors = section_errors.find_elements_by_tag_name('li')
 
-        self.assertIn("Min temp acid must be a number", [error.text for error in errors])
-        self.assertIn("Max temp acid must be a number", [error.text for error in errors])
+        self.assertIn("Min temp must be a number", [error.text for error in errors])
+        self.assertIn("Max temp must be a number", [error.text for error in errors])
+        self.assertIn("Attenuation must be a number", [error.text for error in errors])

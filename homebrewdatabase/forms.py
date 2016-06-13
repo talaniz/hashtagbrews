@@ -92,9 +92,10 @@ class YeastForm(forms.models.ModelForm):
         error_messages = {
             'name': {'required': 'A yeast name is required'},
             'min_temp': {'required': 'You must enter a min temp',
-                         'invalid': 'Min temp acid must be a number'},
+                         'invalid': 'Min temp must be a number'},
             'max_temp': {'required': 'You must enter a max temp',
-                         'invalid': 'Max temp acid must be a number'},
-            'attenuation': {'required': 'You must enter an attenuation'},
+                         'invalid': 'Max temp must be a number'},
+            'attenuation': {'required': 'You must enter an attenuation',
+                            'invalid': 'Attenuation must be a number'},
             'comments': {'required': 'You must enter a comment'}
         }

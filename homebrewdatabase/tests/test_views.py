@@ -831,9 +831,9 @@ class TestYeastPageView(TestCase):
 
         self.assertEqual(len(yeast_list), 0)
 
-    def test_invalid_input_on_add_yeasts_page_returns_grains_list_page_with_errors(self):
+    def test_blank_input_on_add_yeasts_page_returns_yeasts_list_page_with_errors(self):
         """
-        Checks that invalid input on the 'addyeasts' view redirects to 'yeasts_list' with validation errors
+        Checks that blanks input on the 'addyeasts' view redirects to 'yeasts_list' with validation errors
                 :return: pass or fail
         """
 
@@ -864,3 +864,32 @@ class TestYeastPageView(TestCase):
         self.assertContains(response, max_temp_validation_error)
         self.assertContains(response, attenuation_validation_error)
         self.assertContains(response, comment_validation_error)
+
+    def test_invalid_input_on_add_yeasts_page_returns_yeasts_list_page_with_errors(self):
+        """
+        Checks that invalid input on the 'addyeasts' view redirects to the 'yeasts_list' with custom validation errors
+                :return: pass or fail
+        """
+
+        request = HttpRequest()
+
+        request.method = 'POST'
+        request.POST['name'] = 'WLP0065 Ale Yeast'
+        request.POST['lab'] = 'Brewferm'
+        request.POST['yeast_type'] = 'Ale'
+        request.POST['yeast_form'] = 'Liquid'
+        request.POST['min_temp'] = 'eighty eight'
+        request.POST['max_temp'] = 'ninety two'
+        request.POST['attenuation'] = 'thirty'
+        request.POST['flocculation'] = 'Medium'
+
+        response = addyeasts(request)
+
+        self.assertEqual(response.status_code, 200)
+        min_temp_validation_error = "Min temp must be a number"
+        max_temp_validation_error = "Max temp must be a number"
+        attenuation_validation_error = "Attenuation must be a number"
+
+        self.assertContains(response, min_temp_validation_error)
+        self.assertContains(response, max_temp_validation_error)
+        self.assertContains(response, attenuation_validation_error)
