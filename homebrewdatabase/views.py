@@ -306,6 +306,11 @@ def updateyeasts(request, pk):
             edit_form.save()
             success_url = reverse('yeasts_list')
             return redirect(success_url)
+        else:
+            yeasts_list = Yeast.objects.all()
+            return render(request, 'homebrewdatabase/yeasts.html', {'yeasts': yeasts_list,
+                                                                   'form': YeastForm(),
+                                                                   'errors': edit_form.errors})
     yeast_form_url = reverse('updateyeasts', kwargs={'pk': yeast_record.id})
     return render(request, 'homebrewdatabase/updateyeasts.html',
                   {'action': yeast_form_url,

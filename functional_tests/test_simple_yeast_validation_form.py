@@ -64,7 +64,7 @@ class YeastFormValidation(FunctionalTest):
         self.browser.implicitly_wait(6)
 
         # He enters the information into the form and clicks submit.
-        # He didn't realize that the alpha acid fields were for numbers
+        # He didn't realize that some fields were for numbers
         # so he writes the out using letters instead.
         # He enters the information into the form and clicks submit
         inputbox = self.browser.find_element_by_id('name')
@@ -107,4 +107,106 @@ class YeastFormValidation(FunctionalTest):
 
         self.assertIn("Min temp must be a number", [error.text for error in errors])
         self.assertIn("Max temp must be a number", [error.text for error in errors])
+        self.assertIn("Attenuation must be a number", [error.text for error in errors])
+
+    def test_update_yeast_invalid_form_validation(self):
+        """
+        User performs the following tasks to input invalid data in update form
+                * User navigates directly to the yeast page
+                * User submits 'addyeasts' form correctly
+                * Check that form data saved correctly
+                * User clicks on yeast name, changes min/max temp & attenuation to
+                strings, submits
+                * Check that 'addyeasts' form redirects to yeast page with validation errors
+
+                :return: pass or fail
+        """
+
+        # Jim has decided to contribute to the open source homebrew database
+        # He navigates to the yeasts page (Kevin showed him), and selects add yeasts
+        yeast_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/yeasts')
+        self.browser.get(yeast_live_server_url)
+
+        self.browser.find_element_by_id("add_yeasts").click()
+
+        self.browser.implicitly_wait(6)
+
+        # He enters the information into the form and clicks submit.
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('American Ale 1056')
+
+        select = Select(self.browser.find_element_by_id('lab'))
+        select.select_by_visible_text('Wyeast')
+
+        select = Select(self.browser.find_element_by_id('yeast_type'))
+        select.select_by_visible_text('Ale')
+
+        select = Select(self.browser.find_element_by_id('yeast_form'))
+        select.select_by_visible_text('Liquid')
+
+        inputbox = self.browser.find_element_by_id('min_temp')
+        inputbox.send_keys('60')
+
+        inputbox = self.browser.find_element_by_id('max_temp')
+        inputbox.send_keys('72')
+
+        inputbox = self.browser.find_element_by_id('attenuation')
+        inputbox.send_keys('25')
+
+        select = Select(self.browser.find_element_by_id('flocculation'))
+        select.select_by_visible_text('Medium')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Well balanced.')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+
+        # He closes out his browser, but then realizes that he's made a mistake.
+        yeast_page = self.browser.current_url
+        self.browser.refresh()
+        self.browser.quit()
+
+        # He realizes the information he input was all wrong
+        self.browser = webdriver.Firefox()
+        self.browser.get(yeast_page)
+
+        self.browser.implicitly_wait(6)
+
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertEqual(header_text, 'Yeasts')
+
+        # He sees the link for the Amarillo hop record he just entered
+        # and he clicks on it, a bootstrap modal form with the information
+        # pops up
+        self.browser.find_element_by_link_text('American Ale 1056').click()
+        self.browser.implicitly_wait(6)
+
+        # He's distracted while he's fixing the information and accidentally spells out
+        # the min and max alpha acid fields before submitting
+        inputbox = self.browser.find_element_by_id('update').find_element_by_id('min_temp')
+        inputbox.clear()
+
+        inputbox.send_keys('one twenty')
+
+        inputbox = self.browser.find_element_by_id('update').find_element_by_id('max_temp')
+        inputbox.clear()
+
+        inputbox.send_keys('twelve')
+
+        inputbox = self.browser.find_element_by_id('update').find_element_by_id('attenuation')
+        inputbox.clear()
+
+        inputbox.send_keys('thirteen')
+
+        submit_button = self.browser.find_element_by_id('update').find_element_by_id('submit')
+        submit_button.click()
+
+        # Instead of seeing his entry with blank forms, he is redirected
+        # to the home page with errors displaying validation errors
+        section_errors = self.browser.find_element_by_id('validation_errors')
+        errors = section_errors.find_elements_by_tag_name('li')
+
+        self.assertIn("Min temp must be a number", [error.text for error in errors])
+        self.assertIn("Min temp must be a number", [error.text for error in errors])
         self.assertIn("Attenuation must be a number", [error.text for error in errors])
