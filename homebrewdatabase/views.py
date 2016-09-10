@@ -58,12 +58,7 @@ def addhops(request):
 
     if request.method == 'POST':
         if add_form.is_valid():
-            Hop.objects.create(name=request.POST['name'],
-                               min_alpha_acid=request.POST['min_alpha_acid'],
-                               max_alpha_acid=request.POST['max_alpha_acid'],
-                               country=request.POST['country'],
-                               comments=request.POST['comments']
-                               )
+            add_form.save()
             return redirect('hops_list')
         else:
             hops_list = Hop.objects.all()
@@ -162,12 +157,7 @@ def addgrains(request):
 
     if request.method == 'POST':
         if add_form.is_valid():
-            Grain.objects.create(name=request.POST['name'],
-                                 degrees_lovibond=request.POST['degrees_lovibond'],
-                                 specific_gravity=request.POST['specific_gravity'],
-                                 grain_type=request.POST['grain_type'],
-                                 comments=request.POST['comments']
-                                 )
+            add_form.save()
             return redirect('grains_list')
         else:
             grains_list = Grain.objects.all()
@@ -266,16 +256,7 @@ def addyeasts(request):
 
     if request.method == 'POST':
         if add_form.is_valid():
-            Yeast.objects.create(name=request.POST['name'],
-                                 lab=request.POST['lab'],
-                                 yeast_type=request.POST['yeast_type'],
-                                 yeast_form=request.POST['yeast_form'],
-                                 min_temp=request.POST['min_temp'],
-                                 max_temp=request.POST['max_temp'],
-                                 attenuation=request.POST['attenuation'],
-                                 flocculation=request.POST['flocculation'],
-                                 comments=request.POST['comments']
-                                 )
+            add_form.save()
             return redirect('yeasts_list')
         else:
             yeasts_list = Yeast.objects.all()
