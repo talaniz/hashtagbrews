@@ -37,6 +37,16 @@ def hops(request):
                  - 'form'
     """
 
+    # This can be called to a helper function with the model as parameter.
+    # The logic will be 'If a value is present in the GET search request, run
+    # a query and return the queryset, otherwise, run Model.objects.all and
+    # return the result based on the model parameter'. This keeps complicated
+    # logic from being added to the view while providing the search
+    # functionality. URLs will need to be reviewed to make sure they are
+    # being handled properly as well. This helper function will be applied to
+    # all views that require a query set
+    # ex.- hops_list = query_by_model(value_to_search=None, model_to_search)
+
     hops_list = Hop.objects.all()
     return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list, 'form': HopForm()})
 
