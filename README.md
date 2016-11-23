@@ -1,7 +1,6 @@
-![hashtagbrews.jpg](https://bitbucket.org/repo/XyqX5R/images/4021472849-hashtagbrews.jpg)
+Hashtag Brews
 =============
-
-Hashtag Brews is a Django based site that will contain the following applications:
+#Hashtag Brews is a Django based site that will contain the following applications:
 
 * An open source beer database containing a catalogue of hops, grains and yeasts
 * A homebrew planner and timer to track the stages of a brewing process
@@ -21,16 +20,13 @@ Hashtag Brews is a Django based site that will contain the following application
 
 ## Planning
 ### [Sprint Plans Detail] ###
+
 [Sprint Plans Detail]: https://bitbucket.org/talaniz715/hashtagbrews/wiki/Sprint%20Planning
 
-### [Page Design Mockups Here] ###
-[Page Design Mockups Here]: https://bitbucket.org/talaniz715/hashtagbrews/wiki/Catalogue%20Page%20Designs
-
 1. Homebrew Materials Database
+
     * Finish functional test to add hops (includes unit tests to save to db, etc.) - Completed
-    * Refactor to use templating - Completed
-    * Add edit and delete hops views - Completed
-    * Refactor: Homebrew Database Main Page - In Progress
+    * Refactor to use templating
     * Add grains and yeasts code
     * Test Suites: Adjust tests to test all 3 categories at once (hops, grains, yeasts)
     * Add error handling
@@ -53,15 +49,3 @@ Hashtag Brews is a Django based site that will contain the following application
 * Unit and functional tests for grains and yeasts
 * Convert functional and unit tests to test suites
 * Sprint planning for homebrew planner, inventory site and homebrew recipe creator
-
-## Code Coverage Status
-
-
-|             Name            | Stmts  |  Miss   | Cover |
-|:---------------------------:|:------:|:-------:|:-----:|
-|homebrewdatabase/admin.py    |    1   |    0    | 100%  |
-|homebrewdatabase/forms.py    |    7   |    0    | 100%  |
-|homebrewdatabase/models.py   |   21   |    1    |  95%  |
-|homebrewdatabase/views.py    |   35   |    2    |  94%  |
-|manage.py                    |    6   |    0    | 100%  |
-|TOTAL                        |   70   |    3    |  96%  |
