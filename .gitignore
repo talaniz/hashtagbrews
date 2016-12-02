@@ -64,3 +64,7 @@ target/
 .idea/
 .idea/*
 .idea/workspace.xml
+README.MD
+
+# geckodriver for Selenium 3.0+
+geckodriver.log

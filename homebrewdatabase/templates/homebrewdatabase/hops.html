@@ -52,7 +52,11 @@
             </div>
         </div>
 
-
+        <!-- Search form begins here-->
+         <form action="{% url 'addhops' %}" method="POST">
+             <input type="text" id="name_search">
+             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+         </form>
         <!--Table data begins here-->
         <table id="list_table" class="table table-bordered table-striped">
             <tr>
