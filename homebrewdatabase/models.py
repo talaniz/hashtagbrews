@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+from elasticsearch import Elasticsearch
 
 class Hop(models.Model):
     """
@@ -45,6 +46,35 @@ class Hop(models.Model):
 
     def get_absolute_url(self):
         return reverse('updatehops', kwargs={'pk': self.id})
+
+    def save(self, *args, **kwargs):
+        es_client = Elasticsearch()
+        super(Hop, self).save(*args, **kwargs)
+        if self.pk is not None:
+            es_client.index(
+                index="hop",
+                doc_type="hop",
+                id=self.pk,
+                body={
+                      'name': self.name,
+                      'min_alpha_acid': self.min_alpha_acid,
+                      'max_alpha_acid': self.max_alpha_acid,
+                      'country': self.country,
+                      'comments': self.comments
+                      }
+            )
+        else:
+            es_client.create(
+                index="hop",
+                doc_type="hop",
+                id=self.pk,
+                body={'name': self.name,
+                      'min_alpha_acid': self.min_alpha_acid,
+                      'max_alpha_acid': self.max_alpha_acid,
+                      'country': self.country,
+                      'comments': self.comments
+                      }
+            )
 
 
 class Grain(models.Model):

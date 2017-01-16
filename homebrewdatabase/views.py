@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from .forms import HopForm, GrainForm, YeastForm
 from .models import Hop, Grain, Yeast
 
-
+from elasticsearch import Elasticsearch
 def index(request):
     """
     HashtagBrews main site page view

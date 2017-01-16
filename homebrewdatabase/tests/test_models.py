@@ -1,12 +1,13 @@
 from django.test import TestCase
+from elasticsearch import Elasticsearch
 
 from homebrewdatabase.models import Hop, Grain, Yeast
 
 
 class HopModelTest(TestCase):
-    """
-    Tests the ability to save and retrieve data using the Hop model
-    """
+
+    def setUp(self):
+        self.es_client = Elasticsearch()
 
     def test_saving_items_and_retrieving_later(self):
         """
@@ -46,6 +47,21 @@ class HopModelTest(TestCase):
         self.assertEqual(second_saved_hop.max_alpha_acid, 14.00)
         self.assertEqual(second_saved_hop.country, 'USA')
         self.assertEqual(second_saved_hop.comments, 'Good for bittering, not great for aroma')
+
+        first_es_hop_record = self.es_client.get_source(index="hop", doc_type="hop", id=first_hop.id)
+        second_es_hop_record = self.es_client.get_source(index="hop", doc_type="hop", id=second_hop.id)
+
+        self.assertEqual(first_es_hop_record['name'], 'Amarillo')
+        self.assertEqual(first_es_hop_record['min_alpha_acid'], '8.00')
+        self.assertEqual(first_es_hop_record['max_alpha_acid'], '11.00')
+        self.assertEqual(first_es_hop_record['country'], 'USA')
+        self.assertEqual(first_es_hop_record['comments'], 'Pretty good, all around')
+
+        self.assertEqual(second_es_hop_record['name'], 'Chinook')
+        self.assertEqual(second_es_hop_record['min_alpha_acid'], '12.00')
+        self.assertEqual(second_es_hop_record['max_alpha_acid'], '14.00')
+        self.assertEqual(second_es_hop_record['country'], 'USA')
+        self.assertEqual(second_es_hop_record['comments'], 'Good for bittering, not great for aroma')
 
 
 class GrainModelTest(TestCase):
