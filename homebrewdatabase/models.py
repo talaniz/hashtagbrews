@@ -2,6 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from elasticsearch import Elasticsearch
+from elasticsearch.client import IndicesClient
 
 class Hop(models.Model):
     """
@@ -49,6 +50,7 @@ class Hop(models.Model):
 
     def save(self, *args, **kwargs):
         es_client = Elasticsearch()
+        es_index_client = IndicesClient(client=es_client)
         super(Hop, self).save(*args, **kwargs)
         if self.pk is not None:
             es_client.index(
@@ -75,6 +77,8 @@ class Hop(models.Model):
                       'comments': self.comments
                       }
             )
+
+        es_index_client.refresh(index='hop')
 
 
 class Grain(models.Model):

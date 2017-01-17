@@ -1,7 +1,10 @@
 from django.http import HttpRequest
+from django.core.management import call_command
 from django.template.loader import render_to_string
 from django.test import TestCase
 from django.utils.html import escape
+
+from elasticsearch import Elasticsearch
 
 from homebrewdatabase.forms import HopForm, GrainForm, YeastForm
 from homebrewdatabase.models import Hop, Grain, Yeast
@@ -29,6 +32,13 @@ class TestHopsPageView(TestCase):
     Class for testing hops related views
     """
 
+    def setUp(self):
+        self.es_client = Elasticsearch()
+        call_command('push_hop_to_index')
+
+    def tearDown(self):
+        call_command('push_hop_to_index')
+
     def test_can_add_new_hops_and_save_a_POST_request(self):
         """
         Testing that the user can add and save a hop record using a POST request
@@ -55,6 +65,14 @@ class TestHopsPageView(TestCase):
         self.assertEqual(new_hop.max_alpha_acid, 11.00)
         self.assertEqual(new_hop.country, 'USA')
         self.assertEqual(new_hop.comments, 'Good over all aroma and bittering hops')
+
+        es_hop_record = self.es_client.get(index='hop', id=new_hop.id)['_source']
+
+        self.assertEqual(es_hop_record['name'], 'Amarillo')
+        self.assertAlmostEqual(es_hop_record['min_alpha_acid'], 8.00)
+        self.assertEqual(es_hop_record['max_alpha_acid'], 11.00)
+        self.assertEqual(es_hop_record['country'], 'USA')
+        self.assertEqual(es_hop_record['comments'], 'Good over all aroma and bittering hops')
 
     def test_add_hops_redirects_after_POST(self):
         """
@@ -86,23 +104,29 @@ class TestHopsPageView(TestCase):
         hops(request)
         self.assertEqual(Hop.objects.count(), 0)
 
+        es_hits = self.es_client.search(index='hop')['hits']['total']
+        self.assertEqual(es_hits, 0)
+
     def test_hops_page_displays_all_hops_records(self):
         """
         Checks that the hops page displays all available hop records. Will be changed to a limited view in the future.
                 :return: pass or fail
         """
 
-        Hop.objects.create(name='Century',
-                           min_alpha_acid=8.00,
-                           max_alpha_acid=12.00,
-                           country='USA',
-                           comments='Pretty good, a little spicy')
+        first_hop = Hop(name='Century',
+                        min_alpha_acid=8.00,
+                        max_alpha_acid=12.00,
+                        country='USA',
+                        comments='Pretty good, a little spicy')
+        first_hop.save()
 
-        Hop.objects.create(name='Warrior',
-                           min_alpha_acid=24.00,
-                           max_alpha_acid=32.00,
-                           country='USA',
-                           comments='Very bitter, not good for aroma')
+        second_hop = Hop(name='Warrior',
+                         min_alpha_acid=24.00,
+                         max_alpha_acid=32.00,
+                         country='USA',
+                         comments='Very bitter, not good for aroma'
+                         )
+        second_hop.save()
 
         request = HttpRequest()
         response = hops(request)
@@ -132,6 +156,9 @@ class TestHopsPageView(TestCase):
         hop_record = Hop.objects.filter(name='Warrior')
 
         self.assertEqual(hop_record[0].name, 'Warrior')
+
+        es_hop_record = self.es_client.search(index='hop', body={"query": {"match": {'name': 'Warrior'}}})['hits']
+        self.assertEqual(es_hop_record['total'], 1)
 
     def test_can_update_hops(self):
         """
@@ -165,12 +192,16 @@ class TestHopsPageView(TestCase):
         self.assertEqual(response.status_code, 302)
 
         hop_list = Hop.objects.filter(name='Chinook')
+        es_hop_record = self.es_client.search(index='hop', body={"query": {"match": {'name': 'Chinook'}}})['hits']
 
         self.assertEqual(len(hop_list), 1)
+        self.assertEqual(es_hop_record['total'], 1)
 
         hop_list = Hop.objects.filter(name='Warrior')
+        es_hop_record2 = self.es_client.search(index='hop', body={"query": {"match": {'name': 'Warrior'}}})['hits']
 
         self.assertEqual(len(hop_list), 0)
+        self.assertEqual(es_hop_record2['total'], 0)
 
     def test_delete_hop_record(self):
         """

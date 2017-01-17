@@ -51,6 +51,8 @@ class HopModelTest(TestCase):
         first_es_hop_record = self.es_client.get_source(index="hop", doc_type="hop", id=first_hop.id)
         second_es_hop_record = self.es_client.get_source(index="hop", doc_type="hop", id=second_hop.id)
 
+        # Elasticsearch returns string types even on floats and ints so
+        # we check against string values
         self.assertEqual(first_es_hop_record['name'], 'Amarillo')
         self.assertEqual(first_es_hop_record['min_alpha_acid'], '8.00')
         self.assertEqual(first_es_hop_record['max_alpha_acid'], '11.00')
