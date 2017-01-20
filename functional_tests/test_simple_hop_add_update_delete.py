@@ -88,8 +88,8 @@ class NewHopsVisitorTest(FunctionalTest):
 
         # He can see the homepage with his hop record in the table
         self.find_text_in_table('Amarillo')
-        self.find_text_in_table('8.00')
-        self.find_text_in_table('11.00')
+        self.find_text_in_table('8.0')
+        self.find_text_in_table('11.0')
         self.find_text_in_table('USA')
         self.find_text_in_table('Good over all aroma and bittering hops')
 
@@ -105,8 +105,8 @@ class NewHopsVisitorTest(FunctionalTest):
         self.browser.get(hops_page)
 
         self.find_text_in_table('Amarillo')
-        self.find_text_in_table('8.00')
-        self.find_text_in_table('11.00')
+        self.find_text_in_table('8.0')
+        self.find_text_in_table('11.0')
         self.find_text_in_table('USA')
         self.find_text_in_table('Good over all aroma and bittering hops')
 

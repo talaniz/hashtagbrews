@@ -220,8 +220,10 @@ class TestHopsPageView(TestCase):
             })
 
         hop_instance = Hop.objects.filter(name='Northern')[0]
+        es_hop_record = self.es_client.get(index='hop', id=hop_instance.id)['_source']
 
         self.assertEqual(hop_instance.name, 'Northern')
+        self.assertEqual(es_hop_record['name'], 'Northern')
 
         response = self.client.get('/beerdb/delete/%d/hops/' % hop_instance.id)
 
@@ -232,8 +234,10 @@ class TestHopsPageView(TestCase):
         self.assertEqual(response.status_code, 302)
 
         hop_list = Hop.objects.filter(name='Northern')
+        es_hop_record2 = self.es_client.search(index='hop', body={"query": {"match": {'name': 'Northern'}}})['hits']
 
         self.assertEqual(len(hop_list), 0)
+        self.assertEqual(es_hop_record2['total'], 0)
 
     def test_add_hop_uses_item_form(self):
         """
@@ -340,6 +344,49 @@ class TestHopsPageView(TestCase):
         self.assertContains(response, min_alpha_acid_error)
         self.assertContains(response, max_alpha_acid_error)
         self.assertContains(response, comments_error)
+
+    def test_search_GET_request_returns_matching_results(self):
+
+        self.client.post(
+            '/beerdb/add/hops/',
+            data={
+                'name': 'Cascade',
+                'min_alpha_acid': 19.00,
+                'max_alpha_acid': 21.00,
+                'country': 'USA',
+                'comments': 'Very bitter, not good for aroma'
+            })
+
+        self.client.post(
+            '/beerdb/add/hops/',
+            data={
+                'name': 'Chinook',
+                'min_alpha_acid': 25.00,
+                'max_alpha_acid': 31.00,
+                'country': 'USA',
+                'comments': 'High bitterness, similar to Cascade'
+            })
+
+        self.client.post(
+            '/beerdb/add/hops/',
+            data={
+                'name': 'Amarillo',
+                'min_alpha_acid': 24.00,
+                'max_alpha_acid': 32.00,
+                'country': 'USA',
+                'comments': 'Very bitter, not good for aroma'
+            })
+
+        request = HttpRequest()
+
+        request.method = 'GET'
+        request.GET['query'] = 'Cascade'
+
+        response = hops(request)
+
+        self.assertIn('Cascade', response.content.decode())
+        self.assertIn('High bitterness,', response.content.decode())
+        self.assertNotIn('Amarillo', response.content.decode())
 
 
 class TestGrainsPageView(TestCase):

@@ -42,11 +42,22 @@ def hops(request):
     """
 
     # hops_list = Hop.objects.all()
-
     hops_list = []
-    for hit in es_client.search(index='hop')['hits']['hits']:
-        entry = hit['_source']
-        entry['id'] = hit['_id']
+    es = Elasticsearch()
+    if request.GET.get('query'):
+        entries = es.search(index='hop', body={"query": {
+                                                    "query_string": {
+                                                        "fields": ["name", "country", "comments"],
+                                                        "query": request.GET['query']
+                                                                    }
+                                                        }})['hits']['hits']
+    else:
+        entries = es_client.search(index='hop')['hits']['hits']
+
+    # Add the id to the source field and build the list of entries
+    for entry in entries:
+        entry['_source']['id'] = entry['_id']
+        entry = entry['_source']
         hops_list.append(entry)
     return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list, 'form': HopForm()})
 

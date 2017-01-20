@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from elasticsearch import Elasticsearch
 from elasticsearch.client import IndicesClient
 
+
 class Hop(models.Model):
     """
     Class representing a hops profile.
@@ -63,7 +64,8 @@ class Hop(models.Model):
                       'max_alpha_acid': self.max_alpha_acid,
                       'country': self.country,
                       'comments': self.comments
-                      }
+                      },
+                refresh=True
             )
         else:
             es_client.create(
@@ -75,10 +77,20 @@ class Hop(models.Model):
                       'max_alpha_acid': self.max_alpha_acid,
                       'country': self.country,
                       'comments': self.comments
-                      }
+                      },
+                refresh=True
             )
 
-        es_index_client.refresh(index='hop')
+    def delete(self, *args, **kwargs):
+        es_client = Elasticsearch()
+        hop_id = self.pk
+        super(Hop, self).delete(*args, **kwargs)
+        es_client.delete(
+                index="hop",
+                doc_type="hop",
+                id=hop_id,
+                refresh=True
+        )
 
 
 class Grain(models.Model):

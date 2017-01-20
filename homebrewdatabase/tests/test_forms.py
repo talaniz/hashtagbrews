@@ -89,7 +89,7 @@ class HopFormTest(TestCase):
 
         self.assertEqual(
             hop_form.errors['max_alpha_acid'],
-            ['Max alpha acid must be a decimal number a decimal number']
+            ['Max alpha acid must be a decimal number']
         )
 
         # TODO: add validation for unique hops name

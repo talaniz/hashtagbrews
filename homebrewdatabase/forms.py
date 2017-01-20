@@ -27,7 +27,7 @@ class HopForm(forms.models.ModelForm):
             'min_alpha_acid': {'required': 'You must enter a min alpha acid',
                                'invalid': 'Min alpha acid must be a decimal number'},
             'max_alpha_acid': {'required': 'You must enter a max alpha acid',
-                               'invalid': 'Max alpha acid must be a decimal number a decimal number'},
+                               'invalid': 'Max alpha acid must be a decimal number'},
             'country': {'required': 'You must enter a country'},
             'comments': {'required': 'You must enter a comment'}
         }
