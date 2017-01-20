@@ -3,7 +3,9 @@ language: python
 python:
   - 3.4
 
-services: postgresql
+services:
+  - postgresql
+  - elasticsearch
 
 env:
   - DJANGO=1.9.1
