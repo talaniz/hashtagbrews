@@ -10,7 +10,7 @@ env:
 
 before_install:
   - export DJANGO_SETTINGS_MODULE=hashtagbrews.settings
-  - export PYTHONPATH=$HOME/build/talaniz/hashtagbrews
+  - export PYTHONPATH="/home/travis/build/talaniz/hashtagbrews"
   - export PIP_USE_MIRRORS=true
 
 install:
