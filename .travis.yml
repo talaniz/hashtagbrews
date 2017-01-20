@@ -21,6 +21,7 @@ install:
 before_script:
   - psql -c "CREATE DATABASE hashtagbrews;" -U postgres
   - psql -c "CREATE USER antonioalaniz1 PASSWORD '@ntonio1';" -U postgres
+  - psql -c "GRANT ALL PRIVILEGES on DATABASE hashtagbrews to antonioalaniz1;" -U postgres
   - cp config/database.travis.yml config/database.yml
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
