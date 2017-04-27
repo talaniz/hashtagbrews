@@ -2,17 +2,22 @@ from django.core.management import call_command
 from django.test import TestCase
 from django.utils.six import StringIO
 
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, RequestsHttpConnection
 from elasticsearch.client import IndicesClient
 
 
 class TestSearch(TestCase):
 
     def setUp(self):
-        self.es = Elasticsearch()
+        self.es = Elasticsearch(
+            ['http://192.168.99.100:9200/'],
+            connection_class=RequestsHttpConnection,
+            http_auth=('elastic', 'changeme')
+        )
+
         self.client = IndicesClient(client=self.es)
 
-    def test_push_to_index_creates_index(self):
+    def test_push_hop_to_index_creates_index(self):
         self.out = StringIO()
         call_command('push_hop_to_index', stdout=self.out)
         self.es_hop_index = self.client.get_mapping(index='hop')['hop']['mappings']['hop']['properties']
@@ -25,8 +30,27 @@ class TestSearch(TestCase):
         self.comments_type = self.es_hop_index['comments']['type']
 
         self.assertEqual(self.id_type, 'long')
-        self.assertEqual(self.name_type, 'string')
+        self.assertEqual(self.name_type, 'text')
         self.assertEqual(self.min_alpha_acid_type, 'double')
         self.assertEqual(self.max_alpha_acid_type, 'double')
-        self.assertEqual(self.country_type, 'string')
-        self.assertEqual(self.comments_type, 'string')
+        self.assertEqual(self.country_type, 'text')
+        self.assertEqual(self.comments_type, 'text')
+
+    def test_push_grain_to_index_creates_index(self):
+        self.out = StringIO()
+        call_command('push_grain_to_index', stdout=self.out)
+        self.es_grain_index = self.client.get_mapping(index='grain')['grain']['mappings']['grain']['properties']
+
+        self.id_type = self.es_grain_index['id']['type']
+        self.name_type = self.es_grain_index['name']['type']
+        self.degrees_lovibond_type = self.es_grain_index['degrees_lovibond']['type']
+        self.specific_gravity_type = self.es_grain_index['specific_gravity']['type']
+        self.grain_type = self.es_grain_index['grain_type']['type']
+        self.comments_type = self.es_grain_index['comments']['type']
+
+        self.assertEqual(self.id_type, 'long')
+        self.assertEqual(self.name_type, 'text')
+        self.assertEqual(self.degrees_lovibond_type, 'double')
+        self.assertEqual(self.specific_gravity_type, 'double')
+        self.assertEqual(self.grain_type, 'text')
+        self.assertEqual(self.comments_type, 'text')
