@@ -9,12 +9,7 @@ from elasticsearch.client import IndicesClient
 class TestSearch(TestCase):
 
     def setUp(self):
-        self.es = Elasticsearch(
-            ['http://192.168.99.100:9200/'],
-            connection_class=RequestsHttpConnection,
-            http_auth=('elastic', 'changeme')
-        )
-
+        self.es = Elasticsearch()
         self.client = IndicesClient(client=self.es)
 
     def test_push_hop_to_index_creates_index(self):
@@ -30,11 +25,11 @@ class TestSearch(TestCase):
         self.comments_type = self.es_hop_index['comments']['type']
 
         self.assertEqual(self.id_type, 'long')
-        self.assertEqual(self.name_type, 'text')
+        self.assertEqual(self.name_type, 'string')
         self.assertEqual(self.min_alpha_acid_type, 'double')
         self.assertEqual(self.max_alpha_acid_type, 'double')
-        self.assertEqual(self.country_type, 'text')
-        self.assertEqual(self.comments_type, 'text')
+        self.assertEqual(self.country_type, 'string')
+        self.assertEqual(self.comments_type, 'string')
 
     def test_push_grain_to_index_creates_index(self):
         self.out = StringIO()
@@ -49,8 +44,8 @@ class TestSearch(TestCase):
         self.comments_type = self.es_grain_index['comments']['type']
 
         self.assertEqual(self.id_type, 'long')
-        self.assertEqual(self.name_type, 'text')
+        self.assertEqual(self.name_type, 'string')
         self.assertEqual(self.degrees_lovibond_type, 'double')
         self.assertEqual(self.specific_gravity_type, 'double')
-        self.assertEqual(self.grain_type, 'text')
-        self.assertEqual(self.comments_type, 'text')
+        self.assertEqual(self.grain_type, 'string')
+        self.assertEqual(self.comments_type, 'string')

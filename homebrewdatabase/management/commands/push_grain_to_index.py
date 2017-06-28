@@ -4,9 +4,8 @@ from elasticsearch import Elasticsearch, RequestsHttpConnection
 from django.core.management.base import BaseCommand
 
 ES_CLIENT = Elasticsearch(
-    ['http://192.168.99.100:9200/'],
-    connection_class=RequestsHttpConnection,
-    http_auth=('elastic', 'changeme')
+    ['http://127.0.0.1:9200/'],
+    connection_class=RequestsHttpConnection
 )
 
 es_mapping = {

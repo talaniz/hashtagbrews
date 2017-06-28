@@ -36,6 +36,7 @@ class HopModelTest(TestCase):
 
         first_saved_hop = saved_hops[0]
         second_saved_hop = saved_hops[1]
+
         self.assertEqual(first_saved_hop.name, 'Amarillo')
         self.assertEqual(first_saved_hop.min_alpha_acid, 8.00)
         self.assertEqual(first_saved_hop.max_alpha_acid, 11.00)
@@ -70,6 +71,9 @@ class GrainModelTest(TestCase):
     """
     Tests the ability to save and retrieve data using the Grain model
     """
+
+    def setUp(self):
+        self.es_client = Elasticsearch()
 
     def test_saving_grain_and_retrieving_later(self):
         """
@@ -110,6 +114,21 @@ class GrainModelTest(TestCase):
         self.assertEqual(second_saved_grain.specific_gravity, 12.000)
         self.assertEqual(second_saved_grain.grain_type, 'GRN')
         self.assertEqual(second_saved_grain.comments, 'Dark malt that gives a rich red or brown color')
+
+        first_es_grain_record = self.es_client.get_source(index="grain", doc_type="grain", id=first_grain.id)
+        second_es_grain_record = self.es_client.get_source(index="grain", doc_type="grain", id=second_grain.id)
+
+        self.assertEqual(first_es_grain_record['name'], 'Cara Red')
+        self.assertEqual(first_es_grain_record['degrees_lovibond'], '1.5')
+        self.assertEqual(first_es_grain_record['specific_gravity'], '1.000')
+        self.assertEqual(first_es_grain_record['grain_type'], 'GRN')
+        self.assertEqual(first_es_grain_record['comments'], 'Amber red color')
+
+        self.assertEqual(second_es_grain_record['name'], 'Pale Chocolate')
+        self.assertEqual(second_es_grain_record['degrees_lovibond'], '150.00')
+        self.assertEqual(second_es_grain_record['specific_gravity'], '12.000')
+        self.assertEqual(second_es_grain_record['grain_type'], 'GRN')
+        self.assertEqual(second_es_grain_record['comments'], 'Dark malt that gives a rich red or brown color')
 
 
 class YeastModelTest(TestCase):

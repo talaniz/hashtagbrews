@@ -120,6 +120,50 @@ class Grain(models.Model):
 
     comments = models.TextField(default='')
 
+    def save(self, *args, **kwargs):
+        es_client = Elasticsearch()
+        es_index_client = IndicesClient(client=es_client)
+        super(Grain, self).save(*args, **kwargs)
+        if self.pk is not None:
+            es_client.index(
+                index="grain",
+                doc_type="grain",
+                id=self.pk,
+                body={
+                    'name': self.name,
+                    'degrees_lovibond': self.degrees_lovibond,
+                    'specific_gravity': self.specific_gravity,
+                    'grain_type': self.grain_type,
+                    'comments': self.comments
+                    },
+                refresh=True
+            )
+        else:
+            es_client.create(
+                index="grain",
+                doc_type="grain",
+                id=self.pk,
+                body={
+                    'name': self.name,
+                    'degrees_lovibond': self.degrees_lovibond,
+                    'specific_gravity': self.specific_gravity,
+                    'grain_type': self.grain_type,
+                    'comments': self.comments
+                    },
+                refresh=True
+            )
+
+    def delete(self, *args, **kwargs):
+        es_client = Elasticsearch()
+        grain_id = self.pk
+        super(Grain, self).delete(*args, **kwargs)
+        es_client.delete(
+                index="grain",
+                doc_type="grain",
+                id=grain_id,
+                refresh=True
+        )
+
 
 class Yeast(models.Model):
     """

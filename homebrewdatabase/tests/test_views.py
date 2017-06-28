@@ -394,6 +394,13 @@ class TestGrainsPageView(TestCase):
     Class for testing grain related views
     """
 
+    def setUp(self):
+        self.es_client = Elasticsearch()
+        call_command('push_hop_to_index')
+
+    def tearDown(self):
+        call_command('push_hop_to_index')
+
     def test_grains_page_returns_correct_template(self):
         """
         Test to check that '/beerdb/grains/' returns the grains.html template
@@ -681,6 +688,38 @@ class TestGrainsPageView(TestCase):
         self.assertContains(response, degrees_lovibond_validation_error)
         self.assertContains(response, specific_gravity_validation_error)
         self.assertContains(response, comments_validation_error)
+
+    def test_search_GET_request_returns_matching_results(self):
+
+        self.client.post(
+            '/beerdb/add/grains/',
+            data={
+                'name': 'Amber Dry',
+                'degrees_lovibond': 23.00,
+                'specific_gravity': 15.00,
+                'grain_type': 'GRN',
+                'comments': 'Dry grain, amber color'
+             })
+
+        self.client.post(
+            '/beerdb/add/grains/',
+            data={'name': 'Munich Malt',
+                  'degrees_lovibond': 10.00,
+                  'specific_gravity': 1.20,
+                  'grain_type': 'LME',
+                  'comments': 'Sweet, toasted flavor and aroma'
+            })
+
+        request = HttpRequest()
+
+        request.method = 'GET'
+        request.GET['query'] = 'Amber Dry'
+
+        response = grains(request)
+
+        self.assertIn('Amber Dry', response.content.decode())
+        self.assertIn('Dry grain, ', response.content.decode())
+        self.assertNotIn('Munich Malt', response.content.decode())
 
 
 class TestYeastPageView(TestCase):

@@ -55,6 +55,7 @@ def hops(request):
         entries = es_client.search(index='hop')['hits']['hits']
 
     # Add the id to the source field and build the list of entries
+    # Should this be a helper function to use in all 3 views?
     for entry in entries:
         entry['_source']['id'] = entry['_id']
         entry = entry['_source']
@@ -82,6 +83,7 @@ def addhops(request):
             add_form.save()
             return redirect('hops_list')
         else:
+            # consider moving this to Elasticsearch?
             hops_list = Hop.objects.all()
             return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list, 'form': add_form})
     return render(request, 'homebrewdatabase/addhops.html', {'form': add_form})
@@ -156,8 +158,21 @@ def grains(request):
                 - 'hops'
                 - 'form'
     """
-
-    grains_list = Grain.objects.all()
+    grains_list = []
+    es = Elasticsearch()
+    if request.GET.get('query'):
+        entries = es.search(index='grain', body={"query": {
+                                                      "query_string": {
+                                                           "fields": ["name", "grain_type", "comments"],
+                                                           "query": request.GET['query']
+                                                                      }
+                                                      }})['hits']['hits']
+    else:
+        entries = es_client.search(index='grain')['hits']['hits']
+    for entry in entries:
+        entry['_source']['id'] = entry['_id']
+        entry = entry['_source']
+        grains_list.append(entry)
     return render(request, 'homebrewdatabase/grains.html', {'grains': grains_list, 'form': GrainForm()})
 
 

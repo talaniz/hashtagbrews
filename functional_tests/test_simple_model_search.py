@@ -165,3 +165,140 @@ class SimpleHopSearchTest(FunctionalTest):
         self.find_text_not_in_table('Good flavoring hops')
 
         # Satisfied, he closes his browser and brews some beer
+
+
+class SimpleGrainTest(FunctionalTest):
+
+    def test_simple_grain_search(self):
+        # Kevin wants to contribute to the Open Source Homebrew Database.
+        # He navigates to the homepage and clicks the link to navigate
+        # to the Open Source Homebrew database.
+        self.browser.get(self.live_server_url)
+        self.browser.implicitly_wait(5)
+
+        beerdb_link = self.browser.find_element_by_id('beerdb').text
+
+        self.assertEqual(beerdb_link, 'Homebrew Database')
+
+        # He's redirected to the Homebrew Materials Database and
+        # sees this listed in the title and the body of the page
+        beerdb_link = self.browser.find_element_by_id('beerdb')
+
+        beerdb_link.click()
+
+        page_heading = self.browser.find_element_by_tag_name('h1')
+
+        self.assertIn("Homebrew Materials Database", page_heading.text)
+
+        # Kevin is presented with 3 categories to choose from: Hops, Grains and Yeasts
+        page_text = self.browser.find_element_by_tag_name('body').text
+
+        self.assertIn('Hops', page_text)
+        self.assertIn('Grains', page_text)
+        self.assertIn('Yeasts', page_text)
+
+        # He decides to try grains, clicks the Grains link and  is
+        # redirected to the grains page.
+        grains_link = self.browser.find_element_by_link_text('Grains')
+        grains_link.click()
+
+        page_heading = self.browser.find_element_by_tag_name('h1').text
+
+        self.assertIn(page_heading, 'Grains')
+
+        # He finds the Add Grain button and clicks, a modal
+        # form appears and he enters in a new grain name
+        self.browser.find_element_by_id("add_grain").click()
+
+        self.browser.implicitly_wait(6)
+
+        # He enters the information into the form and clicks submit.
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('Carared')
+
+        inputbox = self.browser.find_element_by_id('degrees_lovibond')
+        inputbox.send_keys('1.5')
+
+        inputbox = self.browser.find_element_by_id('specific_gravity')
+        inputbox.send_keys('1.20')
+
+        select = Select(self.browser.find_element_by_id('id_grain_type'))
+        select.select_by_visible_text('Grain')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Red amber color')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+        self.browser.implicitly_wait(6)
+
+        # He adds another record that he can remember
+        self.browser.find_element_by_id("add_grain").click()
+        self.browser.implicitly_wait(6)
+
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('Crystal Malt')
+
+        inputbox = self.browser.find_element_by_id('degrees_lovibond')
+        inputbox.send_keys('19.00')
+
+        inputbox = self.browser.find_element_by_id('specific_gravity')
+        inputbox.send_keys('13.00')
+
+        select = Select(self.browser.find_element_by_id('id_grain_type'))
+        select.select_by_visible_text('Liquid Malt Extract')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Good standard malt for ales')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+        self.browser.implicitly_wait(6)
+
+        # He adds a third record--
+        self.browser.find_element_by_id("add_grain").click()
+        self.browser.implicitly_wait(6)
+
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('Black Barley')
+
+        inputbox = self.browser.find_element_by_id('degrees_lovibond')
+        inputbox.send_keys('2.3')
+
+        inputbox = self.browser.find_element_by_id('specific_gravity')
+        inputbox.send_keys('3.25')
+
+        select = Select(self.browser.find_element_by_id('id_grain_type'))
+        select.select_by_visible_text('Grain')
+
+        inputbox = self.browser.find_element_by_id('comments')
+        inputbox.send_keys('Dark, biscuit flavor')
+
+        submit_button = self.browser.find_element_by_id('submit')
+        submit_button.click()
+        self.browser.implicitly_wait(6)
+
+        # He sees the search bar and enters the name of his hops to see if it will
+        # appear and clicks submit
+        inputbox = self.browser.find_element_by_id('query')
+        inputbox.send_keys('Black Barley')
+
+        submit_button = self.browser.find_elements_by_id('submit')[3]
+        submit_button.click()
+        self.browser.implicitly_wait(6)
+
+        # The page redirects and he sees the table wih the name of the hops
+        # He can see the homepage only with hop records that match his search
+        self.find_text_in_table('Black Barley')
+        self.find_text_in_table('2.3')
+        self.find_text_in_table('3.25')
+        self.find_text_in_table('GRN')
+        self.find_text_in_table('Dark, biscuit flavor')
+
+        self.find_text_not_in_table('Crystal Malt')
+        self.find_text_not_in_table('19.00')
+        self.find_text_not_in_table('13.00')
+        self.find_text_not_in_table('Liquid Malt Extract')
+        self.find_text_not_in_table('Good standard malt for ales')
+
+        # Satisfied, he closes his browser and brews some beer
