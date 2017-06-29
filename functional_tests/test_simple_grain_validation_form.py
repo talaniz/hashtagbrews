@@ -151,7 +151,7 @@ class GrainFormValidation(FunctionalTest):
         # and he clicks on it, a bootstrap modal form with the information
         # pops up
         self.browser.find_element_by_link_text('Black Barley').click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # He can't remember the information, but he'll just clear out the fields
         # and enter the information later (Jim's a busy guy)

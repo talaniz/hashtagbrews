@@ -16,6 +16,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         """
 
         call_command('push_hop_to_index')
+        call_command('push_grain_to_index')
 
         self.browser = webdriver.Firefox()
         self.browser.set_window_size(1750, 1000)
@@ -27,6 +28,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         """
 
         call_command('push_hop_to_index')
+        call_command('push_grain_to_index')
         self.browser.refresh()
         self.browser.quit()
 
