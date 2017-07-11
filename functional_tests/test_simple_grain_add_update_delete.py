@@ -88,8 +88,8 @@ class NewGrainVisitorTest(FunctionalTest):
 
         # He can see the homepage with his grain record in the table
         self.find_text_in_table('Carared')
-        self.find_text_in_table('1.50')
-        self.find_text_in_table('1.200')
+        self.find_text_in_table('1.5')
+        self.find_text_in_table('1.2')
         self.find_text_in_table('Red amber color')
 
         # Satisfied, he closes his browser and brews some beer
@@ -104,8 +104,8 @@ class NewGrainVisitorTest(FunctionalTest):
         self.browser.get(grains_page)
 
         self.find_text_in_table('Carared')
-        self.find_text_in_table('1.50')
-        self.find_text_in_table('1.200')
+        self.find_text_in_table('1.5')
+        self.find_text_in_table('1.2')
         self.find_text_in_table('Red amber color')
 
         # Satisfied once again, he returns to his boil.
@@ -131,7 +131,7 @@ class NewGrainVisitorTest(FunctionalTest):
 
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(6)
+        self.wait_for_element_with_id('name')
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')

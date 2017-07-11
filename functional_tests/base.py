@@ -2,7 +2,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.management import call_command
 
 from selenium import webdriver
-
+from selenium.webdriver.support.ui import WebDriverWait
 
 class FunctionalTest(StaticLiveServerTestCase):
     """
@@ -53,3 +53,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         table = self.browser.find_element_by_id("list_table")
         rows = table.find_elements_by_tag_name('td')
         self.assertNotIn(text, [row.text for row in rows])
+
+    def wait_for_element_with_id(self, element_id):
+        WebDriverWait(self.browser, timeout=30).until(lambda b: b.find_element_by_id(element_id))
