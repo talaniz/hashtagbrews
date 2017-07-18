@@ -3,6 +3,8 @@ from django.core.management import call_command
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 class FunctionalTest(StaticLiveServerTestCase):
     """
@@ -55,4 +57,5 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.assertNotIn(text, [row.text for row in rows])
 
     def wait_for_element_with_id(self, element_id):
-        WebDriverWait(self.browser, timeout=30).until(lambda b: b.find_element_by_id(element_id))
+        WebDriverWait(self.browser, timeout=60).until(EC.frame_to_be_available_and_switch_to_it((By.ID, 'add_grain')))
+        #WebDriverWait(self.browser, timeout=30).until(lambda b: b.find_element_by_id(element_id))

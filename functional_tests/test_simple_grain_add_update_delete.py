@@ -131,7 +131,7 @@ class NewGrainVisitorTest(FunctionalTest):
 
         self.browser.find_element_by_id("add_grain").click()
 
-        self.wait_for_element_with_id('name')
+        self.browser.implicitly_wait(10)
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
