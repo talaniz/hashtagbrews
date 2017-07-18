@@ -199,8 +199,9 @@ class NewYeastVisitorTest(FunctionalTest):
 
         self.browser.implicitly_wait(6)
 
-        header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertEqual(header_text, 'Yeasts')
+        page_heading = self.browser.find_element_by_tag_name('h1').text
+
+        self.assertIn(page_heading, 'Yeasts')
 
         # He sees the link for the yeast record he just entered
         # and he clicks on it, a bootstrap modal form with the information pops up
