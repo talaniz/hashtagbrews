@@ -55,6 +55,7 @@ class SimpleHopSearchTest(FunctionalTest):
         self.browser.find_element_by_id("add_hops").click()
 
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('new_hops')
@@ -75,6 +76,7 @@ class SimpleHopSearchTest(FunctionalTest):
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He adds a second hop record that comes to mind
         self.browser.find_element_by_id("add_hops").click()
@@ -105,6 +107,7 @@ class SimpleHopSearchTest(FunctionalTest):
         self.browser.find_element_by_id("add_hops").click()
 
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('new_hops')
@@ -211,6 +214,7 @@ class SimpleGrainTest(FunctionalTest):
         self.browser.find_element_by_id("add_grain").click()
 
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
@@ -235,6 +239,7 @@ class SimpleGrainTest(FunctionalTest):
         # He adds another record that he can remember
         self.browser.find_element_by_id("add_grain").click()
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         inputbox = self.browser.find_element_by_id('name')
         inputbox.send_keys('Crystal Malt')
@@ -258,6 +263,7 @@ class SimpleGrainTest(FunctionalTest):
         # He adds a third record--
         self.browser.find_element_by_id("add_grain").click()
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         inputbox = self.browser.find_element_by_id('name')
         inputbox.send_keys('Black Barley')
@@ -277,6 +283,7 @@ class SimpleGrainTest(FunctionalTest):
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He sees the search bar and enters the name of his hops to see if it will
         # appear and clicks submit

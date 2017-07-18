@@ -64,6 +64,7 @@ class NewYeastVisitorTest(FunctionalTest):
         self.browser.find_element_by_id("add_yeasts").click()
 
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit
         inputbox = self.browser.find_element_by_id('name')
@@ -153,6 +154,7 @@ class NewYeastVisitorTest(FunctionalTest):
         self.browser.find_element_by_id("add_yeasts").click()
 
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
@@ -204,6 +206,7 @@ class NewYeastVisitorTest(FunctionalTest):
         # and he clicks on it, a bootstrap modal form with the information pops up
         self.browser.find_element_by_link_text('American Ale 1056').click()
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He changes the grain name from Carared to Chocolate Pale and clicks submit.
         # He's redirected back to the grains list page and can see the change updated in the table
@@ -243,6 +246,7 @@ class NewYeastVisitorTest(FunctionalTest):
         self.browser.find_element_by_id("add_yeasts").click()
 
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit
         inputbox = self.browser.find_element_by_id('name')

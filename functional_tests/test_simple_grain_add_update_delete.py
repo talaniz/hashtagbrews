@@ -64,7 +64,8 @@ class NewGrainVisitorTest(FunctionalTest):
         # form appears and he enters in a new grain name
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
@@ -131,7 +132,8 @@ class NewGrainVisitorTest(FunctionalTest):
 
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
@@ -161,7 +163,7 @@ class NewGrainVisitorTest(FunctionalTest):
         self.browser = webdriver.Firefox()
         self.browser.get(grains_page)
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
 
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertEqual(header_text, 'Grains')
@@ -170,7 +172,8 @@ class NewGrainVisitorTest(FunctionalTest):
         # and he clicks on it, a bootstrap modal form with the information
         # pops up
         self.browser.find_element_by_link_text('Carared').click()
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He changes the grain name from Carared to Chocolate Pale and clicks submit.
         # He's redirected back to the grains list page and can see the change updated
@@ -209,7 +212,8 @@ class NewGrainVisitorTest(FunctionalTest):
 
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
@@ -237,13 +241,13 @@ class NewGrainVisitorTest(FunctionalTest):
         # But there's a problem, he meant 'Chocolate Pale'! He
         # could change his entry, but he's in a hurry so he selects the delete link
         self.browser.find_element_by_link_text('Delete').click()
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
 
         # The modal opens with the grain record details and asks him to confirm
         # that he wants to delete the record.
         submit_button = self.browser.find_element_by_id('delete').find_element_by_id('submit')
         submit_button.click()
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
 
         # He confirms and the record is no longer visible on the grains main table.
         table = self.browser.find_element_by_id('list_table')

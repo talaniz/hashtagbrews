@@ -26,13 +26,13 @@ class GrainFormValidation(FunctionalTest):
 
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
 
         # He suddenly realizes he doesn't know which grain record he would like to add.
         # So he figures he'll just add an empty record and edit it later
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
         # He hits enter on the blank form, but instead of seeing a new blank grain record,
         # he sees the main grains page with several errors indicating that the fields are required
         section_errors = self.browser.find_element_by_id('validation_errors')
@@ -60,7 +60,7 @@ class GrainFormValidation(FunctionalTest):
 
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
 
         # He enters the information into the form and clicks submit.
         # He didn't realize that the alpha acid fields were for numbers
@@ -112,7 +112,8 @@ class GrainFormValidation(FunctionalTest):
 
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
@@ -199,7 +200,8 @@ class GrainFormValidation(FunctionalTest):
 
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
@@ -238,7 +240,7 @@ class GrainFormValidation(FunctionalTest):
         # and he clicks on it, a bootstrap modal form with the information
         # pops up
         self.browser.find_element_by_link_text('Black Barley').click()
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
 
         # While he's correcting the information, he gets distracted and accidentally
         # spells out the fields instead of using numbers

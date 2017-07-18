@@ -64,7 +64,8 @@ class NewHopsVisitorTest(FunctionalTest):
         # form appears and he enters in a new hops name
         self.browser.find_element_by_id("add_hops").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('new_hops')
@@ -132,7 +133,8 @@ class NewHopsVisitorTest(FunctionalTest):
 
         self.browser.find_element_by_id("add_hops").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('new_hops')
@@ -162,7 +164,7 @@ class NewHopsVisitorTest(FunctionalTest):
         self.browser = webdriver.Firefox()
         self.browser.get(hops_page)
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
 
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertEqual(header_text, 'Hops')
@@ -212,7 +214,8 @@ class NewHopsVisitorTest(FunctionalTest):
 
         self.browser.find_element_by_id("add_hops").click()
 
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('new_hops')

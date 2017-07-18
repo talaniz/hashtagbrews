@@ -27,6 +27,7 @@ class YeastFormValidation(FunctionalTest):
         self.browser.find_element_by_id("add_yeasts").click()
 
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He suddenly realizes he doesn't know which hop record he would like to add.
         # So he figures he'll just add an empty record and edit it later
@@ -62,6 +63,7 @@ class YeastFormValidation(FunctionalTest):
         self.browser.find_element_by_id("add_yeasts").click()
 
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         # He didn't realize that some fields were for numbers
@@ -130,6 +132,7 @@ class YeastFormValidation(FunctionalTest):
         self.browser.find_element_by_id("add_yeasts").click()
 
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
@@ -181,6 +184,7 @@ class YeastFormValidation(FunctionalTest):
         # pops up
         self.browser.find_element_by_link_text('American Ale 1056').click()
         self.browser.implicitly_wait(6)
+        self.browser.switch_to.active_element
 
         # He's distracted while he's fixing the information and accidentally spells out
         # the min and max alpha acid fields before submitting
