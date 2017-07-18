@@ -170,7 +170,7 @@ class NewGrainVisitorTest(FunctionalTest):
         # and he clicks on it, a bootstrap modal form with the information
         # pops up
         self.browser.find_element_by_link_text('Carared').click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # He changes the grain name from Carared to Chocolate Pale and clicks submit.
         # He's redirected back to the grains list page and can see the change updated
@@ -237,13 +237,13 @@ class NewGrainVisitorTest(FunctionalTest):
         # But there's a problem, he meant 'Chocolate Pale'! He
         # could change his entry, but he's in a hurry so he selects the delete link
         self.browser.find_element_by_link_text('Delete').click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # The modal opens with the grain record details and asks him to confirm
         # that he wants to delete the record.
         submit_button = self.browser.find_element_by_id('delete').find_element_by_id('submit')
         submit_button.click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # He confirms and the record is no longer visible on the grains main table.
         table = self.browser.find_element_by_id('list_table')
