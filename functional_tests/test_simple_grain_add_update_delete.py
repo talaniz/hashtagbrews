@@ -64,7 +64,7 @@ class NewGrainVisitorTest(FunctionalTest):
         # form appears and he enters in a new grain name
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')
@@ -161,7 +161,7 @@ class NewGrainVisitorTest(FunctionalTest):
         self.browser = webdriver.Firefox()
         self.browser.get(grains_page)
 
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertEqual(header_text, 'Grains')
@@ -209,7 +209,7 @@ class NewGrainVisitorTest(FunctionalTest):
 
         self.browser.find_element_by_id("add_grain").click()
 
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('name')

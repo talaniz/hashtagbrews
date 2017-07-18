@@ -26,7 +26,7 @@ class HopFormValidation(FunctionalTest):
 
         self.browser.find_element_by_id("add_hops").click()
 
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # He suddenly realizes he doesn't know which hop record he would like to add.
         # So he figures he'll just add an empty record and edit it later
@@ -60,7 +60,7 @@ class HopFormValidation(FunctionalTest):
 
         self.browser.find_element_by_id("add_hops").click()
 
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # He enters the information into the form and clicks submit.
         # He didn't realize that the alpha acid fields were for numbers
@@ -114,7 +114,7 @@ class HopFormValidation(FunctionalTest):
 
         self.browser.find_element_by_id("add_hops").click()
 
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # He enters the information into the form and clicks submit.
         inputbox = self.browser.find_element_by_id('new_hops')
@@ -144,7 +144,7 @@ class HopFormValidation(FunctionalTest):
         self.browser = webdriver.Firefox()
         self.browser.get(hops_page)
 
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertEqual(header_text, 'Hops')
@@ -153,7 +153,7 @@ class HopFormValidation(FunctionalTest):
         # and he clicks on it, a bootstrap modal form with the information
         # pops up
         self.browser.find_element_by_link_text('Amarillo').click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
 
         # He can't remember the information, but he'll just clear out the fields
         # and enter the information later (Jim's a busy guy)
