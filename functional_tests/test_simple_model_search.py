@@ -145,7 +145,7 @@ class SimpleHopSearchTest(FunctionalTest):
 
         submit_button = self.browser.find_elements_by_id('submit')[3]
         submit_button.click()
-        self.browser.implicitly_wait(6)
+        # self.browser.implicitly_wait(6)
 
         # The page redirects and he sees the table wih the name of the hops
         # He can see the homepage only with hop records that match his search
