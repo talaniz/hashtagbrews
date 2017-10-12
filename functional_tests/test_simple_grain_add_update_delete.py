@@ -1,5 +1,8 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
 
 from .base import FunctionalTest
 
@@ -245,7 +248,10 @@ class NewGrainVisitorTest(FunctionalTest):
 
         # The modal opens with the grain record details and asks him to confirm
         # that he wants to delete the record.
-        submit_button = self.browser.find_element_by_id('delete').find_element_by_id('submit')
+        wait = WebDriverWait(self.browser, 25)
+        delete = wait.until(EC.presence_of_element_located((By.ID, 'delete')))
+        submit_button = delete.find_element_by_id('submit')
+        # submit_button = self.browser.find_element_by_id('delete').find_element_by_id('submit')
         submit_button.click()
         self.browser.implicitly_wait(6)
 
