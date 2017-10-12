@@ -5,6 +5,9 @@ language: python
 python:
   - 3.4
 
+addons:
+  - firefox: "56.0.1"
+
 services:
   - postgresql
   - elasticsearch
@@ -13,6 +16,10 @@ env:
   - DJANGO=1.9.1
 
 before_install:
+  - wget https://github.com/mozilla/geckodriver/releases/tag/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+  - mkdir geckodriver
+  - tar -xzf geckodriver-v0.19.0-linux64.tar.gz -C geckodriver
+  - export PATH=$PATH:$PWD/geckodriver
   - export DJANGO_SETTINGS_MODULE=hashtagbrews.settings
   - export PYTHONPATH="/home/travis/build/talaniz/hashtagbrews"
   - export PIP_USE_MIRRORS=true
