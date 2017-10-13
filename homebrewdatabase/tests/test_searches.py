@@ -25,14 +25,13 @@ class TestSearch(TestCase):
         self.comments_type = self.es_hop_index['comments']['type']
 
         self.assertEqual(self.id_type, 'long')
-        try:
-            self.assertEqual(self.name_type, 'string')
-        except:
-            self.assertEqual(self.name_type, 'string')
+
+        self.assertEqual(self.name_type, 'text')
         self.assertEqual(self.min_alpha_acid_type, 'double')
         self.assertEqual(self.max_alpha_acid_type, 'double')
-        self.assertEqual(self.country_type, 'string')
-        self.assertEqual(self.comments_type, 'string')
+
+        self.assertEqual(self.country_type, 'text')
+        self.assertEqual(self.comments_type, 'text')
 
     def test_push_grain_to_index_creates_index(self):
         self.out = StringIO()
@@ -49,9 +48,15 @@ class TestSearch(TestCase):
         self.assertEqual(self.id_type, 'long')
         try:
             self.assertEqual(self.name_type, 'string')
-        except:
-            self.assertEqual(self.name_type, 'string')
+        except AssertionError:
+            self.assertEqual(self.name_type, 'text')
         self.assertEqual(self.degrees_lovibond_type, 'double')
         self.assertEqual(self.specific_gravity_type, 'double')
-        self.assertEqual(self.grain_type, 'string')
-        self.assertEqual(self.comments_type, 'string')
+        try:
+            self.assertEqual(self.grain_type, 'string')
+        except AssertionError:
+            self.assertEqual(self.grain_type, 'text')
+        try:
+            self.assertEqual(self.comments_type, 'string')
+        except AssertionError:
+            self.assertEqual(self.comments_type, 'text')

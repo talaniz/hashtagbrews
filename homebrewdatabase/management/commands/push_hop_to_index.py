@@ -11,16 +11,31 @@ ES_CLIENT = Elasticsearch(
 es_mapping = {
     'properties': {
         'country': {
-            'type': 'string'
+            "type": "text",
+            "fields": {
+                "keyword": {
+                    "type": "keyword"
+                }
+            }
                     },
         'id': {
             'type': 'long'
                     },
         'name': {
-            'type': 'string'
+            "type": "text",
+            "fields": {
+                "keyword": {
+                    "type": "keyword"
+                }
+            }
                     },
         'comments': {
-            'type': 'string'
+            "type": "text",
+            "fields": {
+                "keyword": {
+                    "type": "keyword"
+                }
+            }
                     },
         'max_alpha_acid': {
             'type': 'double'
