@@ -7,6 +7,11 @@ python:
 
 addons:
   - firefox: "56.0.1"
+  apt:
+    sources:
+      - elasticsearch-2.4.0
+    packages:
+      - elasticsearch
 
 services:
   - postgresql
@@ -16,7 +21,6 @@ env:
   - DJANGO=1.9.1
 
 before_install:
-  - curl -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/2.4.0/elasticsearch-2.4.0.deb
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
   - mkdir geckodriver
   - tar -xvf geckodriver-v0.19.0-linux64.tar.gz -C geckodriver
