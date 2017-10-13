@@ -28,7 +28,7 @@ A Django based site that will contain the following applications:
     * Add grains and yeasts code - Completed
     * Test Suites: tests for all 3 models - Completed
     * Add error handling - Completed
-    * Move to class based views - Pending review
+    * Move to class based views - Completed
     * Add update and delete views - Completed
     * Add user authentication.
 
