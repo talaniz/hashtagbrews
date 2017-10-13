@@ -7,7 +7,7 @@ django-debug-toolbar==1.4
 django-debug-toolbar-django-info==0.2.0
 django-extensions==1.6.1
 docutils==0.12
-elasticsearch==2.4.0
+elasticsearch==5.4.0
 imagesize==0.7.1
 Jinja2==2.8
 MarkupSafe==0.23
