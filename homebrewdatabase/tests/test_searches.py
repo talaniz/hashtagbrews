@@ -25,7 +25,10 @@ class TestSearch(TestCase):
         self.comments_type = self.es_hop_index['comments']['type']
 
         self.assertEqual(self.id_type, 'long')
-        self.assertEqual(self.name_type, 'string')
+        try:
+            self.assertEqual(self.name_type, 'string')
+        except:
+            self.assertEqual(self.name_type, 'string')
         self.assertEqual(self.min_alpha_acid_type, 'double')
         self.assertEqual(self.max_alpha_acid_type, 'double')
         self.assertEqual(self.country_type, 'string')
@@ -44,7 +47,10 @@ class TestSearch(TestCase):
         self.comments_type = self.es_grain_index['comments']['type']
 
         self.assertEqual(self.id_type, 'long')
-        self.assertEqual(self.name_type, 'string')
+        try:
+            self.assertEqual(self.name_type, 'string')
+        except:
+            self.assertEqual(self.name_type, 'string')
         self.assertEqual(self.degrees_lovibond_type, 'double')
         self.assertEqual(self.specific_gravity_type, 'double')
         self.assertEqual(self.grain_type, 'string')
