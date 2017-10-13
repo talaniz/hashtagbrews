@@ -8,11 +8,6 @@ python:
 addons:
   - firefox: "56.0.1"
 
-  apt:
-    sources:
-      - elasticsearch-2.4.0
-    packages:
-      - elasticsearch
 
 services:
   - postgresql
