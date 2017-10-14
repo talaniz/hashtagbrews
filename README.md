@@ -1,5 +1,6 @@
 Hashtag Brews
 =============
+
 https://travis-ci.org/talaniz/hashtagbrews.svg?branch=master
 
 A Django based site that will contain the following applications:

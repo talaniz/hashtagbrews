@@ -46,17 +46,8 @@ class TestSearch(TestCase):
         self.comments_type = self.es_grain_index['comments']['type']
 
         self.assertEqual(self.id_type, 'long')
-        try:
-            self.assertEqual(self.name_type, 'string')
-        except AssertionError:
-            self.assertEqual(self.name_type, 'text')
+        self.assertEqual(self.name_type, 'text')
         self.assertEqual(self.degrees_lovibond_type, 'double')
         self.assertEqual(self.specific_gravity_type, 'double')
-        try:
-            self.assertEqual(self.grain_type, 'string')
-        except AssertionError:
-            self.assertEqual(self.grain_type, 'text')
-        try:
-            self.assertEqual(self.comments_type, 'string')
-        except AssertionError:
-            self.assertEqual(self.comments_type, 'text')
+        self.assertEqual(self.grain_type, 'text')
+        self.assertEqual(self.comments_type, 'text')
