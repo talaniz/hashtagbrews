@@ -1,7 +1,7 @@
 Hashtag Brews
 =============
 
-https://travis-ci.org/talaniz/hashtagbrews.svg?branch=master
+[![Build Status](https://travis-ci.org/talaniz/hashtagbrews.svg?branch=master)](https://travis-ci.org/talaniz/hashtagbrews)
 
 A Django based site that will contain the following applications:
 * An open source beer database containing a catalogue of hops, grains and yeasts
