@@ -82,12 +82,12 @@ WSGI_APPLICATION = 'hashtagbrews.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hashtagbrews',
+        'USER': 'antonioalaniz1',
+        'PASSWORD': '@ntonio1',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
