@@ -4,9 +4,9 @@
 
         {% block content %}
 
-        {% if form.errors %}
+        {% if error_form.errors %}
             <div id="validation_errors" class="alert alert-danger">
-                {% for value in form.errors.items %}
+                {% for value in error_form.errors.items %}
                     {{ value.1 }}
                 {% endfor %}
             </div>
@@ -17,13 +17,9 @@
                 {% endfor %}
             </div>
         {% endif %}
-
-        <h1>Hops</h1>
-
-        <!--Button for modal to add hops-->
-        <button id="add_hops" type="button" data-toggle="modal" data-target="#addhops" class="btn btn-primary">
-            Add Hops
-        </button>
+        <div class="hops">
+            <image src="/static/homebrewdatabase/images/hops.jpg" height="85px;">
+        </div>
 
         <!--Modal data begins here to add hops-->
         <div class="modal fade" id="addhops" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -53,10 +49,27 @@
         </div>
 
         <!-- Search form begins here-->
-         <form action="{% url 'hops_list' %}" method="GET">
-             <input type="text" name="query" id="query">
-             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-         </form>
+        <div class="container" id="search_form">
+            <div class="row">
+                <div class="form-group row">
+                    <form action="{% url 'hops_list' %}" method="GET">
+                        <div class="col-sm-2">
+                            <h4>Search:</h4>
+                            <input type="text" class="form-control" name="query" id="query">
+
+                        </div>
+                        <br><br>
+                            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                            <button id="add_hops" type="button" data-toggle="modal" data-target="#addhops" class="btn btn-success">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                Add Hops
+                            </button>
+                    </form>
+            </div>
+        </div>
+                </div>
+            </div>
+        </div>
         <!--Table data begins here-->
         <table id="list_table" class="table table-bordered table-striped">
             <tr>

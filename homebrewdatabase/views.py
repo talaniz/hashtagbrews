@@ -83,9 +83,10 @@ def addhops(request):
             add_form.save()
             return redirect('hops_list')
         else:
-            # consider moving this to Elasticsearch?
+            # FIXME: This should use Elasticsearch
             hops_list = Hop.objects.all()
-            return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list, 'form': add_form})
+            return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list, 'form': HopForm(),
+                                                                  'error_form': add_form})
     return render(request, 'homebrewdatabase/addhops.html', {'form': add_form})
 
 

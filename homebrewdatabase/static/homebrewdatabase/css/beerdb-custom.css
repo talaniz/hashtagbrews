@@ -10,3 +10,7 @@ h1#beerdb_header {
 div#beerdb_marketing {
     padding: 5px;
 }
+
+#add_button {
+    left: 50px;
+}

@@ -16,3 +16,7 @@ div#deletehops {
     overflow-x: auto;
     overflow: visible;
 }
+
+div#add_button {
+    left: 50px;
+}

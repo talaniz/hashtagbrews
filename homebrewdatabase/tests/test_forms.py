@@ -19,7 +19,7 @@ class HopFormTest(TestCase):
         form_elements = ['name="name"', 'id="new_hops"', 'name="min_alpha_acid"',
                          'id="min_alpha_acid', 'name="max_alpha_acid"',
                          'id="max_alpha_acid"', 'name="country"',
-                         'id="comments"', 'name="comments'
+                         'id="comments"', 'name="comments', 'class="form-control"'
                          ]
 
         for element in form_elements:

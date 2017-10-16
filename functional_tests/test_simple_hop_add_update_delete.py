@@ -56,9 +56,11 @@ class NewHopsVisitorTest(FunctionalTest):
         hops_link = self.browser.find_element_by_link_text('Hops')
         hops_link.click()
 
-        page_heading = self.browser.find_element_by_tag_name('h1').text
 
-        self.assertIn(page_heading, 'Hops')
+        hops_image = self.browser.find_elements_by_tag_name('img')
+        hops_image_src = hops_image[1].get_attribute("src")
+
+        self.assertIn('hops.jpg', hops_image_src)
 
         # He finds the Add Hops button and clicks, a modal
         # form appears and he enters in a new hops name
@@ -166,8 +168,10 @@ class NewHopsVisitorTest(FunctionalTest):
 
         self.browser.implicitly_wait(6)
 
-        header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertEqual(header_text, 'Hops')
+        hops_image = self.browser.find_elements_by_tag_name('img')
+        hops_image_src = hops_image[1].get_attribute("src")
+
+        self.assertIn('hops.jpg', hops_image_src)
 
         # He sees the link for the Amarillo hop record he just entered
         # and he clicks on it, a bootstrap modal form with the information

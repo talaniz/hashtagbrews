@@ -16,10 +16,11 @@ class HopForm(forms.models.ModelForm):
         model = Hop
         fields = ('name', 'min_alpha_acid', 'max_alpha_acid', 'country', 'comments',)
         widgets = {
-            'name': forms.fields.TextInput(attrs={'id': 'new_hops'}),
-            'min_alpha_acid': forms.fields.TextInput(attrs={'id': 'min_alpha_acid'}),
-            'max_alpha_acid': forms.fields.TextInput(attrs={'id': 'max_alpha_acid'}),
-            'comments': forms.fields.TextInput(attrs={'id': 'comments'}),
+            'name': forms.fields.TextInput(attrs={'id': 'new_hops', 'class': 'form-control'}),
+            'min_alpha_acid': forms.fields.TextInput(attrs={'id': 'min_alpha_acid', 'class': 'form-control'}),
+            'max_alpha_acid': forms.fields.TextInput(attrs={'id': 'max_alpha_acid', 'class': 'form-control'}),
+            'country': forms.fields.Select(attrs={'class': 'form-control'}),
+            'comments': forms.fields.TextInput(attrs={'id': 'comments', 'class': 'form-control'}),
         }
 
         error_messages = {

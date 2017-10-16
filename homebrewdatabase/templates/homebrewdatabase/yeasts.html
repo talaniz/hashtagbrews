@@ -50,7 +50,11 @@
                 </div>
             </div>
         </div>
-
+        <!-- Search form begins here-->
+        <form action="{% url 'yeasts_list' %}" method="GET">
+            <input type="text" name="query" id="query">
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+        </form>
             <!-- Table data begins here -->
             <table id="list_table" class="table table-bordered table-striped">
                     <tr>
