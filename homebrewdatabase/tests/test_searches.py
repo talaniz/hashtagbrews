@@ -55,7 +55,7 @@ class TestSearch(TestCase):
     def test_push_yeast_to_index_creates_index(self):
         self.out = StringIO()
         call_command('push_yeast_to_index', stdout=self.out)
-        self.es_yeast_index = self.client.get_mapping(index='hop')['yeast']['mappings']['yeast']['properties']
+        self.es_yeast_index = self.client.get_mapping(index='yeast')['yeast']['mappings']['yeast']['properties']
 
         self.id_type = self.es_yeast_index['id']['type']
         self.name_type = self.es_yeast_index['name']['type']
@@ -64,7 +64,7 @@ class TestSearch(TestCase):
         self.yeast_form_type = self.es_yeast_index['yeast_form']['type']
         self.min_temp_type = self.es_yeast_index['min_temp']['type']
         self.max_temp_type = self.es_yeast_index['max_temp']['type']
-        self.attentuation_type = self.es_yeast_index['attenuation']['type']
+        self.attenuation_type = self.es_yeast_index['attenuation']['type']
         self.flocculation_type = self.es_yeast_index['flocculation']['type']
         self.comments_type = self.es_yeast_index['comments']['type']
 
@@ -77,5 +77,5 @@ class TestSearch(TestCase):
         self.assertEqual(self.min_temp_type, 'integer')
         self.assertEqual(self.max_temp_type, 'integer')
         self.assertEqual(self.attenuation_type, 'text')
-        elf.assertEqual(self.flocculation_type, 'text')
+        self.assertEqual(self.flocculation_type, 'text')
         self.assertEqual(self.comments_type, 'text')

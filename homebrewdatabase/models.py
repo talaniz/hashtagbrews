@@ -256,5 +256,57 @@ class Yeast(models.Model):
     flocculation = models.CharField(max_length=15, choices=YEAST_FLOCCULATION_CHOICES, default=MEDIUM)
     comments = models.TextField()
 
+    def save(self, *args, **kwargs):
+        es_client = Elasticsearch()
+        es_index_client = IndicesClient(client=es_client)
+        super(Yeast, self).save(*args, **kwargs)
+        if self.pk is not None:
+            es_client.index(
+                index="yeast",
+                doc_type="yeast",
+                id=self.pk,
+                body={
+                    'name': self.name,
+                    'lab': self.lab,
+                    'yeast_type': self.yeast_type,
+                    'yeast_form': self.yeast_form,
+                    'min_temp': self.min_temp,
+                    'max_temp': self.max_temp,
+                    'attenuation': self.attenuation,
+                    'flocculation': self.flocculation,
+                    'comments': self.comments
+                    },
+                refresh=True
+            )
+        else:
+            es_client.create(
+                index="yeast",
+                doc_type="yeast",
+                id=self.pk,
+                body={
+                    'name': self.name,
+                    'lab': self.lab,
+                    'yeast_type': self.yeast_type,
+                    'yeast_form': self.yeast_form,
+                    'min_temp': self.min_temp,
+                    'max_temp': self.max_temp,
+                    'attenuation': self.attenuation,
+                    'flocculation': self.flocculation,
+                    'comments': self.comments
+                },
+                refresh=True
+            )
+
+    def delete(self, *args, **kwargs):
+        es_client = Elasticsearch()
+        yeast_id = self.pk
+        super(Yeast, self).delete(*args, **kwargs)
+        es_client.delete(
+            index="yeast",
+            doc_type="yeast",
+            id=yeast_id,
+            refresh=True
+        )
+
     def __unicode__(self):
         return self.name

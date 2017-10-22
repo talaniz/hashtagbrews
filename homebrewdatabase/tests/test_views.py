@@ -727,6 +727,13 @@ class TestYeastPageView(TestCase):
     Class for testing yeast related views
     """
 
+    def setUp(self):
+        self.es_client = Elasticsearch()
+        call_command('push_yeast_to_index')
+
+    def tearDown(self):
+        call_command('push_yeast_to_index')
+
     def test_yeast_page_returns_correct_template(self):
         """
         Checks that the 'yeasts_list' page returns the 'yeasts.html' template
@@ -771,6 +778,18 @@ class TestYeastPageView(TestCase):
         self.assertEqual(new_yeast.flocculation, 'Medium')
         self.assertEqual(new_yeast.comments, 'Well balanced.')
 
+        es_yeast_record = self.es_client.get(index='yeast', id=new_yeast.id)['_source']
+
+        self.assertEqual(es_yeast_record['name'], 'Amarillo')
+        self.assertEqual(es_yeast_record['lab'], 'Wyeast')
+        self.assertEqual(es_yeast_record['yeast_type'], 'Ale')
+        self.assertEqual(es_yeast_record['yeast_form'], 'Liquid')
+        self.assertEqual(es_yeast_record['min_temp'], 60)
+        self.assertEqual(es_yeast_record['max_temp'], 72)
+        self.assertEqual(es_yeast_record['attenuation'], 75)
+        self.assertEqual(es_yeast_record['flocculation'], 'Medium')
+        self.assertEqual(es_yeast_record['comments'], 'Well balanced.')
+
     def test_add_yeasts_redirects_after_POST(self):
         """
         Test to check that accessing the 'addyeasts' url redirects with 302 and a url of '/beerdb/yeasts'
@@ -804,6 +823,9 @@ class TestYeastPageView(TestCase):
         request = HttpRequest()
         addyeasts(request)
         self.assertEqual(Yeast.objects.count(), 0)
+
+        es_hits = self.es_client.search(index='yeast')['hits']['total']
+        self.assertEqual(es_hits, 0)
 
     def test_yeast_page_displays_all_yeast_records(self):
         """
@@ -866,6 +888,12 @@ class TestYeastPageView(TestCase):
 
         self.assertEqual(yeast_record[0].name, 'WLP002 ENGLISH ALE YEAST')
 
+        es_yeast_record = self.es_client.search(index='yeast',
+                                                body={"query": {
+                                                            "match": {
+                                                                "name": "WLP002 ENGLISH ALE YEAST"}}})['hits']
+        self.assertEqual(es_yeast_record['total'], 1)
+
     def test_add_yeasts_view_uses_yeast_form(self):
         """
         Checks that the 'addyeasts' form is using the YeastForm() in forms.py
@@ -908,12 +936,23 @@ class TestYeastPageView(TestCase):
         self.assertEqual(response.status_code, 302)
 
         yeast_list = Yeast.objects.filter(name='WLP004 IRISH ALE YEAST')
+        es_yeast_record = self.es_client.search(index='yeast',
+                                                body={"query": {
+                                                        "match": {
+                                                            "name": 'WLP004 IRISH ALE YEAST'
+                                                        }}})['hits']
 
         self.assertEqual(len(yeast_list), 1)
+        self.assertEqual(es_yeast_record['total'], 1)
 
         yeast_list = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')
-
+        es_yeast_record2 = self.es_client.search(index='yeast',
+                                                 body={"query": {
+                                                        "match": {
+                                                            "name": 'ENGLISH'
+                                                        }}})['hits']
         self.assertEqual(len(yeast_list), 0)
+        self.assertEqual(es_yeast_record2['total'], 0)
 
     def test_can_delete_yeasts(self):
         """
@@ -935,8 +974,10 @@ class TestYeastPageView(TestCase):
                          })
 
         yeast_instance = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')[0]
+        es_yeast_record = self.es_client.get(index='yeast', id=yeast_instance.id)['_source']
 
         self.assertEqual(yeast_instance.name, 'WLP002 ENGLISH ALE YEAST')
+        self.assertEqual(es_yeast_record['name'], 'WLP002 ENGLISH ALE YEAST')
 
         response = self.client.get('/beerdb/delete/%d/yeasts/' % yeast_instance.id)
 
@@ -945,8 +986,11 @@ class TestYeastPageView(TestCase):
         self.client.post('/beerdb/delete/%d/yeasts/' % yeast_instance.id)
 
         yeast_list = Yeast.objects.filter(name="WLP002 ENGLISH ALE YEAST")
+        es_yeast_record2 = self.es_client.search(index='yeast',
+                                                 body={"query": {"match": {"name": "ENGLISH"}}})['hits']
 
         self.assertEqual(len(yeast_list), 0)
+        self.assertEqual(es_yeast_record2['total'], 0)
 
     def test_blank_input_on_add_yeasts_page_returns_yeasts_list_page_with_errors(self):
         """
@@ -1010,3 +1054,61 @@ class TestYeastPageView(TestCase):
         self.assertContains(response, min_temp_validation_error)
         self.assertContains(response, max_temp_validation_error)
         self.assertContains(response, attenuation_validation_error)
+
+    def test_search_GET_request_returns_matching_results(self):
+
+        self.client.post(
+            '/beerdb/add/yeasts/',
+            data={
+                'name': 'American Ale II 1272',
+                'lab': 'Wyeast',
+                'yeast_type': 'Ale',
+                'yeast_form': 'Liquid',
+                'min_temp': 60,
+                'max_temp': 72,
+                'attenuation': 75,
+                'flocculation': 'Low',
+                'comments': 'Well balanced.'
+                })
+
+        self.client.post(
+            '/beerdb/add/yeasts/',
+            data={'name': 'American Ale 1056',
+                  'lab': 'Brewtek',
+                  'yeast_type': 'Saison',
+                  'yeast_form': 'Dry',
+                  'min_temp': 61,
+                  'max_temp': 73,
+                  'attenuation': 76,
+                  'flocculation': 'Medium',
+                  'comments': 'Sweet, toasted flavor and aroma'
+                  })
+
+        request = HttpRequest()
+
+        request.method = 'GET'
+        request.GET['query'] = 'American'
+
+        response = yeasts(request)
+
+        # Yeast 1
+        self.assertIn('American Ale II 1272' , response.content.decode())
+        self.assertIn('Wyeast' , response.content.decode())
+        self.assertIn('Ale', response.content.decode())
+        self.assertIn('Liquid', response.content.decode())
+        self.assertIn('60', response.content.decode())
+        self.assertIn('72', response.content.decode())
+        self.assertIn('75', response.content.decode())
+        self.assertIn('Low', response.content.decode())
+        self.assertIn('Well balanced.', response.content.decode())
+
+        # Yeast 2
+        self.assertIn('American Ale 1056', response.content.decode())
+        self.assertIn('Brewtek', response.content.decode())
+        self.assertIn('Saison', response.content.decode())
+        self.assertIn('Dry', response.content.decode())
+        self.assertIn('61', response.content.decode())
+        self.assertIn('73', response.content.decode())
+        self.assertIn('76', response.content.decode())
+        self.assertIn('Medium', response.content.decode())
+        self.assertIn('Sweet, toasted flavor and aroma', response.content.decode())

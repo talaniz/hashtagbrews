@@ -272,7 +272,24 @@ def yeasts(request):
                 - 'form'
     """
 
-    yeasts_list = Yeast.objects.all()
+    yeasts_list = []
+    es = Elasticsearch()
+    if request.GET.get('query'):
+        entries = es.search(index='yeast',
+                            body={"query": {
+                                    "query_string": {
+                                            "fields": ["name", "lab", "yeast_type",
+                                                       "yeast_form", "comments"],
+                                            "query": request.GET['query']
+                                                      }
+                                             }})['hits']['hits']
+    else:
+        entries = es_client.search(index='yeast')['hits']['hits']
+
+    for entry in entries:
+        entry['_source']['id'] = entry['_id']
+        entry = entry['_source']
+        yeasts_list.append(entry)
     return render(request, 'homebrewdatabase/yeasts.html', {'yeasts': yeasts_list, 'form': YeastForm()})
 
 

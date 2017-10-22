@@ -91,7 +91,7 @@ class GrainModelTest(TestCase):
 
         second_grain = Grain()
         second_grain.name = "Pale Chocolate"
-        second_grain.degrees_lovibond ="150.00"
+        second_grain.degrees_lovibond = "150.00"
         second_grain.specific_gravity = "12.000"
         second_grain.grain_type = 'GRN'
         second_grain.comments = 'Dark malt that gives a rich red or brown color'
@@ -135,6 +135,9 @@ class YeastModelTest(TestCase):
     """
     Tests the ability to save and retrieve data using the Yeast model
     """
+
+    def setUp(self):
+        self.es_client = Elasticsearch()
 
     def test_saving_yeast_and_retrieving_later(self):
         """
@@ -189,3 +192,26 @@ class YeastModelTest(TestCase):
         self.assertEqual(second_yeast_record.attenuation, 75)
         self.assertEqual(second_yeast_record.flocculation, 'Low')
         self.assertEqual(second_yeast_record.comments, 'Well balanced. Ferments dry, finishes soft.')
+
+        first_es_yeast_record = self.es_client.get_source(index="yeast", doc_type="yeast", id=first_yeast.id)
+        second_es_yeast_record = self.es_client.get_source(index="yeast", doc_type="yeast", id=second_yeast.id)
+
+        self.assertEqual(first_es_yeast_record['name'], 'Alpine')
+        self.assertEqual(first_es_yeast_record['lab'], 'Wyeast')
+        self.assertEqual(first_es_yeast_record['yeast_type'], 'Ale')
+        self.assertEqual(first_es_yeast_record['yeast_form'], 'Liquid')
+        self.assertEqual(first_es_yeast_record['min_temp'], '60')
+        self.assertEqual(first_es_yeast_record['max_temp'], '70')
+        self.assertEqual(first_es_yeast_record['attenuation'], '75')
+        self.assertEqual(first_es_yeast_record['flocculation'], 'Medium')
+        self.assertEqual(first_es_yeast_record['comments'], 'Well balanced.')
+
+        self.assertEqual(second_es_yeast_record['name'], 'American Ale 1056')
+        self.assertEqual(second_es_yeast_record['lab'], 'Wyeast')
+        self.assertEqual(second_es_yeast_record['yeast_type'], 'Ale')
+        self.assertEqual(second_es_yeast_record['yeast_form'], 'Liquid')
+        self.assertEqual(second_es_yeast_record['min_temp'], '60')
+        self.assertEqual(second_es_yeast_record['max_temp'], '72')
+        self.assertEqual(second_es_yeast_record['attenuation'], '75')
+        self.assertEqual(second_es_yeast_record['flocculation'], 'Low')
+        self.assertEqual(second_es_yeast_record['comments'], 'Well balanced. Ferments dry, finishes soft.')

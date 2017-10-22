@@ -421,7 +421,7 @@ class SimpleYeastSearchTest(FunctionalTest):
         select.select_by_visible_text('Medium')
 
         inputbox = self.browser.find_element_by_id('comments')
-        inputbox.send_keys('Well balanced.')
+        inputbox.send_keys('Smooth.')
 
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
@@ -483,7 +483,7 @@ class SimpleYeastSearchTest(FunctionalTest):
         self.find_text_in_table('60')
         self.find_text_in_table('72')
         self.find_text_in_table('75')
-        self.find_text_in_table('Medium')
+        self.find_text_in_table('Low')
         self.find_text_in_table('Well balanced.')
 
         self.find_text_in_table('American Ale 1056')
@@ -493,8 +493,8 @@ class SimpleYeastSearchTest(FunctionalTest):
         self.find_text_in_table('61')
         self.find_text_in_table('72')
         self.find_text_in_table('76')
-        self.find_text_in_table('High')
-        self.find_text_in_table('A malty, complex profile that clears well.')
+        self.find_text_in_table('Medium')
+        self.find_text_in_table('Smooth.')
 
         self.find_text_not_in_table('Ringwood Ale 1187')
         self.find_text_not_in_table('Wylabs')
