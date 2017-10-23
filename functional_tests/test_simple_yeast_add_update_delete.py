@@ -55,9 +55,10 @@ class NewYeastVisitorTest(FunctionalTest):
         yeast_link = self.browser.find_element_by_link_text('Yeasts')
         yeast_link.click()
 
-        page_heading = self.browser.find_element_by_tag_name('h1').text
+        yeasts_image = self.browser.find_elements_by_tag_name('img')
+        yeasts_image_src = yeasts_image[1].get_attribute("src")
 
-        self.assertIn(page_heading, 'Yeasts')
+        self.assertIn('yeasts.jpg', yeasts_image_src)
 
         # He finds the Add Yeast button and clicks, a modal
         # form appears and he enters in a new yeast name
@@ -199,9 +200,10 @@ class NewYeastVisitorTest(FunctionalTest):
 
         self.browser.implicitly_wait(6)
 
-        page_heading = self.browser.find_element_by_tag_name('h1').text
+        yeasts_image = self.browser.find_elements_by_tag_name('img')
+        yeasts_image_src = yeasts_image[1].get_attribute("src")
 
-        self.assertIn(page_heading, 'Yeasts')
+        self.assertIn('yeasts.jpg', yeasts_image_src)
 
         # He sees the link for the yeast record he just entered
         # and he clicks on it, a bootstrap modal form with the information pops up

@@ -176,8 +176,10 @@ class YeastFormValidation(FunctionalTest):
 
         self.browser.implicitly_wait(6)
 
-        header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertEqual(header_text, 'Yeasts')
+        yeasts_image = self.browser.find_elements_by_tag_name('img')
+        yeasts_image_src = yeasts_image[1].get_attribute("src")
+
+        self.assertIn('yeasts.jpg', yeasts_image_src)
 
         # He sees the link for the Amarillo hop record he just entered
         # and he clicks on it, a bootstrap modal form with the information
