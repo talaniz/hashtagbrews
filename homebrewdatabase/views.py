@@ -198,7 +198,8 @@ def addgrains(request):
             return redirect('grains_list')
         else:
             grains_list = Grain.objects.all()
-            return render(request, 'homebrewdatabase/grains.html', {'grains': grains_list, 'form': add_form})
+            return render(request, 'homebrewdatabase/grains.html', {'grains': grains_list, 'form': GrainForm(),
+                                                                    'error_form': add_form})
     return render(request, 'homebrewdatabase/addgrains.html', {'form': add_form})
 
 
@@ -314,7 +315,8 @@ def addyeasts(request):
             return redirect('yeasts_list')
         else:
             yeasts_list = Yeast.objects.all()
-            return render(request, 'homebrewdatabase/yeasts.html', {'yeasts': yeasts_list, 'form': add_form})
+            return render(request, 'homebrewdatabase/yeasts.html', {'yeasts': yeasts_list, 'form': YeastForm(),
+                                                                    'error_form': add_form})
     return render(request, 'homebrewdatabase/addyeasts.html', {'form': add_form})
 
 

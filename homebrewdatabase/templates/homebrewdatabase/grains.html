@@ -4,9 +4,9 @@
 {% block title %}<title>Homebrew Materials Database</title>{% endblock %}
 {% block content %}
 
-    {% if form.errors %}
+    {% if error_form.errors %}
             <div id="validation_errors" class="alert alert-danger">
-                {% for value in form.errors.items %}
+                {% for value in error_form.errors.items %}
                     {{ value.1 }}
                 {% endfor %}
             </div>
@@ -17,15 +17,12 @@
                 {% endfor %}
             </div>
     {% endif %}
+   <br>
+    <div class="grains">
+        <image src="/static/homebrewdatabase/images/grains.jpg" height="95px;">
+    </div>
 
-<h1>Grains</h1>
 
-
-
-    <!--Button for modal to add grains-->
-        <button id="add_grain" type="button" data-toggle="modal" data-target="#addgrain" class="btn btn-primary">
-            Add Grains
-        </button>
 
     <!--Modal data begins here to add grains-->
         <div class="modal fade" id="addgrain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -55,10 +52,24 @@
         </div>
 
     <!-- Search form begins here-->
-    <form action="{% url 'grains_list' %}" method="GET">
-        <input type="text" name="query" id="query">
-        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <div class="container" id="search_form">
+        <div class="row">
+            <div class="form-group row">
+                <form action="{% url 'grains_list' %}" method="GET">
+                    <div class="col-sm-2">
+                        <h4>#Search:</h4>
+                        <input type="text" class="form-control" name="query" id="query">
+                    </div>
+                    <br><br>
+                        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                        <button id="add_grain" type="button" data-toggle="modal" data-target="#addgrain" class="btn btn-success">
+                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        Add Grains
+                        </button>
+                </form>
+            </div>
+        </div>
+    </div>
     <!--Table data begins here-->
     <table id="list_table" class="table table-bordered table-striped">
             <tr>

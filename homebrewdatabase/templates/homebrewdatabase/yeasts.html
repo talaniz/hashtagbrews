@@ -4,9 +4,9 @@
         {% block title %}<title>Yeasts | Homebrew Materials Database</title>{% endblock %}
 
         {% block content %}
-            {% if form.errors %}
+            {% if error_form.errors %}
             <div id="validation_errors" class="alert alert-danger">
-                {% for value in form.errors.items %}
+                {% for value in error_form.errors.items %}
                     {{ value.1 }}
                 {% endfor %}
             </div>

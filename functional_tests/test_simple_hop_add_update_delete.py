@@ -56,7 +56,6 @@ class NewHopsVisitorTest(FunctionalTest):
         hops_link = self.browser.find_element_by_link_text('Hops')
         hops_link.click()
 
-
         hops_image = self.browser.find_elements_by_tag_name('img')
         hops_image_src = hops_image[1].get_attribute("src")
 

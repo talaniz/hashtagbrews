@@ -48,10 +48,11 @@ class GrainForm(forms.models.ModelForm):
         fields = ('name', 'degrees_lovibond', 'specific_gravity', 'grain_type', 'comments')
 
         widgets = {
-            'name': forms.fields.TextInput(attrs={'id': 'name'}),
-            'degrees_lovibond': forms.fields.TextInput(attrs={'id': 'degrees_lovibond'}),
-            'specific_gravity': forms.fields.TextInput(attrs={'id': 'specific_gravity'}),
-            'comments': forms.fields.TextInput(attrs={'id': 'comments'})
+            'name': forms.fields.TextInput(attrs={'id': 'name', 'class': 'form-control'}),
+            'degrees_lovibond': forms.fields.TextInput(attrs={'id': 'degrees_lovibond', 'class': 'form-control'}),
+            'specific_gravity': forms.fields.TextInput(attrs={'id': 'specific_gravity', 'class': 'form-control'}),
+            'grain_type': forms.fields.Select(attrs={'class': 'form-control'}),
+            'comments': forms.fields.TextInput(attrs={'id': 'comments', 'class': 'form-control'})
         }
 
         error_messages = {

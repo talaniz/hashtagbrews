@@ -59,9 +59,10 @@ class NewGrainVisitorTest(FunctionalTest):
         grains_link = self.browser.find_element_by_link_text('Grains')
         grains_link.click()
 
-        page_heading = self.browser.find_element_by_tag_name('h1').text
+        grains_image = self.browser.find_elements_by_tag_name('img')
+        grain_image_src = grains_image[1].get_attribute("src")
 
-        self.assertIn(page_heading, 'Grains')
+        self.assertIn('grains.jpg', grain_image_src)
 
         # He finds the Add Grain button and clicks, a modal
         # form appears and he enters in a new grain name
@@ -168,8 +169,10 @@ class NewGrainVisitorTest(FunctionalTest):
 
         self.browser.implicitly_wait(6)
 
-        header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertEqual(header_text, 'Grains')
+        grains_image = self.browser.find_elements_by_tag_name('img')
+        grain_image_src = grains_image[1].get_attribute("src")
+
+        self.assertIn('grains.jpg', grain_image_src)
 
         # He sees the link for the Carared grain record he just entered
         # and he clicks on it, a bootstrap modal form with the information

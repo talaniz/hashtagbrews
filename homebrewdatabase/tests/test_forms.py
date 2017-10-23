@@ -109,7 +109,8 @@ class GrainFormTest(TestCase):
         form = GrainForm()
 
         form_elements = ['name="name"', 'id="name"', 'id="degrees_lovibond"', 'name="degrees_lovibond"',
-                         'id="id_grain_type"', 'name="grain_type"', 'id="comments"', 'name="comments"'
+                         'id="id_grain_type"', 'name="grain_type"', 'id="comments"', 'name="comments"',
+                         'class="form-control"'
                          ]
 
         for element in form_elements:
