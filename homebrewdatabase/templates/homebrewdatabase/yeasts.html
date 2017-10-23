@@ -21,10 +21,6 @@
         <div class="yeasts">
             <image src="/static/homebrewdatabase/images/yeasts.jpg" height="90px;">
         </div>
-            <!--Button for modal to add yeasts-->
-            <button id="add_yeasts" type="button" data-toggle="modal" data-target="#addyeasts" class="btn btn-primary">
-                Add Yeasts
-            </button>
 
             <!--Modal data begins here to add yeasts-->
             <div class="modal fade" id="addyeasts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -53,10 +49,24 @@
             </div>
         </div>
         <!-- Search form begins here-->
-        <form action="{% url 'yeasts_list' %}" method="GET">
-            <input type="text" name="query" id="query">
-            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <div class="container" id="search_form">
+            <div class="row">
+                <div class="form-group row">
+                    <form action="{% url 'yeasts_list' %}" method="GET">
+                        <div class="col-sm-2">
+                            <h4>#Search:</h4>
+                            <input type="text" class="form-control" name="query" id="query">
+                        </div>
+                        <br><br>
+                        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                        <button id="add_yeasts" type="button" data-toggle="modal" data-target="#addyeasts" class="btn btn-success">
+                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        Add Yeasts
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
             <!-- Table data begins here -->
             <table id="list_table" class="table table-bordered table-striped">
                     <tr>

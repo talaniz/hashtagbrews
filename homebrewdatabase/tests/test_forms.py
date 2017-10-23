@@ -190,7 +190,8 @@ class YeastFormTest(TestCase):
         form = YeastForm()
 
         form_elements = ['name="name"', 'id="name"', 'id="lab', 'id="yeast_type"', 'id="yeast_form"',
-                         'id="min_temp', 'id="max_temp"', 'id="attenuation"', 'id="flocculation"', 'id="comments"']
+                         'id="min_temp', 'id="max_temp"', 'id="attenuation"', 'id="flocculation"', 'id="comments"',
+                         'class="form-control"']
 
         for element in form_elements:
             self.assertIn(element, form.as_p())

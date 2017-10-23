@@ -80,15 +80,15 @@ class YeastForm(forms.models.ModelForm):
                   'comments')
 
         widgets = {
-            'name': forms.fields.TextInput(attrs={'id': 'name'}),
-            'lab': forms.fields.Select(attrs={'id': 'lab'}),
-            'yeast_type': forms.fields.Select(attrs={'id': 'yeast_type'}),
-            'yeast_form': forms.fields.Select(attrs={'id': 'yeast_form'}),
-            'min_temp': forms.fields.TextInput(attrs={'id': 'min_temp'}),
-            'max_temp': forms.fields.TextInput(attrs={'id': 'max_temp'}),
-            'attenuation': forms.fields.TextInput(attrs={'id': 'attenuation'}),
-            'flocculation': forms.fields.Select(attrs={'id': 'flocculation'}),
-            'comments': forms.fields.TextInput(attrs={'id': 'comments'})
+            'name': forms.fields.TextInput(attrs={'id': 'name', 'class': 'form-control'}),
+            'lab': forms.fields.Select(attrs={'id': 'lab', 'class': 'form-control'}),
+            'yeast_type': forms.fields.Select(attrs={'id': 'yeast_type', 'class': 'form-control'}),
+            'yeast_form': forms.fields.Select(attrs={'id': 'yeast_form', 'class': 'form-control'}),
+            'min_temp': forms.fields.TextInput(attrs={'id': 'min_temp', 'class': 'form-control'}),
+            'max_temp': forms.fields.TextInput(attrs={'id': 'max_temp', 'class': 'form-control'}),
+            'attenuation': forms.fields.TextInput(attrs={'id': 'attenuation', 'class': 'form-control'}),
+            'flocculation': forms.fields.Select(attrs={'id': 'flocculation', 'class': 'form-control'}),
+            'comments': forms.fields.TextInput(attrs={'id': 'comments', 'class': 'form-control'})
         }
 
         error_messages = {
