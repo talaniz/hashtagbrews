@@ -14,7 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'homebrewdatabase',
     'debug_toolbar',
     'django_info_panel',
@@ -59,7 +60,8 @@ ROOT_URLCONF = 'hashtagbrews.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'homebrewdatabase/templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'homebrewdatabase/templates'),
+                 os.path.join(BASE_DIR, 'accounts/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -129,3 +131,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = '/accounts/login/'

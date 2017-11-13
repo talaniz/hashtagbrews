@@ -11,8 +11,7 @@ es_client = Elasticsearch()
 
 
 def index(request):
-    """
-    HashtagBrews main site page view
+    """HashtagBrews main site page view.
             :param request: Django HttpRequest object
             :return: renders 'homebrewdatabase/index.html'
     """

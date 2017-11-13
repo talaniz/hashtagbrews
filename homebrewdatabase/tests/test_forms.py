@@ -4,13 +4,10 @@ from homebrewdatabase.forms import HopForm, GrainForm, YeastForm
 
 
 class HopFormTest(TestCase):
-    """
-    Test model for all tests related to HopForm
-    """
+    """Test model for all tests related to HopForm."""
 
     def test_form_returns_correct_elements(self):
-        """
-        This test makes sure that the form elements contain the correct html names and IDs
+        """`HopForm` should return expected html names and IDs.
                 :return: pass or fail
         """
 

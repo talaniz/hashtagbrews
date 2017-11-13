@@ -12,13 +12,10 @@ from homebrewdatabase.views import index, hops, addhops, grains, addgrains, yeas
 
 
 class TestHomePageView(TestCase):
-    """
-    Class for testing the main homepage view
-    """
+    """Class for testing the main homepage view."""
 
     def test_homepage_returns_correct_template(self):
-        """
-        Checks to ensure that the index view is returning index.html
+        """Index view should return index.html.
                 :return: pass or fail
         """
         request = HttpRequest()
@@ -28,9 +25,7 @@ class TestHomePageView(TestCase):
 
 
 class TestHopsPageView(TestCase):
-    """
-    Class for testing hops related views
-    """
+    """Class for testing hops related views."""
 
     def setUp(self):
         self.es_client = Elasticsearch()
@@ -240,8 +235,7 @@ class TestHopsPageView(TestCase):
         self.assertEqual(es_hop_record2['total'], 0)
 
     def test_add_hop_uses_item_form(self):
-        """
-        Checks that the 'addhops' form is using the HopForm() in forms.py
+        """`addhops` should use a `HopForm` instance.
                 :return: pass or fail
         """
 

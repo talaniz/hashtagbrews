@@ -21,5 +21,6 @@ from homebrewdatabase import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
+    url(r'^accounts/', include('accounts.urls'),),
     url(r'^beerdb/', include('homebrewdatabase.urls'),)
 ]

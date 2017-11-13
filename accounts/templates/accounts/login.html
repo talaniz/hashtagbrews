@@ -1,0 +1,29 @@
+{% extends 'homebrewdatabase/index.html' %}
+{% load staticfiles %}
+        {% block title %}<title>Login</title>{% endblock %}
+
+        {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <br><br>
+                    <div class="login">
+                        <image src="/static/accounts/images/login.jpg" height="85px;">
+                    </div>
+                            <div class="form-group">
+                                <form action="{% url 'login' %}" method="POST">
+                                    <div class="col-sm-8">
+                                        {{ form.as_p }}
+                                        {%  csrf_token %}
+                                        <input type="hidden" name="next" value="{{ next }}" />
+                                        <button type="submit" id="submit" class="btn btn-primary">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        {% endblock %}
