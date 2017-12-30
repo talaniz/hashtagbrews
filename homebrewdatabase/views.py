@@ -1,5 +1,5 @@
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 
 from .forms import HopForm, GrainForm, YeastForm
@@ -61,7 +61,7 @@ def hops(request):
         hops_list.append(entry)
     return render(request, 'homebrewdatabase/hops.html', {'hops': hops_list, 'form': HopForm()})
 
-
+@login_required()
 def addhops(request):
     """
     Modal form for adding a hop record. Shows all form fields.
@@ -79,7 +79,9 @@ def addhops(request):
 
     if request.method == 'POST':
         if add_form.is_valid():
-            add_form.save()
+            hop = add_form.save(commit=False)
+            hop.user = request.user
+            hop.save()
             return redirect('hops_list')
         else:
             # FIXME: This should use Elasticsearch
@@ -175,7 +177,7 @@ def grains(request):
         grains_list.append(entry)
     return render(request, 'homebrewdatabase/grains.html', {'grains': grains_list, 'form': GrainForm()})
 
-
+@login_required()
 def addgrains(request):
     """
     Modal form for adding a grain record. Shows all form fields.
@@ -193,7 +195,9 @@ def addgrains(request):
 
     if request.method == 'POST':
         if add_form.is_valid():
-            add_form.save()
+            grain = add_form.save(commit=False)
+            grain.user = request.user
+            grain.save()
             return redirect('grains_list')
         else:
             grains_list = Grain.objects.all()
@@ -293,6 +297,7 @@ def yeasts(request):
     return render(request, 'homebrewdatabase/yeasts.html', {'yeasts': yeasts_list, 'form': YeastForm()})
 
 
+@login_required()
 def addyeasts(request):
     """
     Modal form for adding a yeast record. Shows all form fields.
@@ -310,7 +315,9 @@ def addyeasts(request):
 
     if request.method == 'POST':
         if add_form.is_valid():
-            add_form.save()
+            yeast = add_form.save(commit=False)
+            yeast.user = request.user
+            yeast.save()
             return redirect('yeasts_list')
         else:
             yeasts_list = Yeast.objects.all()

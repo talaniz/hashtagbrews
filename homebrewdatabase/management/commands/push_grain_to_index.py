@@ -13,6 +13,9 @@ es_mapping = {
         'id': {
             'type': 'long'
         },
+        'user': {
+            'type': 'string'
+        },
         'name': {
             'type': 'string'
         },

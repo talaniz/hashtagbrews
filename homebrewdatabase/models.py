@@ -1,15 +1,17 @@
-from django.db import models
+from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.db import models
 
 from elasticsearch import Elasticsearch
 from elasticsearch.client import IndicesClient
 
 
 class Hop(models.Model):
-    """
-    Class representing a hops profile.
-    """
+    """Class representing a hops profile."""
 
+    # This allows for customizing the user model later, the AUTH_USER_MODEL just
+    # needs to be defined in settings.py
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)
     name = models.CharField(max_length=200, default='')
     min_alpha_acid = models.DecimalField(max_digits=4, decimal_places=2)
     max_alpha_acid = models.DecimalField(max_digits=4, decimal_places=2)
@@ -59,6 +61,7 @@ class Hop(models.Model):
                 doc_type="hop",
                 id=self.pk,
                 body={
+                      'user': self.user.username,
                       'name': self.name,
                       'min_alpha_acid': self.min_alpha_acid,
                       'max_alpha_acid': self.max_alpha_acid,
@@ -72,7 +75,8 @@ class Hop(models.Model):
                 index="hop",
                 doc_type="hop",
                 id=self.pk,
-                body={'name': self.name,
+                body={'user': self.user.username,
+                      'name': self.name,
                       'min_alpha_acid': self.min_alpha_acid,
                       'max_alpha_acid': self.max_alpha_acid,
                       'country': self.country,
@@ -94,10 +98,9 @@ class Hop(models.Model):
 
 
 class Grain(models.Model):
-    """
-    Class representing the general profile of a malt.
-    """
+    """Class representing the general profile of a malt."""
 
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, )
     name = models.CharField(max_length=200, default='')
     degrees_lovibond = models.DecimalField("Degrees (L)", max_digits=5, decimal_places=2)
     specific_gravity = models.DecimalField(max_digits=6, decimal_places=3)
@@ -130,6 +133,7 @@ class Grain(models.Model):
                 doc_type="grain",
                 id=self.pk,
                 body={
+                    'user': self.user.username,
                     'name': self.name,
                     'degrees_lovibond': self.degrees_lovibond,
                     'specific_gravity': self.specific_gravity,
@@ -144,6 +148,7 @@ class Grain(models.Model):
                 doc_type="grain",
                 id=self.pk,
                 body={
+                    'user': self.user.username,
                     'name': self.name,
                     'degrees_lovibond': self.degrees_lovibond,
                     'specific_gravity': self.specific_gravity,
@@ -166,9 +171,7 @@ class Grain(models.Model):
 
 
 class Yeast(models.Model):
-    """
-    Class representing a yeast profile.
-    """
+    """Class representing a yeast profile."""
 
     # YEAST_LAB_CHOICES
     BREWFERM = 'Brewferm'
@@ -246,6 +249,7 @@ class Yeast(models.Model):
         (VERY_HIGH, 'Very high'),
     )
 
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, )
     name = models.CharField(max_length=200, unique=True)
     lab = models.CharField(max_length=20, choices=YEAST_LAB_CHOICES, default=WYLABS)
     yeast_type = models.CharField(max_length=15, choices=YEAST_TYPE_CHOICES, default=ALE)
@@ -266,6 +270,7 @@ class Yeast(models.Model):
                 doc_type="yeast",
                 id=self.pk,
                 body={
+                    'user': self.user.username,
                     'name': self.name,
                     'lab': self.lab,
                     'yeast_type': self.yeast_type,
@@ -284,6 +289,7 @@ class Yeast(models.Model):
                 doc_type="yeast",
                 id=self.pk,
                 body={
+                    'user': self.user.username,
                     'name': self.name,
                     'lab': self.lab,
                     'yeast_type': self.yeast_type,

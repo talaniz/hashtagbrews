@@ -29,6 +29,14 @@ es_mapping = {
                 }
             }
                     },
+        'user': {
+            "type": "text",
+            "fields": {
+                "keyword": {
+                    "type": "keyword"
+                }
+            }
+        },
         'comments': {
             "type": "text",
             "fields": {
