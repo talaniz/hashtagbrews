@@ -2,7 +2,7 @@ from unittest import skip
 
 from django.contrib.auth.models import User
 from django.core.management import call_command
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 
 from elasticsearch import Elasticsearch
@@ -21,7 +21,7 @@ class TestLoginPage(TestCase):
         call_command('push_grain_to_index')
         call_command('push_yeast_to_index')
 
-        self.user = User.objects.create_user(username='testuser', email="antonio.alaniz@gmail.com",
+        self.user = User.objects.create_user(username='testuser', email="user@example.com",
                                              password='testpassword')
 
     def tearDown(self):
@@ -252,43 +252,6 @@ class TestLoginPage(TestCase):
                 'comments': 'Very bitter, not good for aroma'
             })
 
-        self.post_login_check('hops')
-
-        response = self.client.get('/accounts/logout/', follow=True)
-        self.assertEqual(response.status_code, 200,
-                         msg="Status:{}\nResponse Text: {}".format(response.status_code,
-                                                                   response.content))
-        self.assertIn('#Hashtag Brews', response.content.decode())
-        self.assertIn('Login', response.content.decode())
-
-        self.pre_login_check('hops')
-
-        hop = Hop.objects.filter(name='Warrior')
-
-        self.assertEqual(len(hop), 1)
-
-    @skip('Need to log users out')
-    def test_anon_user_gets_redirect_on_update(self):
-
-        response = self.client.post(
-            '/accounts/login/',
-            data={
-                'username': 'testuser',
-                'password': 'testpassword',
-                'next': reverse('index')
-            }, follow=True)
-
-        self.client.post(
-            '/beerdb/add/hops/',
-            data={
-                'user': self.user,
-                'name': 'Warrior',
-                'min_alpha_acid': 24.00,
-                'max_alpha_acid': 32.00,
-                'country': 'USA',
-                'comments': 'Very bitter, not good for aroma'
-            })
-
         self.client.post(
             '/beerdb/add/grains/',
             data={
@@ -313,23 +276,36 @@ class TestLoginPage(TestCase):
                   'flocculation': "Very High",
                   'comments': "A classic ESB strain"})
 
-        hop = Hop.objects.filter(name='Warrior')[0]
-        grain = Grain.objects.filter(name='Carared')[0]
-        yeast = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')[0]
+        self.post_login_check('hops')
+        self.post_login_check('grains')
+        self.post_login_check('yeasts')
 
-        response = self.client.get('/beerdb/edit/%d/hops/' % hop.id, follow=True)
-        self.assertEqual(response.status_code, 200, msg="Status:{}\nResponse Text: {}".format(response.status_code,
-                                                                                              response.content))
+        response = self.client.get('/accounts/logout/',
+                                   data={'user': self.user}, follow=True)
+
+        self.assertEqual(response.status_code, 200,
+                         msg="Status:{}\nResponse Text: {}".format(response.status_code,
+                                                                   response.content))
+        self.assertIn('#Hashtag Brews', response.content.decode())
         self.assertIn('Login', response.content.decode())
 
-        response = self.client.get('/beerdb/edit/%d/grains/' % grain.id, follow=True)
-        self.assertEqual(response.status_code, 200, msg="Status:{}\nResponse Text: {}".format(response.status_code,
-                                                                                              response.content))
-        self.assertIn('Login', response.content.decode())
+        self.pre_login_check('hops')
+        self.pre_login_check('grains')
+        self.pre_login_check('yeasts')
 
-        response = self.client.get('/beerdb/edit//%d/yeasts/' % yeast.id, follow=True)
-        self.assertEqual(response.status_code, 200, msg="Status:{}\nResponse Text: {}".format(response.status_code,
-                                                                                              response.content))
-        self.assertIn('Login', response.content.decode())
+        hop = Hop.objects.filter(name='Warrior')
+
+        self.assertEqual(len(hop), 1)
+
+    def test_anon_user_gets_redirect_on_update(self):
+
+        response = self.client.post(
+            '/accounts/login/',
+            data={
+                'username': 'testuser',
+                'password': 'testpassword',
+                'next': reverse('index')
+            }, follow=True)
+
         # self.assertTrue(False, 'Next, log the users out, then assign them as a foreign key to each model, finally,
         # remove dupes and deploy!')

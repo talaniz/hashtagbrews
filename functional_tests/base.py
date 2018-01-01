@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.management import call_command
 
@@ -17,6 +18,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         Basic unit test setup method
                 :return: none
         """
+
+        self.user = User.objects.create_user(username='john75', email="john@example.com",
+                                             password='sally75')
 
         call_command('push_hop_to_index')
         call_command('push_grain_to_index')

@@ -1,5 +1,6 @@
 from django.http import HttpRequest
 from django.core.management import call_command
+from django.contrib.auth.models import User
 from django.template.loader import render_to_string
 from django.test import TestCase
 from django.utils.html import escape
@@ -31,6 +32,10 @@ class TestHopsPageView(TestCase):
         self.es_client = Elasticsearch()
         call_command('push_hop_to_index')
 
+        self.user = User.objects.create_user(username='testuser', email="user@example.com",
+                                     password='testpassword')
+        self.client.login(username='testuser', password='testpassword')
+
     def tearDown(self):
         call_command('push_hop_to_index')
 
@@ -48,6 +53,7 @@ class TestHopsPageView(TestCase):
         request.POST['max_alpha_acid'] = 11.00
         request.POST['country'] = 'USA'
         request.POST['comments'] = 'Good over all aroma and bittering hops'
+        request.user = self.user
 
         addhops(request)
 
@@ -83,7 +89,7 @@ class TestHopsPageView(TestCase):
         request.POST['max_alpha_acid'] = 11.00
         request.POST['country'] = 'USA'
         request.POST['comments'] = 'Good over all aroma and bittering hops'
-
+        request.user = self.user
         response = addhops(request)
 
         self.assertEqual(response.status_code, 302)
@@ -112,14 +118,16 @@ class TestHopsPageView(TestCase):
                         min_alpha_acid=8.00,
                         max_alpha_acid=12.00,
                         country='USA',
-                        comments='Pretty good, a little spicy')
+                        comments='Pretty good, a little spicy',
+                        user=self.user)
         first_hop.save()
 
         second_hop = Hop(name='Warrior',
                          min_alpha_acid=24.00,
                          max_alpha_acid=32.00,
                          country='USA',
-                         comments='Very bitter, not good for aroma'
+                         comments='Very bitter, not good for aroma',
+                         user=self.user
                          )
         second_hop.save()
 
@@ -135,6 +143,9 @@ class TestHopsPageView(TestCase):
                 :return: pass or fail
         """
 
+        response = self.client.login(username='testuser', password='testpassword')
+        self.assertEqual(response, True)
+
         response = self.client.post(
             '/beerdb/add/hops/',
             data={
@@ -142,7 +153,8 @@ class TestHopsPageView(TestCase):
                 'min_alpha_acid': 24.00,
                 'max_alpha_acid': 32.00,
                 'country': 'USA',
-                'comments': 'Very bitter, not good for aroma'
+                'comments': 'Very bitter, not good for aroma',
+                'user': self.user
             })
 
         self.assertEqual(response.status_code, 302)
@@ -160,6 +172,9 @@ class TestHopsPageView(TestCase):
         Checks that the '/beerdb/edit/%d/hops/' url can update a hop record with creating an additional record
                  :return: pass or fail
         """
+
+        response = self.client.login(username='testuser', password='testpassword')
+        self.assertEqual(response, True)
 
         self.client.post(
             '/beerdb/add/hops/',
@@ -204,6 +219,9 @@ class TestHopsPageView(TestCase):
                 :return: pass or fail
         """
 
+        response = self.client.login(username='testuser', password='testpassword')
+        self.assertEqual(response, True)
+
         self.client.post(
             '/beerdb/add/hops/',
             data={
@@ -211,7 +229,8 @@ class TestHopsPageView(TestCase):
                 'min_alpha_acid': 18.00,
                 'max_alpha_acid': 12.00,
                 'country': 'USA',
-                'comments': 'Very bitter, not good for aroma'
+                'comments': 'Very bitter, not good for aroma',
+                'user': self.user
             })
 
         hop_instance = Hop.objects.filter(name='Northern')[0]
@@ -238,6 +257,8 @@ class TestHopsPageView(TestCase):
         """`addhops` should use a `HopForm` instance.
                 :return: pass or fail
         """
+        response = self.client.login(username='testuser', password='testpassword')
+        self.assertEqual(response, True)
 
         response = self.client.get('/beerdb/add/hops/')
         self.assertIsInstance(response.context['form'], HopForm)
@@ -258,6 +279,7 @@ class TestHopsPageView(TestCase):
         request.POST['max_alpha_acid'] = ''
         request.POST['country'] = 'USA'
         request.POST['comments'] = ''
+        request.user = self.user
 
         response = addhops(request)
 
@@ -286,6 +308,7 @@ class TestHopsPageView(TestCase):
         request.POST['max_alpha_acid'] = 'another bad value'
         request.POST['country'] = 'USA'
         request.POST['comments'] = 'stuffs'
+        request.user = self.user
 
         response = addhops(request)
 
@@ -309,7 +332,8 @@ class TestHopsPageView(TestCase):
                 'min_alpha_acid': 24.00,
                 'max_alpha_acid': 32.00,
                 'country': 'USA',
-                'comments': 'Very bitter, not good for aroma'
+                'comments': 'Very bitter, not good for aroma',
+                'user': self.user
             })
 
         hop_instance = Hop.objects.filter(name='Warrior')[0]
@@ -348,7 +372,8 @@ class TestHopsPageView(TestCase):
                 'min_alpha_acid': 19.00,
                 'max_alpha_acid': 21.00,
                 'country': 'USA',
-                'comments': 'Very bitter, not good for aroma'
+                'comments': 'Very bitter, not good for aroma',
+                'user': self.user
             })
 
         self.client.post(
@@ -358,7 +383,8 @@ class TestHopsPageView(TestCase):
                 'min_alpha_acid': 25.00,
                 'max_alpha_acid': 31.00,
                 'country': 'USA',
-                'comments': 'High bitterness, similar to Cascade'
+                'comments': 'High bitterness, similar to Cascade',
+                'user': self.user
             })
 
         self.client.post(
@@ -368,7 +394,8 @@ class TestHopsPageView(TestCase):
                 'min_alpha_acid': 24.00,
                 'max_alpha_acid': 32.00,
                 'country': 'USA',
-                'comments': 'Very bitter, not good for aroma'
+                'comments': 'Very bitter, not good for aroma',
+                'user': self.user
             })
 
         request = HttpRequest()
@@ -391,6 +418,11 @@ class TestGrainsPageView(TestCase):
     def setUp(self):
         self.es_client = Elasticsearch()
         call_command('push_hop_to_index')
+
+        self.user = User.objects.create_user(username='testuser',
+                                             email="user@example.com",
+                                             password='testpassword')
+        self.client.login(username='testuser', password='testpassword')
 
     def tearDown(self):
         call_command('push_hop_to_index')
@@ -418,6 +450,7 @@ class TestGrainsPageView(TestCase):
         request.POST['specific_gravity'] = 120.00
         request.POST['grain_type'] = 'GRN'
         request.POST['comments'] = 'Amber red color'
+        request.user = self.user
 
         addgrains(request)
 
@@ -443,6 +476,7 @@ class TestGrainsPageView(TestCase):
         request.POST['specific_gravity'] = 120.00
         request.POST['grain_type'] = 'GRN'
         request.POST['comments'] = 'Amber red color'
+        request.user = self.user
 
         response = addgrains(request)
         self.assertEqual(response.status_code, 302)
@@ -455,6 +489,7 @@ class TestGrainsPageView(TestCase):
         """
 
         request = HttpRequest()
+        request.user = self.user
         addgrains(request)
         self.assertEqual(Grain.objects.count(), 0)
 
@@ -468,14 +503,16 @@ class TestGrainsPageView(TestCase):
                              degrees_lovibond=1.50,
                              specific_gravity=120.00,
                              grain_type='GRN',
-                             comments='Amber red color'
+                             comments='Amber red color',
+                             user=self.user
                              )
 
         Grain.objects.create(name='Pale Chocolate',
                              degrees_lovibond='150.00',
                              specific_gravity='12.00',
                              grain_type='GRN',
-                             comments='Dark malt that gives a rich red or brown color'
+                             comments='Dark malt that gives a rich red or brown color',
+                             user=self.user
                              )
 
         request = HttpRequest()
@@ -497,7 +534,8 @@ class TestGrainsPageView(TestCase):
                 'degrees_lovibond': 1.50,
                 'specific_gravity': 120.00,
                 'grain_type': 'GRN',
-                'comments': 'Amber red color'
+                'comments': 'Amber red color',
+                'user': self.user
             })
 
         self.assertEqual(response.status_code, 302)
@@ -520,7 +558,8 @@ class TestGrainsPageView(TestCase):
                 'degrees_lovibond': 24.00,
                 'specific_gravity': 32.00,
                 'grain_type': 'GRN',
-                'comments': 'Adds reddish brown color'
+                'comments': 'Adds reddish brown color',
+                'user': self.user
             })
 
         grain_instance = Grain.objects.filter(name='Carared')[0]
@@ -558,7 +597,8 @@ class TestGrainsPageView(TestCase):
                   'degrees_lovibond': 10.00,
                   'specific_gravity': 1.20,
                   'grain_type': 'LME',
-                  'comments': 'Sweet, toasted flavor and aroma'
+                  'comments': 'Sweet, toasted flavor and aroma',
+                  'user': self.user
                   })
 
         grain_instance = Grain.objects.filter(name='Munich Malt')[0]
@@ -601,6 +641,7 @@ class TestGrainsPageView(TestCase):
         request.POST['specific_gravity'] = ''
         request.POST['grain_type'] = 'GRN'
         request.POST['comments'] = ''
+        request.user = self.user
 
         response = addgrains(request)
 
@@ -629,6 +670,7 @@ class TestGrainsPageView(TestCase):
         request.POST['specific_gravity'] = 'another number'
         request.POST['grain_type'] = 'GRN'
         request.POST['comments'] = 'Amber color'
+        request.user = self.user
 
         response = addgrains(request)
 
@@ -652,7 +694,8 @@ class TestGrainsPageView(TestCase):
                 'degrees_lovibond': 23.00,
                 'specific_gravity': 15.00,
                 'grain_type': 'GRN',
-                'comments': 'Dry grain, amber color'
+                'comments': 'Dry grain, amber color',
+                'user': self.user
              })
 
         grain_instance = Grain.objects.filter(name='Amber Dry')[0]
@@ -692,7 +735,8 @@ class TestGrainsPageView(TestCase):
                 'degrees_lovibond': 23.00,
                 'specific_gravity': 15.00,
                 'grain_type': 'GRN',
-                'comments': 'Dry grain, amber color'
+                'comments': 'Dry grain, amber color',
+                'user': self.user
              })
 
         self.client.post(
@@ -701,7 +745,8 @@ class TestGrainsPageView(TestCase):
                   'degrees_lovibond': 10.00,
                   'specific_gravity': 1.20,
                   'grain_type': 'LME',
-                  'comments': 'Sweet, toasted flavor and aroma'
+                  'comments': 'Sweet, toasted flavor and aroma',
+                  'user': self.user
             })
 
         request = HttpRequest()
@@ -724,6 +769,11 @@ class TestYeastPageView(TestCase):
     def setUp(self):
         self.es_client = Elasticsearch()
         call_command('push_yeast_to_index')
+
+        self.user = User.objects.create_user(username='testuser',
+                                     email="user@example.com",
+                                     password='testpassword')
+        self.client.login(username='testuser', password='testpassword')
 
     def tearDown(self):
         call_command('push_yeast_to_index')
@@ -755,6 +805,7 @@ class TestYeastPageView(TestCase):
         request.POST['attenuation'] = 75
         request.POST['flocculation'] = 'Medium'
         request.POST['comments'] = 'Well balanced.'
+        request.user = self.user
 
         addyeasts(request)
 
@@ -802,7 +853,7 @@ class TestYeastPageView(TestCase):
         request.POST['attenuation'] = 75
         request.POST['flocculation'] = 'Medium'
         request.POST['comments'] = 'Well balanced.'
-
+        request.user = self.user
         response = addyeasts(request)
 
         self.assertEqual(response.status_code, 302)
@@ -815,6 +866,7 @@ class TestYeastPageView(TestCase):
         """
 
         request = HttpRequest()
+        request.user = self.user
         addyeasts(request)
         self.assertEqual(Yeast.objects.count(), 0)
 
@@ -835,7 +887,8 @@ class TestYeastPageView(TestCase):
                              max_temp="68",
                              attenuation="68",
                              flocculation="Very High",
-                             comments="A classic ESB strain from one of England's largest independent breweries.")
+                             comments="A classic ESB strain from one of England's largest independent breweries.",
+                             user=self.user)
 
         Yeast.objects.create(name='WLP566 BELGIAN SAISON II YEAST',
                              lab='White Labs',
@@ -845,7 +898,8 @@ class TestYeastPageView(TestCase):
                              max_temp='78',
                              attenuation='82',
                              flocculation='Medium',
-                             comments='Saison strain with more fruity ester production than with WLP565')
+                             comments='Saison strain with more fruity ester production than with WLP565',
+                             user=self.user)
 
         request = HttpRequest()
         response = yeasts(request)
@@ -872,7 +926,8 @@ class TestYeastPageView(TestCase):
                 'max_temp': "68",
                 'attenuation': "68",
                 'flocculation': "Very High",
-                'comments': "A classic ESB strain from one of England's largest independent breweries."
+                'comments': "A classic ESB strain from one of England's largest independent breweries.",
+                'user': self.user
             })
 
         self.assertEqual(response.status_code, 302)
@@ -912,7 +967,8 @@ class TestYeastPageView(TestCase):
                                'max_temp': "68",
                                'attenuation': "68",
                                'flocculation': "Very High",
-                               'comments': "A classic ESB strain"})
+                               'comments': "A classic ESB strain",
+                               'user': self.user})
 
         yeast_instance = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')[0]
 
@@ -964,7 +1020,8 @@ class TestYeastPageView(TestCase):
                              'max_temp': "68",
                              'attenuation': "68",
                              'flocculation': "Very High",
-                             'comments': "A classic ESB strain from one of England's largest independent breweries."
+                             'comments': "A classic ESB strain from one of England's largest independent breweries.",
+                             'user': self.user
                          })
 
         yeast_instance = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')[0]
@@ -1004,6 +1061,7 @@ class TestYeastPageView(TestCase):
         request.POST['attenuation'] = ''
         request.POST['flocculation'] = 'Medium'
         request.POST['comments'] = ''
+        request.user = self.user
 
         response = addyeasts(request)
 
@@ -1037,6 +1095,7 @@ class TestYeastPageView(TestCase):
         request.POST['max_temp'] = 'ninety two'
         request.POST['attenuation'] = 'thirty'
         request.POST['flocculation'] = 'Medium'
+        request.user = self.user
 
         response = addyeasts(request)
 
@@ -1062,7 +1121,8 @@ class TestYeastPageView(TestCase):
                 'max_temp': 72,
                 'attenuation': 75,
                 'flocculation': 'Low',
-                'comments': 'Well balanced.'
+                'comments': 'Well balanced.',
+                'user': self.user
                 })
 
         self.client.post(
@@ -1075,7 +1135,8 @@ class TestYeastPageView(TestCase):
                   'max_temp': 73,
                   'attenuation': 76,
                   'flocculation': 'Medium',
-                  'comments': 'Sweet, toasted flavor and aroma'
+                  'comments': 'Sweet, toasted flavor and aroma',
+                  'user': self.user
                   })
 
         request = HttpRequest()

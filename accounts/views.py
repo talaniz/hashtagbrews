@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 

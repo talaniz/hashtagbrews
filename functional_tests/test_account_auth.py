@@ -39,7 +39,7 @@ class SimpleLoginTest(FunctionalTest):
         password_box = self.browser.find_element_by_id('id_password')
         password_box.send_keys('sally75')
 
-        login_button = self.browser.find_element_by_id('login')
+        login_button = self.browser.find_element_by_id('submit')
         login_button.click()
         self.browser.implicitly_wait(5)
 
@@ -97,6 +97,6 @@ class SimpleLoginTest(FunctionalTest):
         self.browser.implicitly_wait(5)
 
         # He's then redirected to the login page and closes out his web browser
-        page_heading = self.browser.find_element_by_tag_name('h1')
+        page_heading = self.browser.find_element_by_link_text('Login')
 
         self.assertIn("Login", page_heading.text)

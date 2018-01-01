@@ -84,6 +84,7 @@
             </tr>
             {% for grain in grains %}
             <tr>
+                {% if user.is_authenticated %}
                 <td>
                     <a data-toggle="modal"
                        data-target="#deletegrain"
@@ -98,6 +99,10 @@
                     {{ grain.name }}
                     </a>
                 </td>
+                {% else %}
+                <td></td>
+                <td>{{ grain.name }}</td>
+                {% endif %}
                 <td>{{ grain.degrees_lovibond }}</td>
                 <td>{{ grain.grain_type }}</td>
                 <td>{{ grain.specific_gravity }}</td>

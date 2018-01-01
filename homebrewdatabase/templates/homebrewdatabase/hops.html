@@ -84,13 +84,20 @@
             </tr>
             {% for hop in hops %}
             <tr>
-                <td><a data-toggle="modal"
+                {% if user.is_authenticated %}
+                <td>
+                    <a data-toggle="modal"
                         data-target="#deletehops"
                         href="{% url 'deletehops' pk=hop.id %}">Delete</a></td>
                 <td><a id="{{ hop.name }}"
                        data-toggle="modal"
                        data-target="#updatehops"
                        href="{% url 'updatehops' pk=hop.id %}">{{ hop.name }}</a></td>
+                {% else %}
+                    <td></td>
+                    <td>{{ hop.name }}</td>
+                {% endif %}
+
                 <td>{{ hop.min_alpha_acid }}</td>
                 <td>{{ hop.max_alpha_acid }}</td>
                 <td>{{ hop.country }}</td>

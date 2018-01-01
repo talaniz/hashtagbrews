@@ -85,6 +85,7 @@
                     </tr>
                     {% for yeast in yeasts %}
                     <tr>
+                        {% if user.is_authenticated %}
                         <td><a data-toggle="modal"
                                data-target="#deleteyeasts"
                                href="{% url 'deleteyeasts' pk=yeast.id %}">Delete</a></td>
@@ -92,6 +93,11 @@
                                data-toggle="modal"
                                data-target="#updateyeasts"
                                href="{% url 'updateyeasts' pk=yeast.id %}">{{ yeast.name }}</a></td>
+                        {% else %}
+                        <td></td>
+                        <td>{{ yeast.name }}</td>
+                        {% endif %}
+
                         <td>{{ yeast.lab }}</td>
                         <td>{{ yeast.yeast_type }}</td>
                         <td>{{ yeast.yeast_form }}</td>

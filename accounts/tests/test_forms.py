@@ -16,8 +16,8 @@ class LoginFormTest(TestCase):
         for element in form_elements:
             self.assertIn(element, form.as_p())
 
-        username_html = 'input class="form-control" id="id_username" name="username" type="text"'
-        password_html = 'input class="form-control" id="id_password" name="password" type="password"'
+        username_html = 'id="id_username"'
+        password_html = 'id="id_password"'
 
         self.assertIn(username_html, form.as_p())
         self.assertIn(password_html, form.as_p())
