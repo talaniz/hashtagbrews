@@ -30,7 +30,13 @@ class NewGrainVisitorTest(FunctionalTest):
         # Kevin wants to contribute to the Open Source Homebrew Database.
         # He navigates to the homepage and clicks the link to navigate
         # to the Open Source Homebrew database.
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(self.live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
+
         self.browser.implicitly_wait(5)
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
@@ -106,7 +112,12 @@ class NewGrainVisitorTest(FunctionalTest):
         # Kevin wonders if the site really saved his record.
         # He opens up the browser to the grains main page and checks
         # to make sure the information he entered is still here
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grains_page)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.find_text_in_table('Carared')
         self.find_text_in_table('1.5')
@@ -132,7 +143,12 @@ class NewGrainVisitorTest(FunctionalTest):
         # John has decided to contribute to the open source homebrew database
         # He navigates to the grains page (Kevin showed him), and selects add grains
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grain_live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.find_element_by_id("add_grain").click()
 
@@ -165,7 +181,12 @@ class NewGrainVisitorTest(FunctionalTest):
 
         # The grain name wasn't 'Carared' it was 'Chocolate Paul'. He decides to go back and update the record
         self.browser = webdriver.Firefox()
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grains_page)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.implicitly_wait(6)
 
@@ -212,7 +233,12 @@ class NewGrainVisitorTest(FunctionalTest):
         # Josh wants to contribute to the open source beer database.(Rave reviews from Kevin & John)
         # He navigates to the site (courtesy of Kevin)
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grain_live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         # He eagerly clicks the 'Add Grains' button
 

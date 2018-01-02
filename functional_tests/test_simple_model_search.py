@@ -21,7 +21,13 @@ class SimpleHopSearchTest(FunctionalTest):
 
         # Josh wants to visit the homebrew materials database to test the
         # search functionality
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(self.live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
+
         self.browser.implicitly_wait(5)
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
@@ -171,13 +177,18 @@ class SimpleHopSearchTest(FunctionalTest):
         # Satisfied, he closes his browser and brews some beer
 
 
-class SimpleGrainTest(FunctionalTest):
+class SimpleGrainSearchTest(FunctionalTest):
 
     def test_simple_grain_search(self):
         # Kevin wants to contribute to the Open Source Homebrew Database.
         # He navigates to the homepage and clicks the link to navigate
         # to the Open Source Homebrew database.
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(self.live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
+
         self.browser.implicitly_wait(5)
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
@@ -320,7 +331,12 @@ class SimpleYeastSearchTest(FunctionalTest):
         # Kevin wants to contribute to the Open Source Homebrew Database.
         # He navigates to the homepage and clicks the link to navigate
         # to the Open Source Homebrew database.
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(self.live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
+
         self.browser.implicitly_wait(5)
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
@@ -391,11 +407,11 @@ class SimpleYeastSearchTest(FunctionalTest):
 
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(8)
 
         # He adds another record that he can remember
         self.browser.find_element_by_id("add_yeasts").click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(8)
         self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit
@@ -428,11 +444,11 @@ class SimpleYeastSearchTest(FunctionalTest):
 
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(8)
 
         # He adds a third record--
         self.browser.find_element_by_id("add_yeasts").click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(10)
         self.browser.switch_to.active_element
 
         inputbox = self.browser.find_element_by_id('name')
@@ -465,7 +481,7 @@ class SimpleYeastSearchTest(FunctionalTest):
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
 
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(8)
         self.browser.switch_to.active_element
 
         # He sees the search bar and enters the name of his hops to see if it will
@@ -475,7 +491,7 @@ class SimpleYeastSearchTest(FunctionalTest):
 
         submit_button = self.browser.find_elements_by_id('submit')[3]
         submit_button.click()
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(8)
 
         # The page redirects and he sees the table wih the name of the hops
         # He can see the homepage only with hop records that match his search

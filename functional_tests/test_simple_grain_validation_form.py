@@ -1,3 +1,5 @@
+import unittest
+
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
@@ -9,6 +11,7 @@ class GrainFormValidation(FunctionalTest):
     User simulation entering blank or incorrect form data on grain forms
     """
 
+    @unittest.skip('Form class pre-validates')
     def test_add_grains_blank_form_validation(self):
         """
         User performs the following tasks to submit blank grain form data:
@@ -22,7 +25,12 @@ class GrainFormValidation(FunctionalTest):
         # Ethan wants to contribute to the Homebrew Database
         # He navigates to the grains page and selects 'Add Grains'
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grain_live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.find_element_by_id("add_grain").click()
 
@@ -43,6 +51,7 @@ class GrainFormValidation(FunctionalTest):
         self.assertIn("You must enter a specific gravity", [error.text for error in errors])
         self.assertIn("You must leave a comment", [error.text for error in errors])
 
+    @unittest.skip('Form class pre-validates')
     def test_add_grains_invalid_input_form_validation(self):
         """
         User performs the following tasks to input invalid data
@@ -56,7 +65,12 @@ class GrainFormValidation(FunctionalTest):
         # Ben wants to contribute to the Homebrew Database
         # He navigates to the grains page and selects 'Add Grains'
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grain_live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.find_element_by_id("add_grain").click()
 
@@ -93,6 +107,7 @@ class GrainFormValidation(FunctionalTest):
         self.assertIn("Degrees lovibond must be a decimal number", [error.text for error in errors])
         self.assertIn("Specific gravity must be a decimal number", [error.text for error in errors])
 
+    @unittest.skip('Form class pre-validates')
     def test_update_grains_blank_form_validation(self):
         """
         User performs the following tasks to submit blank input on update form
@@ -108,7 +123,12 @@ class GrainFormValidation(FunctionalTest):
         # Jim has decided to contribute to the open source homebrew database
         # He navigates to the grains page (Kevin showed him), and selects add grain
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grain_live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.find_element_by_id("add_grain").click()
 
@@ -141,7 +161,12 @@ class GrainFormValidation(FunctionalTest):
 
         # He realizes the information he input was all wrong
         self.browser = webdriver.Firefox()
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grains_page)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.implicitly_wait(6)
 
@@ -198,7 +223,13 @@ class GrainFormValidation(FunctionalTest):
         # Jim has decided to contribute to the open source homebrew database
         # He navigates to the grains page (Kevin showed him), and selects add grain
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/grains')
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grain_live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
+
 
         self.browser.find_element_by_id("add_grain").click()
 
@@ -231,7 +262,12 @@ class GrainFormValidation(FunctionalTest):
 
         # He realizes the specific gravity and degrees lovibond were wrong
         self.browser = webdriver.Firefox()
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(grains_page)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.implicitly_wait(6)
 

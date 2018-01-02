@@ -1,3 +1,4 @@
+import unittest
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
@@ -9,6 +10,7 @@ class HopFormValidation(FunctionalTest):
     User simulation entering blank or incorrect form data on hop forms
     """
 
+    @unittest.skip('Form class pre-validates')
     def test_addhops_blank_form_validation(self):
         """
         User performs the following tasks to submit blank hop form data:
@@ -22,7 +24,12 @@ class HopFormValidation(FunctionalTest):
         # Ethan wants to contribute to the Homebrew Database
         # He navigates to the hops page and selects 'Add Hops'
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(hop_live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.find_element_by_id("add_hops").click()
 
@@ -44,6 +51,7 @@ class HopFormValidation(FunctionalTest):
         self.assertIn("You must enter a max alpha acid", [error.text for error in errors])
         self.assertIn("You must enter a comment", [error.text for error in errors])
 
+
     def test_addhops_invalid_input_form_validation(self):
         """
         User performs the following tasks to input invalid data
@@ -57,7 +65,12 @@ class HopFormValidation(FunctionalTest):
         # Ben wants to contribute to the Homebrew Database
         # He navigates to the hops page and selects 'Add Hops'
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(hop_live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.find_element_by_id("add_hops").click()
 
@@ -95,8 +108,7 @@ class HopFormValidation(FunctionalTest):
         self.assertIn("Min alpha acid must be a decimal number", [error.text for error in errors])
         self.assertIn("Max alpha acid must be a decimal number", [error.text for error in errors])
 
-        # TODO: invalid input for min/max alpha acid needs to specify the field name
-
+    @unittest.skip('Form class pre-validates')
     def test_update_hops_blank_input_validation(self):
         """
         User performs the following tasks to submit blank input on update form
