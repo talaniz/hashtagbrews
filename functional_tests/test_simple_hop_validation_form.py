@@ -215,7 +215,12 @@ class HopFormValidation(FunctionalTest):
         # Jim has decided to contribute to the open source homebrew database
         # He navigates to the hops page (Kevin showed him), and selects add hops
         hop_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/hops')
+
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(hop_live_server_url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.find_element_by_id("add_hops").click()
 
@@ -248,7 +253,11 @@ class HopFormValidation(FunctionalTest):
 
         # He realizes the information he input was all wrong
         self.browser = webdriver.Firefox()
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
         self.browser.get(hops_page)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user
 
         self.browser.implicitly_wait(6)
 

@@ -14,10 +14,10 @@ es_mapping = {
             'type': 'long'
         },
         'user': {
-            'type': 'string'
+            'type': 'text'
         },
         'name': {
-            'type': 'string'
+            'type': 'text'
         },
         'degrees_lovibond': {
             'type': 'double'
@@ -26,10 +26,10 @@ es_mapping = {
             'type': 'double'
         },
         'grain_type': {
-            'type': 'string'
+            'type': 'text'
         },
         'comments': {
-            'type': 'string'
+            'type': 'text'
         }
     }
 }
@@ -37,7 +37,7 @@ es_mapping = {
 
 class Command(BaseCommand):
 
-    help = "Command to create grain index in elasticsearc"
+    help = "Command to create grain index in Elasticsearch"
 
     def handle(self, *args, **kwargs):
         self.recreate_index()
