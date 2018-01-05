@@ -374,7 +374,7 @@ class SimpleYeastSearchTest(FunctionalTest):
         # form appears and he enters in a new grain name
         self.browser.find_element_by_id("add_yeasts").click()
 
-        self.browser.implicitly_wait(6)
+        self.browser.implicitly_wait(8)
         self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit
