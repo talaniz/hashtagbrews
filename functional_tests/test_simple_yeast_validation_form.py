@@ -1,3 +1,5 @@
+import unittest
+
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 
@@ -9,6 +11,7 @@ class YeastFormValidation(FunctionalTest):
     User simulation entering blank or incorrect form data on yeast forms
     """
 
+    @unittest.skip('Form class pre-validates')
     def test_add_yeast_blank_form_validation(self):
         """
         User performs the following tasks to submit blank yeast form data:
@@ -22,7 +25,7 @@ class YeastFormValidation(FunctionalTest):
         # Ethan wants to contribute to the Homebrew Database
         # He navigates to the yeasts page and selects 'Add Yeast'
         yeast_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/yeasts')
-        self.browser.get(yeast_live_server_url)
+        self.auth_client(yeast_live_server_url)
 
         self.browser.find_element_by_id("add_yeasts").click()
 
@@ -58,7 +61,7 @@ class YeastFormValidation(FunctionalTest):
         # Ben wants to contribute to the Homebrew Database
         # He navigates to the hops page and selects 'Add Hops'
         yeast_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/yeasts')
-        self.browser.get(yeast_live_server_url)
+        self.auth_client(yeast_live_server_url)
 
         self.browser.find_element_by_id("add_yeasts").click()
 
@@ -69,8 +72,6 @@ class YeastFormValidation(FunctionalTest):
         # He didn't realize that some fields were for numbers
         # so he writes the out using letters instead.
         # He enters the information into the form and clicks submit
-        inputbox = self.browser.find_element_by_id('name')
-        inputbox.send_keys('American Ale 1056')
 
         select = Select(self.browser.find_element_by_id('lab'))
         select.select_by_visible_text('Wyeast')
@@ -95,6 +96,9 @@ class YeastFormValidation(FunctionalTest):
 
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('Well balanced.')
+
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('American Ale 1056')
 
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
@@ -127,7 +131,7 @@ class YeastFormValidation(FunctionalTest):
         # Jim has decided to contribute to the open source homebrew database
         # He navigates to the yeasts page (Kevin showed him), and selects add yeasts
         yeast_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/yeasts')
-        self.browser.get(yeast_live_server_url)
+        self.auth_client(yeast_live_server_url)
 
         self.browser.find_element_by_id("add_yeasts").click()
 
@@ -135,8 +139,6 @@ class YeastFormValidation(FunctionalTest):
         self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
-        inputbox = self.browser.find_element_by_id('name')
-        inputbox.send_keys('American Ale 1056')
 
         select = Select(self.browser.find_element_by_id('lab'))
         select.select_by_visible_text('Wyeast')
@@ -162,6 +164,9 @@ class YeastFormValidation(FunctionalTest):
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('Well balanced.')
 
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('American Ale 1056')
+
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
 
@@ -172,7 +177,7 @@ class YeastFormValidation(FunctionalTest):
 
         # He realizes the information he input was all wrong
         self.browser = webdriver.Firefox()
-        self.browser.get(yeast_page)
+        self.auth_client(yeast_page)
 
         self.browser.implicitly_wait(6)
 
