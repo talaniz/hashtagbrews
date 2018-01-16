@@ -336,7 +336,7 @@ class SimpleYeastSearchTest(FunctionalTest):
         self.browser.get(self.live_server_url)
         self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
         self.browser.refresh() #need to update page for logged in user
-
+        self.browser.set_window_size(3250, 3000)
         self.browser.implicitly_wait(5)
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
@@ -370,16 +370,16 @@ class SimpleYeastSearchTest(FunctionalTest):
 
         self.assertIn('yeasts.jpg', yeasts_image_src)
 
-        # He finds the Add Grain button and clicks, a modal
+        # He finds the Add Yeasts in button and clicks, a modal
         # form appears and he enters in a new grain name
         self.browser.find_element_by_id("add_yeasts").click()
 
-        self.browser.implicitly_wait(8)
+        self.browser.implicitly_wait(10)
         self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit
-        inputbox = self.browser.find_element_by_id('name')
-        inputbox.send_keys('American Ale II 1272')
+        #inputbox = self.browser.find_element_by_id('name')
+        #inputbox.send_keys('American Ale II 1272')
 
         select = Select(self.browser.find_element_by_id('lab'))
         select.select_by_visible_text('Wyeast')
@@ -405,6 +405,9 @@ class SimpleYeastSearchTest(FunctionalTest):
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('Well balanced.')
 
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('American Ale II 1272')
+
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
         self.browser.implicitly_wait(8)
@@ -415,8 +418,8 @@ class SimpleYeastSearchTest(FunctionalTest):
         self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit
-        inputbox = self.browser.find_element_by_id('name')
-        inputbox.send_keys('American Ale 1056')
+        # inputbox = self.browser.find_element_by_id('name')
+        # inputbox.send_keys('American Ale 1056')
 
         select = Select(self.browser.find_element_by_id('lab'))
         select.select_by_visible_text('Brewtek')
@@ -442,6 +445,10 @@ class SimpleYeastSearchTest(FunctionalTest):
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('Smooth.')
 
+        # He enters the information into the form and clicks submit
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('American Ale 1056')
+
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
         self.browser.implicitly_wait(8)
@@ -450,9 +457,6 @@ class SimpleYeastSearchTest(FunctionalTest):
         self.browser.find_element_by_id("add_yeasts").click()
         self.browser.implicitly_wait(10)
         self.browser.switch_to.active_element
-
-        inputbox = self.browser.find_element_by_id('name')
-        inputbox.send_keys('Ringwood Ale 1187')
 
         select = Select(self.browser.find_element_by_id('lab'))
         select.select_by_visible_text('Wylabs')
@@ -477,6 +481,9 @@ class SimpleYeastSearchTest(FunctionalTest):
 
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('A malty, complex profile that clears well.')
+
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('Ringwood Ale 1187')
 
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()

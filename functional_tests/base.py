@@ -68,3 +68,11 @@ class FunctionalTest(StaticLiveServerTestCase):
         WebDriverWait(self.browser, timeout=60).until(
             lambda b: b.find_element_by_id(element_id)
         )
+
+    def auth_client(self, url):
+        """Authenticate the client and return them to the url."""
+        self.client.login(username='john75', password='sally75')
+        cookie = self.client.cookies['sessionid']
+        self.browser.get(url)
+        self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
+        self.browser.refresh() #need to update page for logged in user

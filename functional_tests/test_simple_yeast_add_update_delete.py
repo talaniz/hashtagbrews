@@ -26,8 +26,7 @@ class NewYeastVisitorTest(FunctionalTest):
 
         # Jerry has heard about the Homebrew Database site and wants to contribute
         # He navigates to the homepage and clicks the link to go to the Homebrew Database
-        self.browser.get(self.live_server_url)
-        self.browser.implicitly_wait(5)
+        self.auth_client(self.live_server_url)
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
 
@@ -68,8 +67,6 @@ class NewYeastVisitorTest(FunctionalTest):
         self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit
-        inputbox = self.browser.find_element_by_id('name')
-        inputbox.send_keys('American Ale 1056')
 
         select = Select(self.browser.find_element_by_id('lab'))
         select.select_by_visible_text('Wyeast')
@@ -94,6 +91,9 @@ class NewYeastVisitorTest(FunctionalTest):
 
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('Well balanced.')
+
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('American Ale 1056')
 
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
@@ -120,7 +120,7 @@ class NewYeastVisitorTest(FunctionalTest):
         # Kevin wonders if the site really saved his record.
         # He opens up the browser to the grains main page and checks
         # to make sure the information he entered is still here
-        self.browser.get(yeast_page)
+        self.auth_client(yeast_page)
 
         self.find_text_in_table('American Ale 1056')
         self.find_text_in_table('Wyeast')
@@ -150,7 +150,7 @@ class NewYeastVisitorTest(FunctionalTest):
         # John has decided to contribute to the open source homebrew database
         # He navigates to the yeasts page (Kevin showed him), and selects add yeasts
         grain_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/yeasts')
-        self.browser.get(grain_live_server_url)
+        self.auth_client(grain_live_server_url)
 
         self.browser.find_element_by_id("add_yeasts").click()
 
@@ -158,9 +158,6 @@ class NewYeastVisitorTest(FunctionalTest):
         self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit.
-        inputbox = self.browser.find_element_by_id('name')
-        inputbox.send_keys('American Ale 1056')
-
         select = Select(self.browser.find_element_by_id('lab'))
         select.select_by_visible_text('Wyeast')
 
@@ -185,6 +182,9 @@ class NewYeastVisitorTest(FunctionalTest):
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('Well balanced.')
 
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('American Ale 1056')
+
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
 
@@ -196,7 +196,7 @@ class NewYeastVisitorTest(FunctionalTest):
         # The grain name wasn't 'American Ale 1056' it was 'WLP080 CREAM ALE YEAST BLEND'.
         # He decides to go back and update the record
         self.browser = webdriver.Firefox()
-        self.browser.get(yeasts_page)
+        self.auth_client(yeasts_page)
 
         self.browser.implicitly_wait(6)
 
@@ -243,7 +243,7 @@ class NewYeastVisitorTest(FunctionalTest):
         # Josh wants to add a few more records to the open source beer database
         # He's been playing with different yeast styles and wants to try to add a record
         yeast_live_server_url = '{0}{1}'.format(self.live_server_url, '/beerdb/yeasts')
-        self.browser.get(yeast_live_server_url)
+        self.auth_client(yeast_live_server_url)
 
         # He clicks the 'Add Yeasts' button
         self.browser.find_element_by_id("add_yeasts").click()
@@ -252,9 +252,6 @@ class NewYeastVisitorTest(FunctionalTest):
         self.browser.switch_to.active_element
 
         # He enters the information into the form and clicks submit
-        inputbox = self.browser.find_element_by_id('name')
-        inputbox.send_keys('British Ale 1056')
-
         select = Select(self.browser.find_element_by_id('lab'))
         select.select_by_visible_text('Wyeast')
 
@@ -278,6 +275,9 @@ class NewYeastVisitorTest(FunctionalTest):
 
         inputbox = self.browser.find_element_by_id('comments')
         inputbox.send_keys('Well balanced.')
+
+        inputbox = self.browser.find_element_by_id('name')
+        inputbox.send_keys('British Ale 1056')
 
         submit_button = self.browser.find_element_by_id('submit')
         submit_button.click()
