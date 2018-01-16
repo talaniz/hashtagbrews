@@ -42,4 +42,5 @@ before_script:
 script:
   - python manage.py migrate
   - python manage.py test homebrewdatabase.tests
+  - python manage.py test accounts.tests
   - python manage.py test functional_tests
