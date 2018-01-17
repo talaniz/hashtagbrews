@@ -7,7 +7,7 @@ from django.test import TestCase
 
 from elasticsearch import Elasticsearch
 
-from accounts.forms import LoginForm
+from accounts.forms import LoginForm, RegisterForm
 
 from homebrewdatabase.models import Hop, Grain, Yeast
 
@@ -78,6 +78,9 @@ class TestLoginPage(TestCase):
         """
         response = self.client.get('/accounts/login/')
         self.assertTemplateUsed(response, template_name='accounts/login.html')
+
+        # Might as well check for link to registration
+        self.assertIn('Register', response.content.decode())
 
     def test_login_page_uses_login_form(self):
         """`accounts/login` should use an instance of `LoginForm`"""
@@ -297,15 +300,35 @@ class TestLoginPage(TestCase):
 
         self.assertEqual(len(hop), 1)
 
-    def test_anon_user_gets_redirect_on_update(self):
+
+class TestRegistrationPage(TestCase):
+    """Class for testing the login views."""
+
+    def test_registration_returns_correct_template(self):
+        """Registration view should return login.html.
+                :return: pass or fail
+        """
+        response = self.client.get('/accounts/register/')
+        self.assertTemplateUsed(response, template_name='accounts/register.html')
+
+    def test_registration_page_uses_registration_form(self):
+        """`accounts/register` should use an instance of `RegisterForm`"""
+        response = self.client.get('/accounts/register/')
+        self.assertIsInstance(response.context['form'], RegisterForm)
+
+    def test_registration_page_auths_on_POST(self):
+        """`register` view should auth & redir to the homebrew db page."""
 
         response = self.client.post(
-            '/accounts/login/',
+            '/accounts/register/',
             data={
-                'username': 'testuser',
-                'password': 'testpassword',
-                'next': reverse('index')
+                'username': 'ckelly',
+                'email': 'ckelly@kellyassociates.com',
+                'password1': 'birdlaws',
+                'password2': 'birdlaws'
             }, follow=True)
 
-        # self.assertTrue(False, 'Next, log the users out, then assign them as a foreign key to each model, finally,
-        # remove dupes and deploy!')
+        self.assertEqual(response.status_code, 200, msg="Status:{}\nResponse Text: {}".format(response.status_code,
+                                                                                              response.content))
+        self.assertIn('Homebrew Materials Database', response.content.decode())
+        self.assertIn('ckelly', response.content.decode())

@@ -15,7 +15,7 @@ class YeastFormValidation(FunctionalTest):
     def test_add_yeast_blank_form_validation(self):
         """
         User performs the following tasks to submit blank yeast form data:
-                * User goes to the yeasts page
+            * User goes to the yeasts page
                 * User submits new form with all blank fields
                 * Check that 'addyeasts' form redirects to yeasts page with validation errors
 
