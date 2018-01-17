@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
-from accounts.forms import LoginForm
+from accounts.forms import LoginForm, RegisterForm
 
 
 def login(request):
@@ -31,3 +31,17 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect('index')
+
+def register(request):
+    """Site registration form view."""
+    register_form = RegisterForm(request.POST or None)
+
+    if request.method == 'POST':
+        if register_form.is_valid():
+            user = register_form.save()
+            user = authenticate(username=request.POST['username'],
+                                password=request.POST['password1'])
+            if user is not None:
+                auth_login(request, user)
+                return HttpResponseRedirect(reverse('beerdb_main'))
+    return render(request, 'accounts/register.html', {'form': register_form})

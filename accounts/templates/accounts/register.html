@@ -1,0 +1,27 @@
+{% extends 'homebrewdatabase/index.html' %}
+{% load staticfiles %}
+        {% block title %}<title>Register</title>{% endblock %}
+
+        {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <br><br>
+                    <div class="login">
+                        <image src="/static/accounts/images/login.jpg" height="85px;">
+                    </div>
+                            <div class="form-group">
+                                <form action="{% url 'register' %}" method="POST">
+                                        {{ form.as_p }}
+                                        {%  csrf_token %}
+                                        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        {% endblock %}
