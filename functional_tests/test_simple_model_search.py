@@ -335,8 +335,10 @@ class SimpleYeastSearchTest(FunctionalTest):
         cookie = self.client.cookies['sessionid']
         self.browser.get(self.live_server_url)
         self.browser.add_cookie({'name': 'sessionid', 'value': cookie.value, 'secure': False, 'path': '/'})
-        self.browser.refresh() #need to update page for logged in user
-        self.browser.set_window_size(3250, 3000)
+        self.browser.refresh() ## needed to update page for logged in user
+        ## I needed this for a while to make the window fit,
+        ## not sure if I'll need it again
+        # self.browser.set_window_size(3250, 3000)
         self.browser.implicitly_wait(5)
 
         beerdb_link = self.browser.find_element_by_id('beerdb').text
