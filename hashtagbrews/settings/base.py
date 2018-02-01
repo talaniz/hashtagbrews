@@ -39,9 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'homebrewdatabase',
-    'debug_toolbar',
-    'django_info_panel',
-    'django_extensions',
     'accounts'
 ]
 
