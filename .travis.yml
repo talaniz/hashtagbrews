@@ -23,8 +23,8 @@ before_install:
   - export DJANGO_SETTINGS_MODULE=hashtagbrews.settings.test
   - export PYTHONPATH="/home/travis/build/talaniz/hashtagbrews"
   - export PIP_USE_MIRRORS=true
-  - export SECRET_KEY='Zbn;R*dU-#V(uYd4$%!\y'(Zbj-~wB'
-  - export DB_PASSWORD='@ntonio1'
+  - export SECRET_KEY="Zbn;R*dU-#V(uYd4$%!\y'(Zbj-~wB"
+  - export DB_PASSWORD="@ntonio1"
 
 install:
   - pip install -r requirements.txt
