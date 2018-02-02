@@ -64,12 +64,11 @@ target/
 .idea/
 .idea/*
 .idea/workspace.xml
-README.MD
 
 # geckodriver for Selenium 3.0+
 geckodriver.log
-hashtagbrews/dev-settings.py
 .vagrant/
 VagrantFile
 ubuntu-xenial-16.04-cloudimg-console.log
 hashtagbrews/__pycache__/*
+static/*
