@@ -16,8 +16,8 @@ A Django based site that will contain the following applications:
 3. Create virtualenv with python3 executable and activate
 4. Create project directory and cd into directory
 5. Clone using git: ``` $ git clone https://github.com/talaniz/hashtagbrews.git```
-6. Run unit tests: ```python manage.py test```
-7. Run ```python manage.py runserver``` then run functional_tests ```python functional_tests.py```
+6. Run unit tests: ```python manage.py test``` (should be run with development settings)
+7. Run ```python manage.py test functional_tests``` (should be run with development settings)
 8. If tests pass, ready to contribute!
 
 ## Planning
@@ -31,7 +31,8 @@ A Django based site that will contain the following applications:
     * Add error handling - Completed
     * Move to class based views - Completed
     * Add update and delete views - Completed
-    * Add user authentication.
+    * Add user authentication - Completed
+    * Add user registration - Completed
 
 2. Homebrew Planner and Timer
     * Needs planning

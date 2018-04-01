@@ -67,7 +67,7 @@ class TestHopsPageView(TestCase):
         self.assertEqual(new_hop.country, 'USA')
         self.assertEqual(new_hop.comments, 'Good over all aroma and bittering hops')
 
-        es_hop_record = self.es_client.get(index='hop', id=new_hop.id)['_source']
+        es_hop_record = self.es_client.get(index='hop', id=new_hop.id, doc_type='hop')['_source']
 
         self.assertEqual(es_hop_record['name'], 'Amarillo')
         self.assertAlmostEqual(es_hop_record['min_alpha_acid'], 8.00)
@@ -234,7 +234,7 @@ class TestHopsPageView(TestCase):
             })
 
         hop_instance = Hop.objects.filter(name='Northern')[0]
-        es_hop_record = self.es_client.get(index='hop', id=hop_instance.id)['_source']
+        es_hop_record = self.es_client.get(index='hop', id=hop_instance.id, doc_type='hop')['_source']
 
         self.assertEqual(hop_instance.name, 'Northern')
         self.assertEqual(es_hop_record['name'], 'Northern')
@@ -823,7 +823,7 @@ class TestYeastPageView(TestCase):
         self.assertEqual(new_yeast.flocculation, 'Medium')
         self.assertEqual(new_yeast.comments, 'Well balanced.')
 
-        es_yeast_record = self.es_client.get(index='yeast', id=new_yeast.id)['_source']
+        es_yeast_record = self.es_client.get(index='yeast', id=new_yeast.id, doc_type='yeast')['_source']
 
         self.assertEqual(es_yeast_record['name'], 'Amarillo')
         self.assertEqual(es_yeast_record['lab'], 'Wyeast')
@@ -1025,7 +1025,7 @@ class TestYeastPageView(TestCase):
                          })
 
         yeast_instance = Yeast.objects.filter(name='WLP002 ENGLISH ALE YEAST')[0]
-        es_yeast_record = self.es_client.get(index='yeast', id=yeast_instance.id)['_source']
+        es_yeast_record = self.es_client.get(index='yeast', id=yeast_instance.id, doc_type='yeast')['_source']
 
         self.assertEqual(yeast_instance.name, 'WLP002 ENGLISH ALE YEAST')
         self.assertEqual(es_yeast_record['name'], 'WLP002 ENGLISH ALE YEAST')
