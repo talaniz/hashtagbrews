@@ -3,7 +3,7 @@ Babel==2.3.4
 certifi==2017.11.5
 chardet==3.0.4
 coverage==4.0.3
-Django==2.0.1
+Django==2.2.10
 django-coverage-plugin==1.2.2
 django-debug-toolbar==1.9.1
 django-debug-toolbar-django-info==0.3.0
