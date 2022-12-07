@@ -1,6 +1,6 @@
 alabaster==0.7.7
 Babel==2.3.4
-certifi==2017.11.5
+certifi==2022.12.7
 chardet==3.0.4
 coverage==4.0.3
 Django==2.0.1
@@ -24,7 +24,7 @@ sqlparse==0.2.4
 urllib3==1.22
 alabaster==0.7.7
 Babel==2.3.4
-certifi==2017.11.5
+certifi==2022.12.7
 chardet==3.0.4
 coverage==4.0.3
 Django==2.0.1
