@@ -20,6 +20,7 @@
 
 ## Gate Checklist
 
+- Each milestone has exactly one end-of-milestone merge gate. Tests, scans, review, and post-merge verification are acceptance criteria for that single gate, not separate gates.
 - Clean worktree and focused diff.
 - Targeted automated tests pass; run security, dependency, and secret scans when applicable.
 - Create an independent, evidence-backed code review in `harness/code_review/phase-XX.md` before requesting each milestone merge. Keep review history append-only and record scope, reviewed commit, findings, resolutions, test evidence, and residual risk.

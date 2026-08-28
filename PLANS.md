@@ -23,6 +23,7 @@
 ## Branch And Gate Policy
 
 - Start each feature branch from the accepted `master` merge commit of the prior milestone. Do not stack unmerged milestone branches.
+- Each milestone has exactly one end-of-milestone merge gate. The criteria below are evaluated together at that gate; they do not create additional approvals or phase boundaries.
 - Every gate requires a clean worktree, focused diff, targeted tests, applicable security/dependency/secret scans, an independent review record in `harness/code_review/phase-XX.md`, reviewer approval, merge to `master`, and post-merge verification.
 - Review records are append-only. No unaccepted P0/P1 finding may cross a gate; P2/P3 findings need an explicit resolution or approved deferral.
 - The native Google Doc planning brief is created only after the M0 gate is accepted, using this file as its source of truth.
