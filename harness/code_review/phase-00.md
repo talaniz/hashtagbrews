@@ -84,4 +84,5 @@ No blocking review findings.
 - Passed: the Gitleaks secret-scan job.
 - Failed before checkout: the Django job could not initialize its PostgreSQL service because the unavailable `postgres:10.24` image tag was configured.
 - Resolved in the branch: aligned the CI service image with the verified local harness image, `postgres:10`.
+- Resolved in the branch: disabled Elasticsearch 5 X-Pack HTTP authentication so the legacy unauthenticated health check and test clients can connect.
 - Open: the replacement remote CI result must pass before the M0 gate can be accepted.
