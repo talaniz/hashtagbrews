@@ -22,11 +22,11 @@
 
 ## Branch And Gate Policy
 
-- Start each feature branch from the accepted `master` merge commit of the prior milestone. Do not stack unmerged milestone branches.
+- Start each feature branch from the accepted `main` merge commit of the prior milestone. Do not stack unmerged milestone branches.
 - Each milestone has exactly one end-of-milestone merge gate. The criteria below are evaluated together at that gate; they do not create additional approvals or phase boundaries.
-- Every gate requires a clean worktree, focused diff, targeted tests, applicable security/dependency/secret scans, an independent review record in `harness/code_review/phase-XX.md`, reviewer approval, merge to `master`, and post-merge verification.
+- Every gate requires a clean worktree, focused diff, targeted tests, applicable security/dependency/secret scans, an independent review record in `harness/code_review/phase-XX.md`, reviewer approval, merge to `main`, and post-merge verification.
 - Review records are append-only. No unaccepted P0/P1 finding may cross a gate; P2/P3 findings need an explicit resolution or approved deferral.
-- GitHub Actions runs migrations and the deterministic Django test suite against PostgreSQL and Elasticsearch on pull requests, pushes to `master`, and manually dispatched bootstrap runs. Legacy Selenium functional tests move to the M2 browser-modernization acceptance suite.
+- GitHub Actions runs migrations and the deterministic Django test suite against PostgreSQL and Elasticsearch on pull requests, pushes to `main`, and manually dispatched bootstrap runs. Legacy Selenium functional tests move to the M2 browser-modernization acceptance suite.
 - Scope exception: credential removal and automated secret scanning were pulled forward from M1 to unblock the M0 remote CI push. Credential rotation remains an external M1 acceptance action and must be evidenced without recording secret material.
 - The native Google Doc planning brief is created only after the M0 gate is accepted, using this file as its source of truth.
 
@@ -38,7 +38,7 @@
 
 ## M0 Acceptance Evidence
 
-- Branch starts from `master` commit `63a69b45bf80cc58125710baffc49b93bef1153f`.
+- Branch starts from the `main` migration baseline commit `63a69b45bf80cc58125710baffc49b93bef1153f`.
 - Root `AGENTS.md` defines security, quality, and milestone gate requirements.
 - Root `PLANS.md` captures branch sequence, product decisions, deferred scope, and gate evidence.
 - `harness/code_review/phase-00.md` records the M0 review and establishes the required review format for later phases.

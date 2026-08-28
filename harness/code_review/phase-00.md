@@ -63,3 +63,9 @@ No blocking review findings.
 - Resolved: the Gitleaks checkout now uses complete Git history so pull-request and pushed-commit scanning can evaluate the relevant commit range.
 - Resolved: Gitleaks is pinned to the reviewed immutable `v3.0.0` revision and receives GitHub's ephemeral token for pull-request integration.
 - Open: the remote scan is expected to provide the final result for both the current branch and historical credential exposure. Historic remediation remains rotation-first; history rewrite requires separate explicit approval.
+
+## Addendum: Default Branch Migration
+
+- The approved default branch is now `main`, created at the prior `master` baseline commit `63a69b45bf80cc58125710baffc49b93bef1153f`.
+- Current delivery-policy and CI references use `main`. Earlier references to `master` in this append-only review record describe the prior branch name at the time of review.
+- `master` remains preserved until GitHub's default branch is changed to `main` and the transition is verified.
