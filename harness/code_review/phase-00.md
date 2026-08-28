@@ -85,4 +85,6 @@ No blocking review findings.
 - Failed before checkout: the Django job could not initialize its PostgreSQL service because the unavailable `postgres:10.24` image tag was configured.
 - Resolved in the branch: aligned the CI service image with the verified local harness image, `postgres:10`.
 - Resolved in the branch: disabled Elasticsearch 5 X-Pack HTTP authentication so the legacy unauthenticated health check and test clients can connect.
-- Open: the replacement remote CI result must pass before the M0 gate can be accepted.
+- Passed: the head run for `fabd527` completed successfully on 2026-08-28: Gitleaks, service startup, dependency installation, migrations, and Django tests all passed.
+- Resolved in the branch: pinned `actions/checkout` and `actions/setup-python` to reviewed immutable SHAs. The fresh head CI result remains required before acceptance.
+- Open external action: the owner must confirm rotation of the previously exposed credentials without recording secret material.
