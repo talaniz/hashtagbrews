@@ -69,3 +69,11 @@ No blocking review findings.
 - The approved default branch is now `main`, created at the prior `master` baseline commit `63a69b45bf80cc58125710baffc49b93bef1153f`.
 - Current delivery-policy and CI references use `main`. Earlier references to `master` in this append-only review record describe the prior branch name at the time of review.
 - `master` remains preserved until GitHub's default branch is changed to `main` and the transition is verified.
+
+## Addendum: Local Test Harness Recovery
+
+- Scope exception approved by the user: make the documented test suite runnable before the M0 gate.
+- Added a Python 3.9 virtual-environment setup, a disposable PostgreSQL 10/Elasticsearch 5.6 Compose definition, and explicit test settings in `README.md`.
+- Updated `psycopg2` from 2.7.3.2 to 2.8.6: the old pin cannot build with Python 3.9; 2.8.6 retains the Django 2.0-compatible timezone behavior.
+- The deterministic suite passed on 2026-08-28: `homebrewdatabase.tests` plus `accounts.tests`, 65 tests, 0 failures.
+- Firefox functional tests now locate modal controls only after they are visible; an isolated login journey passed. The aggregate Selenium runner still leaves an orphaned browser/database in this environment, so full browser-suite stabilization remains an M2 acceptance item.
