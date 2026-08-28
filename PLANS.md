@@ -4,7 +4,8 @@
 
 | Milestone | Branch | Status | Gate Evidence |
 | --- | --- | --- | --- |
-| M0 Delivery Harness | `codex/phase-00-delivery-harness` | In progress | Pending review of `AGENTS.md` and this ledger |
+| M0 Delivery Harness | `codex/phase-00-delivery-harness` | Complete | Merged to `main` at `f7bf1fa`; post-merge CI passed |
+| Post-M0 Governance | `codex/post-m0-governance` | In progress | Documentation-only governance update; human approval required before merge |
 | M1 Security and Accounts | `codex/phase-01-security-accounts` | Blocked by M0 gate | N/A |
 | M2 Django Modernization | `codex/phase-02-django-modernization` | Blocked by M1 gate | N/A |
 | M3 PostgreSQL Search | `codex/phase-03-postgres-search` | Blocked by M2 gate | N/A |
@@ -26,6 +27,11 @@
 - Each milestone has exactly one end-of-milestone merge gate. The criteria below are evaluated together at that gate; they do not create additional approvals or phase boundaries.
 - Every gate requires a clean worktree, focused diff, targeted tests, applicable security/dependency/secret scans, an independent review record in `harness/code_review/phase-XX.md`, reviewer approval, merge to `main`, and post-merge verification.
 - Review records are append-only. No unaccepted P0/P1 finding may cross a gate; P2/P3 findings need an explicit resolution or approved deferral.
+- Every code-bearing pull request receives independent staff-level code review. Any executable or behavior-affecting change receives security review; tests, scripts, CI, dependencies, configuration, migrations, commands, and executable operational instructions are in scope.
+- Before a milestone gate, an E2E phase review covers the complete phase diff and acceptance evidence. Low-risk work may use the same reviewer for separate code and security passes; complex, security-sensitive, or data-affecting work uses distinct reviewers, and security review remains distinct from E2E phase review.
+- Use append-only records named `phase-XX-<title>-code.md`, with `-security.md` and `-e2e.md` where required. The main task records each finding as resolved, deferred, or cancelled as out of scope; no scope expansion is implicit. P0/P1 blocks the gate. P2/P3 deferrals require explicit gate approval.
+- Documentation/comments-only pull requests are exempt only when no executable or behavior-affecting content is included. Embedded commands, scripts, CI snippets, dependency/configuration changes, or operational instructions require security review.
+- Apply a two-hour default timebox to non-core environment, remote-service, credential, third-party, and flaky-infrastructure blockers. At the limit, stop and report attempts, evidence, impact, options, and a recommendation; extend only with a user decision recorded here or in conversation.
 - GitHub Actions runs migrations and the deterministic Django test suite against PostgreSQL and Elasticsearch on pull requests, pushes to `main`, and manually dispatched bootstrap runs. Legacy Selenium functional tests move to the M2 browser-modernization acceptance suite.
 - Scope exception: credential removal and automated secret scanning were pulled forward from M1 to unblock the M0 remote CI push. Credential rotation remains an external M1 acceptance action and must be evidenced without recording secret material.
 - The native Google Doc planning brief is created only after the M0 gate is accepted, using this file as its source of truth.
@@ -48,4 +54,4 @@
 - On 2026-08-28, `homebrewdatabase.tests` and `accounts.tests` passed: 65 tests, 0 failures. The legacy Selenium suite requires Firefox and `geckodriver`; its aggregate-run stability remains an M2 browser-modernization risk.
 - Remote CI passed on commit `6518865`: the SHA-pinned Gitleaks scan and Django test jobs both succeeded. The final M0 review has no code/config findings; the gate approver accepted deferral of external credential rotation to M1.
 - Legacy Selenium functional tests remain outside GitHub Actions. M2 will baseline their state and choose a modern headless browser-test approach before changing them.
-- The M0 gate remains blocked until the independent review findings are resolved or explicitly accepted according to the review record.
+- M0 merged to `main` through pull request #10 on 2026-08-28. Its post-merge GitHub Actions run passed on `f7bf1fa`.
