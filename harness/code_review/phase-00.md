@@ -88,3 +88,12 @@ No blocking review findings.
 - Passed: the head run for `fabd527` completed successfully on 2026-08-28: Gitleaks, service startup, dependency installation, migrations, and Django tests all passed.
 - Resolved in the branch: pinned `actions/checkout` and `actions/setup-python` to reviewed immutable SHAs. The fresh head CI result remains required before acceptance.
 - Open external action: the owner must confirm rotation of the previously exposed credentials without recording secret material.
+
+## Addendum: Final M0 Review
+
+- Reviewer: Ampere
+- Reviewed commit range: `main...6518865`.
+- Verification: GitHub Actions run `33217711092` passed on 2026-08-28. The SHA-pinned Gitleaks secret scan and Django unit-test job both succeeded, including service startup, migrations, and tests.
+- Findings: no actionable code or configuration P0-P3 findings.
+- Residual risk: the previously exposed credentials must be rotated externally. This confirmation must be recorded without secret material before the gate is accepted.
+- Gate disposition: code and configuration are ready for M0 approval; merge remains pending the rotation attestation, final human gate approval, merge to `main`, and post-merge verification.
