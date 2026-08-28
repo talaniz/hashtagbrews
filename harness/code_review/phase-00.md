@@ -25,3 +25,27 @@ No blocking review findings.
 
 - Review status: ready for human approval.
 - M0 remains unmerged. Do not start M1 until this review and the milestone gate are accepted.
+
+## Addendum: Independent Review After CI Introduction
+
+- Reviewer: Anscombe
+- Reviewed head: `e997c32`
+- Reviewed scope: full branch diff against `master`, including the GitHub Actions workflow.
+
+### Findings
+
+- [P0] Pre-existing tracked credentials remain in the legacy Travis configuration and an old settings file. These values must be treated as compromised, rotated outside the repository, removed from tracked files, and protected by a secret scan in M1. This finding is not introduced by M0, but prevents the M0 merge gate from passing under the current delivery contract.
+- [P1] The initial review record covered an earlier branch state. This addendum records the reviewed head and the CI change; a final addendum must capture the remote GitHub Actions result before M0 can pass.
+- [P2] The workflow originally ran on every branch push. Resolved: it now runs on pull requests, pushes to `master`, and explicit `workflow_dispatch` bootstrap runs.
+- [P2] The GitHub Actions workflow has not yet run remotely. Open until the manually dispatched branch run succeeds or fails and its result is recorded here.
+
+### Verification
+
+- Passed: `git diff --check`.
+- Passed: workflow YAML parse.
+- Pending: remote GitHub Actions execution after branch push.
+
+### Gate Disposition
+
+- M0 is blocked by the unresolved P0 credential finding and pending remote CI evidence.
+- Pushing this branch for CI observation does not approve, merge, or advance the milestone.

@@ -26,7 +26,7 @@
 - Each milestone has exactly one end-of-milestone merge gate. The criteria below are evaluated together at that gate; they do not create additional approvals or phase boundaries.
 - Every gate requires a clean worktree, focused diff, targeted tests, applicable security/dependency/secret scans, an independent review record in `harness/code_review/phase-XX.md`, reviewer approval, merge to `master`, and post-merge verification.
 - Review records are append-only. No unaccepted P0/P1 finding may cross a gate; P2/P3 findings need an explicit resolution or approved deferral.
-- GitHub Actions runs migrations and the deterministic Django test suite against PostgreSQL and Elasticsearch on pull requests and pushes to `master`. Legacy Selenium functional tests move to the M2 browser-modernization acceptance suite.
+- GitHub Actions runs migrations and the deterministic Django test suite against PostgreSQL and Elasticsearch on pull requests, pushes to `master`, and manually dispatched bootstrap runs. Legacy Selenium functional tests move to the M2 browser-modernization acceptance suite.
 - The native Google Doc planning brief is created only after the M0 gate is accepted, using this file as its source of truth.
 
 ## Deferred Scope
@@ -42,3 +42,4 @@
 - Root `PLANS.md` captures branch sequence, product decisions, deferred scope, and gate evidence.
 - `harness/code_review/phase-00.md` records the M0 review and establishes the required review format for later phases.
 - `.github/workflows/tests.yml` establishes the baseline GitHub Actions test job.
+- The M0 gate remains blocked until the independent review findings are resolved or accepted according to the review record.
