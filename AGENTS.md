@@ -23,6 +23,7 @@
 - Each milestone has exactly one end-of-milestone merge gate. Tests, scans, review, and post-merge verification are acceptance criteria for that single gate, not separate gates.
 - Clean worktree and focused diff.
 - Targeted automated tests pass; run security, dependency, and secret scans when applicable.
+- GitHub Actions must run the deterministic Django test suite for every pull request and push to `master`; browser-driven functional tests remain a separately gated M2 modernization task.
 - Create an independent, evidence-backed code review in `harness/code_review/phase-XX.md` before requesting each milestone merge. Keep review history append-only and record scope, reviewed commit, findings, resolutions, test evidence, and residual risk.
 - A gate cannot pass with an unaccepted P0 or P1 review finding. P2/P3 findings require an explicit resolution or documented deferral approved at the gate.
 - Reviewer approval, merge to `master`, and post-merge verification are required before the next milestone begins.

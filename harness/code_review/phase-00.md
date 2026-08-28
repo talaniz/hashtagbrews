@@ -3,9 +3,9 @@
 ## Review Scope
 
 - Branch: `codex/phase-00-delivery-harness`
-- Reviewed commit range: `master...9a5533a`
-- Goal: establish the delivery contract and milestone ledger without application changes.
-- Reviewed files: `AGENTS.md`, `PLANS.md`
+- Reviewed commit range: branch diff against `master` at the M0 merge gate.
+- Goal: establish the delivery contract, milestone ledger, phase-review protocol, and baseline GitHub Actions test workflow without application changes.
+- Reviewed files: `AGENTS.md`, `PLANS.md`, `harness/code_review/`, `.github/workflows/tests.yml`
 
 ## Findings
 
@@ -18,7 +18,8 @@ No blocking review findings.
 
 ## Residual Risk
 
-- No Markdown-specific lint or repository secret scan was available or run for this documentation-only milestone. M1 explicitly adds the required security scanning gate before any security/account code is accepted.
+- No Markdown-specific lint or repository secret scan was available or run for this documentation/configuration milestone. M1 explicitly adds the required security scanning gate before any security/account code is accepted.
+- GitHub Actions cannot be exercised locally; its first remote run after this branch is pushed is required M0 gate evidence.
 
 ## Gate Disposition
 
