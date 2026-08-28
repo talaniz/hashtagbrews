@@ -46,5 +46,6 @@
 - Deprecated Travis configuration and obsolete settings containing tracked credentials are removed; GitHub Actions runs a working-tree secret scan.
 - Local test bootstrap is documented with Python 3.9, a project virtual environment, and disposable PostgreSQL 10/Elasticsearch 5.6 services in `docker-compose.test.yml`.
 - On 2026-08-28, `homebrewdatabase.tests` and `accounts.tests` passed: 65 tests, 0 failures. The legacy Selenium suite requires Firefox and `geckodriver`; its aggregate-run stability remains an M2 browser-modernization risk.
-- Remote CI passed on commit `6518865`: the SHA-pinned Gitleaks scan and Django test jobs both succeeded. The final M0 review has no code/config findings; external credential-rotation confirmation remains required before merge.
-- The M0 gate remains blocked until the independent review findings are resolved or accepted according to the review record.
+- Remote CI passed on commit `6518865`: the SHA-pinned Gitleaks scan and Django test jobs both succeeded. The final M0 review has no code/config findings; the gate approver accepted deferral of external credential rotation to M1.
+- Legacy Selenium functional tests remain outside GitHub Actions. M2 will baseline their state and choose a modern headless browser-test approach before changing them.
+- The M0 gate remains blocked until the independent review findings are resolved or explicitly accepted according to the review record.

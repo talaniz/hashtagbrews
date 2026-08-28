@@ -97,3 +97,9 @@ No blocking review findings.
 - Findings: no actionable code or configuration P0-P3 findings.
 - Residual risk: the previously exposed credentials must be rotated externally. This confirmation must be recorded without secret material before the gate is accepted.
 - Gate disposition: code and configuration are ready for M0 approval; merge remains pending the rotation attestation, final human gate approval, merge to `main`, and post-merge verification.
+
+## Addendum: Gate Decisions
+
+- The gate approver accepted deferral of external credential rotation to M1. This does not remove the M1 rotation requirement or record any secret material.
+- Legacy Selenium functional tests remain non-blocking: the GitHub Actions workflow intentionally runs only the deterministic Django test suites. M2 will assess the current browser-suite baseline and select a modern headless option before browser-test changes are made.
+- M0 may proceed after the current-head CI run passes and post-merge verification is complete.
