@@ -23,7 +23,8 @@
 ## Branch And Gate Policy
 
 - Start each feature branch from the accepted `master` merge commit of the prior milestone. Do not stack unmerged milestone branches.
-- Every gate requires a clean worktree, focused diff, targeted tests, applicable security/dependency/secret scans, reviewer approval, merge to `master`, and post-merge verification.
+- Every gate requires a clean worktree, focused diff, targeted tests, applicable security/dependency/secret scans, an independent review record in `harness/code_review/phase-XX.md`, reviewer approval, merge to `master`, and post-merge verification.
+- Review records are append-only. No unaccepted P0/P1 finding may cross a gate; P2/P3 findings need an explicit resolution or approved deferral.
 - The native Google Doc planning brief is created only after the M0 gate is accepted, using this file as its source of truth.
 
 ## Deferred Scope
@@ -37,3 +38,4 @@
 - Branch starts from `master` commit `63a69b45bf80cc58125710baffc49b93bef1153f`.
 - Root `AGENTS.md` defines security, quality, and milestone gate requirements.
 - Root `PLANS.md` captures branch sequence, product decisions, deferred scope, and gate evidence.
+- `harness/code_review/phase-00.md` records the M0 review and establishes the required review format for later phases.
