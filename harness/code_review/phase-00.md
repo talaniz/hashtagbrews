@@ -77,3 +77,11 @@ No blocking review findings.
 - Updated `psycopg2` from 2.7.3.2 to 2.8.6: the old pin cannot build with Python 3.9; 2.8.6 retains the Django 2.0-compatible timezone behavior.
 - The deterministic suite passed on 2026-08-28: `homebrewdatabase.tests` plus `accounts.tests`, 65 tests, 0 failures.
 - Firefox functional tests now locate modal controls only after they are visible; an isolated login journey passed. The aggregate Selenium runner still leaves an orphaned browser/database in this environment, so full browser-suite stabilization remains an M2 acceptance item.
+
+## Addendum: First Remote CI Result
+
+- Pull request #10 triggered the first remote `Django tests` workflow run on 2026-08-28.
+- Passed: the Gitleaks secret-scan job.
+- Failed before checkout: the Django job could not initialize its PostgreSQL service because the unavailable `postgres:10.24` image tag was configured.
+- Resolved in the branch: aligned the CI service image with the verified local harness image, `postgres:10`.
+- Open: the replacement remote CI result must pass before the M0 gate can be accepted.

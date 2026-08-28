@@ -34,7 +34,7 @@ jobs:
       DB_PASSWORD: ci-only-password
     services:
       postgres:
-        image: postgres:10.24
+        image: postgres:10
         env:
           POSTGRES_DB: hashtagbrews
           POSTGRES_USER: hashtagbrews
