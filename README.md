@@ -1,7 +1,7 @@
 Hashtag Brews
 =============
 
-[![Build Status](https://travis-ci.org/talaniz/hashtagbrews.svg?branch=master)](https://travis-ci.org/talaniz/hashtagbrews)
+[![GitHub Actions](https://github.com/talaniz/hashtagbrews/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/talaniz/hashtagbrews/actions/workflows/tests.yml)
 
 A Django based site that will contain the following applications:
 * An open source beer database containing a catalogue of hops, grains and yeasts
@@ -9,16 +9,42 @@ A Django based site that will contain the following applications:
 * A vendor site where homebrew supply vendors can track their inventories
 * A homebrew recipe creator that will allow brewers to create a recipe with the options to use ingredients based on a vendor's inventory and choose a pre-planned recipe from a vendor
 
-## Setup
+## Local Test Setup
 
-1. Download Python 3 and install at https://python.org
-2. Install virtualenv
-3. Create virtualenv with python3 executable and activate
-4. Create project directory and cd into directory
-5. Clone using git: ``` $ git clone https://github.com/talaniz/hashtagbrews.git```
-6. Run unit tests: ```python manage.py test``` (should be run with development settings)
-7. Run ```python manage.py test functional_tests``` (should be run with development settings)
-8. If tests pass, ready to contribute!
+The legacy Django 2.0 stack runs locally with Python 3.9 and requires
+PostgreSQL plus Elasticsearch. Docker Desktop is the supported local service
+runtime.
+
+```sh
+uv venv --python 3.9 .venv
+uv pip install --python .venv/bin/python --requirement requirements.txt
+docker compose -f docker-compose.test.yml up -d
+```
+
+Run the deterministic application suite with isolated local test credentials:
+
+```sh
+DJANGO_SETTINGS_MODULE=hashtagbrews.settings.test \
+SECRET_KEY=local-test-secret-key \
+DB_PASSWORD=hashtagbrews-test \
+.venv/bin/python manage.py test homebrewdatabase.tests accounts.tests --noinput
+```
+
+The legacy Selenium functional suite additionally requires Firefox and
+`geckodriver` on `PATH`:
+
+```sh
+DJANGO_SETTINGS_MODULE=hashtagbrews.settings.test \
+SECRET_KEY=local-test-secret-key \
+DB_PASSWORD=hashtagbrews-test \
+.venv/bin/python manage.py test functional_tests --noinput
+```
+
+Stop disposable test services when finished:
+
+```sh
+docker compose -f docker-compose.test.yml down
+```
 
 ## Planning
 

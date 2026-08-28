@@ -1,6 +1,0 @@
-postgresql: &postgresql
-  adapter: postgresql
-  username: antonioalaniz1
-  password: @ntonio1
-  database: hashtagbrews
-  min_messages: ERROR

@@ -1,0 +1,81 @@
+name: Django tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      # v4; SHA pin keeps first-party action code immutable.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      # v3.0.0; pin keeps third-party action code immutable.
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  django-tests:
+    name: Django unit tests
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    env:
+      DJANGO_SETTINGS_MODULE: hashtagbrews.settings.test
+      SECRET_KEY: ci-only-not-a-production-secret
+      DB_PASSWORD: ci-only-password
+    services:
+      postgres:
+        image: postgres:10
+        env:
+          POSTGRES_DB: hashtagbrews
+          POSTGRES_USER: hashtagbrews
+          POSTGRES_PASSWORD: ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U hashtagbrews -d hashtagbrews"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.16
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: false
+          ES_JAVA_OPTS: -Xms512m -Xmx512m
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl --fail http://localhost:9200"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 12
+    steps:
+      # v4; SHA pin keeps first-party action code immutable.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      # v5.6.0; SHA pin keeps first-party action code immutable.
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.7'
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install --yes libpq-dev
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade 'pip<24.1' 'setuptools<70' 'wheel<0.42'
+          python -m pip install --requirement requirements.txt
+      - name: Run migrations
+        run: python manage.py migrate --noinput --settings=hashtagbrews.settings.test
+      - name: Run Django tests
+        run: |
+          python manage.py test homebrewdatabase.tests --settings=hashtagbrews.settings.test
+          python manage.py test accounts.tests --settings=hashtagbrews.settings.test

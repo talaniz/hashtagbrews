@@ -28,6 +28,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
         self.browser = webdriver.Firefox()
         self.browser.set_window_size(1750, 1000)
+        self.browser.find_element_by_id = self.find_visible_element_by_id
 
     def tearDown(self):
         """
@@ -63,6 +64,12 @@ class FunctionalTest(StaticLiveServerTestCase):
         table = self.browser.find_element_by_id("list_table")
         rows = table.find_elements_by_tag_name('td')
         self.assertNotIn(text, [row.text for row in rows])
+
+    def find_visible_element_by_id(self, element_id):
+        """Wait for Bootstrap modal controls to become visible before use."""
+        return WebDriverWait(self.browser, timeout=10).until(
+            EC.visibility_of_element_located((By.ID, element_id))
+        )
 
     def wait_for_element_with_id(self, element_id):
         WebDriverWait(self.browser, timeout=60).until(
