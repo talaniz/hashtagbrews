@@ -49,3 +49,17 @@ No blocking review findings.
 
 - M0 is blocked by the unresolved P0 credential finding and pending remote CI evidence.
 - Pushing this branch for CI observation does not approve, merge, or advance the milestone.
+
+## Addendum: Credential Removal Before Remote CI
+
+- Scope exception approved by the user: pull the tracked credential-removal work forward from M1 before pushing M0.
+- Resolved in the working tree: removed the deprecated Travis configuration, its Travis-only database configuration, and the obsolete settings module identified by the independent review as tracked credential sources.
+- Added: GitHub Actions working-tree secret scan using Gitleaks for pull requests, pushes to `master`, and manually dispatched runs.
+- Open external action: rotate the previously exposed CI/database credentials and record only the rotation completion evidence in the M1 review record. No secret values belong in this repository or review history.
+- M0 remains blocked pending the first remote CI run and human gate approval; the M1 security gate remains responsible for validating the external rotation.
+
+## Addendum: Secret Scanner Hardening
+
+- Resolved: the Gitleaks checkout now uses complete Git history so pull-request and pushed-commit scanning can evaluate the relevant commit range.
+- Resolved: Gitleaks is pinned to the reviewed immutable `v3.0.0` revision and receives GitHub's ephemeral token for pull-request integration.
+- Open: the remote scan is expected to provide the final result for both the current branch and historical credential exposure. Historic remediation remains rotation-first; history rewrite requires separate explicit approval.

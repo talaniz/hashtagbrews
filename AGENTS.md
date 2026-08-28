@@ -9,6 +9,7 @@
 ## Security And Data
 
 - Never commit credentials, tokens, private keys, database passwords, reset links, or generated secrets. Use environment variables or the deployment secret store.
+- When credentials are found in tracked files, remove them immediately, rotate them in the external system, and document the rotation evidence without recording the secret value.
 - Treat all authentication, authorization, search, and account-recovery changes as security-sensitive. Add focused tests for access boundaries and invalid input.
 - Mutating views must require the appropriate HTTP method, CSRF protection, authentication, and object ownership checks. Return a non-enumerating response for unauthorized objects.
 
